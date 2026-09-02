@@ -6,7 +6,7 @@ It recommends and stops. It does not grill, write a [spec](https://www.aihero.de
 
 ## When to reach for it
 
-You invoke this by typing `/ask-matt`; the agent won't reach for it on its own.
+You invoke this by typing `$ask-matt`; the agent won't reach for it on its own.
 
 | Your situation | What the router gives back |
 | --- | --- |
@@ -43,17 +43,17 @@ The other idea it hands you is the **phase boundary**. A phase is a chunk of wor
 | **Subagent** | The task is scoped tightly enough to run with you [away from the keyboard](https://www.aihero.dev/ai-coding-dictionary/afk) |
 | **`/compact`** | None of the above. The default, and it lands here often |
 
-Two of those are routinely got wrong, which is why the router carries the order rather than the list. `/handoff` reads like the general bridge between windows and is not: portability is the whole of what it buys. `/compact` is the bottom of the tree rather than the first reach, because the four questions above it are each cheaper or more precise.
+Two of those are routinely got wrong, which is why the router carries the order rather than the list. `$handoff` reads like the general bridge between windows and is not: portability is the whole of what it buys. `/compact` is the bottom of the tree rather than the first reach, because the four questions above it are each cheaper or more precise.
 
 ## Common questions
 
 **Isn't there just a list of the skills in the right order?**
 
-People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → code-review` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `/grilling` and `/resolving-merge-conflicts` both shipped long before the router named them.
+People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → code-review` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `$grilling` and `$resolving-merge-conflicts` both shipped long before the router named them.
 
 **It told me half the skills aren't installed.**
 
-A known bug, unfixed. Most of the skills the router routes you through set `disable-model-invocation: true`, which means the harness leaves them out of the skill list it injects into the agent's context. The agent reads that list as exhaustive and reports them missing. One reported session had it declare the whole spec-and-tickets flow absent and reroute to bare `/grilling` and `/tdd`. Thirteen of the plugin's twenty-two skills carry the flag, so this is the common case rather than an edge. They are installed. Type the slash command anyway, or check `.claude-plugin/plugin.json`, which is the authority on what is present.
+User-invoked skills set `policy.allow_implicit_invocation: false`, so Codex will not select them automatically. That does not mean they are missing. Invoke the exact `$skill-name`, or inspect the installed `.agents/skills` directory when you need to verify what is present.
 
 **It described a skill's behaviour, and the skill doesn't do that.**
 

@@ -6,7 +6,7 @@ What it buys is **portability**, not compression. That makes the skill narrower 
 
 ## When to reach for it
 
-You invoke this by typing `/handoff`; the agent won't reach for it on its own. Pass a note about what the next session is for, and the document is written for it.
+You invoke this by typing `$handoff`; the agent won't reach for it on its own. Pass a note about what the next session is for, and the document is written for it.
 
 Four situations are the whole trigger:
 
@@ -25,7 +25,7 @@ The skill's description reads like session resumption: write a summary, end here
 
 That is what the detour through [prototype](https://aihero.dev/skills-prototype) uses. You are deep in a design conversation, you hit a question that only running code will settle, and you do not want to spend the thread you built on finding out. Hand off to a prototype session, get the answer, hand the answer back, and reference it from the original thread. Two crossings, one live conversation, nothing re-explained.
 
-Three of the five options at a phase boundary preserve different things: `/compact` preserves your intent, `/clear` preserves nothing, `/handoff` preserves the work's ability to move.
+Three of the five options at a phase boundary preserve different things: `/compact` preserves your intent, `/clear` preserves nothing, `$handoff` preserves the work's ability to move.
 
 ## What travels, and what doesn't
 
@@ -36,10 +36,10 @@ What it deliberately does not carry is anything already written down. Specs, pla
 ## Common questions
 
 **Handoff or compact?**
-`/compact` unless something is travelling. Staying on the same task is a compact, not a handoff: same harness, same directory, and you need to stay in the loop is where the phase-boundary tree lands most days. `/handoff`'s advantage is not that it summarises better; it's that the result is a file you can carry somewhere `/compact` can't reach.
+`/compact` unless something is travelling. Staying on the same task is a compact, not a handoff: same harness, same directory, and you need to stay in the loop is where the phase-boundary tree lands most days. `$handoff`'s advantage is not that it summarises better; it's that the result is a file you can carry somewhere `/compact` can't reach.
 
 **So what's the actual difference between compact, clear and handoff?**
-Three different things being preserved. `/compact` compresses this context and keeps you going in a fresh window: intent survives. `/clear` empties the window and starts from nothing: correct when everything behind you is disposable, and one-way if it isn't. `/handoff` writes a portable file: the work survives the move to somewhere else. Note that all three turn a **[primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source)** (the conversation as it happened) into a **[secondary source](https://www.aihero.dev/ai-coding-dictionary/secondary-source)** (a summary of it). Continuing is the only move that doesn't, which is why it's the first one to rule out.
+Three different things being preserved. `/compact` compresses this context and keeps you going in a fresh window: intent survives. `/clear` empties the window and starts from nothing: correct when everything behind you is disposable, and one-way if it isn't. `$handoff` writes a portable file: the work survives the move to somewhere else. Note that all three turn a **[primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source)** (the conversation as it happened) into a **[secondary source](https://www.aihero.dev/ai-coding-dictionary/secondary-source)** (a summary of it). Continuing is the only move that doesn't, which is why it's the first one to rule out.
 
 **Where did my handoff file go?**
 The temp directory, which is the most-reported friction with the skill: the paths are long, they differ per OS, and on Windows agents sometimes take several attempts to find the right one. Ask for the path back and keep it before you move on. Temp is deliberate: a handoff is a transit document, not an artifact you maintain. It is not a durable one either; see the next question.
@@ -51,7 +51,7 @@ Some environments clear temp between sessions (Codex is the reported case), and 
 Open the fresh session and point it at the path: read this file, then continue. Point at the file rather than pasting the summary into a shell command: a summary containing backticks or `$(...)` gets mangled when it's interpolated into `claude "<summary>"`, and the usual failure is silent truncation rather than an error, so the new agent starts with a quietly incomplete brief.
 
 **Is this the same as `/branch`, `--fork-session`, or the built-in `/handoff`?**
-Analogous, not identical, and `/branch` isn't a shipped skill here; `/handoff` is the canonical name. A fork inherits an exact copy of the context; this skill produces a *targeted* compression aimed at a stated next task, in a file. Where a fork will do (same machine, same harness, same directory), a fork is less work. The file wins the moment the destination is somewhere the fork can't go.
+Analogous, not identical, and `/branch` isn't a shipped skill here; `$handoff` is the canonical name. A fork inherits an exact copy of the context; this skill produces a *targeted* compression aimed at a stated next task, in a file. Where a fork will do (same machine, same harness, same directory), a fork is less work. The file wins the moment the destination is somewhere the fork can't go.
 
 **When does something belong in `CLAUDE.md` instead?**
 Ask whether it's true next month. `CLAUDE.md` is standing context about the project, loaded into every session whether it's relevant or not. A handoff is about one piece of work in flight and is dead once that work lands. Facts that keep getting re-explained are a `CLAUDE.md` problem; a half-finished task is a handoff.

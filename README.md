@@ -10,6 +10,12 @@
 
 # Skills For Real Engineers
 
+> [!IMPORTANT]
+> This is the `codex` branch, a personal Codex CLI edition of
+> [mattpocock/skills](https://github.com/mattpocock/skills). Explicit skill
+> invocations use Codex syntax such as `$tdd`. The `main` branch is the shared
+> personal base for future harness-specific editions.
+
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
 My agent skills that I use every day to do real engineering - not vibe coding.
@@ -46,13 +52,13 @@ It's in Claude Code's official marketplace, so there's nothing to add first, and
 </details>
 
 <details>
-<summary><strong>Codex, and other agents</strong></summary>
+<summary><strong>Codex</strong></summary>
 
 ```bash
-npx skills@latest add mattpocock/skills
+npx skills@latest add https://github.com/x3098165384-beep/skills/tree/codex --agent codex
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take, so make sure `setup-matt-pocock-skills` is one of them.**
+Pick the skills you want to install for Codex. **The installer lets you choose which skills to take, so make sure `setup-matt-pocock-skills` is one of them.**
 
 A native Codex plugin is on the roadmap (see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)).
 
@@ -61,22 +67,22 @@ A native Codex plugin is on the roadmap (see [`.agents/adr/0002-ship-as-a-claude
 <details>
 <summary><strong>For tinkerers</strong></summary>
 
-Use the same installer, on any agent, including Claude Code:
+Use the branch URL to install this personalized edition into Codex:
 
 ```bash
-npx skills@latest add mattpocock/skills
+npx skills@latest add https://github.com/x3098165384-beep/skills/tree/codex --agent codex
 ```
 
 It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull my latest changes when you want them with `npx skills update`.
 
 </details>
 
-### 2. Run `/setup-matt-pocock-skills`
+### 2. Run `$setup-matt-pocock-skills`
 
 In your agent, run it once per repo. It will:
 
 - Ask you which issue tracker you want to use (GitHub, Linear, or local files)
-- Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
+- Ask you what labels you apply to tickets when you triage them (`$triage` uses labels)
 - Ask you where you want to save any docs we create
 
 ### 3. Bam - you're ready to go.
@@ -97,8 +103,8 @@ This is just the same in the AI age. There is a communication gap between you an
 
 **The Fix** is to use:
 
-- [`/grill-me`](./skills/productivity/grill-me/SKILL.md) - for non-code uses
-- [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) - same as [`/grill-me`](./skills/productivity/grill-me/SKILL.md), but adds more goodies (see below)
+- [`$grill-me`](./skills/productivity/grill-me/SKILL.md) - for non-code uses
+- [`$grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) - same as [`$grill-me`](./skills/productivity/grill-me/SKILL.md), but adds more goodies (see below)
 
 These are my most popular skills. They help you align with the agent before you get started, and think deeply about the change you're making. Use them _every_ time you want to make a change.
 
@@ -128,7 +134,7 @@ This concision pays off session after session.
 
 </details>
 
-This is built into [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md). It's a grilling session, but that helps you build a shared language with the AI, and document hard-to-explain decisions in ADR's.
+This is built into [`$grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md). It's a grilling session, but that helps you build a shared language with the AI, and document hard-to-explain decisions in ADR's.
 
 It's hard to explain how powerful this is. It might be the single coolest technique in this repo. Try it, and see.
 
@@ -153,9 +159,9 @@ It's time to look at your feedback loops. Without feedback on how the code it pr
 
 For automated tests, a red-green-refactor loop is critical. This is where the agent writes a failing test first, then fixes the test. This helps give the agent a consistent level of feedback that results in far better code.
 
-I've built a **[`/tdd`](./skills/engineering/tdd/SKILL.md) skill** you can slot into any project. It encourages red-green-refactor and gives the agent plenty of guidance on what makes good and bad tests.
+I've built a **[`$tdd`](./skills/engineering/tdd/SKILL.md) skill** you can slot into any project. It encourages red-green-refactor and gives the agent plenty of guidance on what makes good and bad tests.
 
-For debugging, I've also built a **[`/diagnosing-bugs`](./skills/engineering/diagnosing-bugs/SKILL.md)** skill that wraps best debugging practices into a disciplined loop, gated phase by phase.
+For debugging, I've also built a **[`$diagnosing-bugs`](./skills/engineering/diagnosing-bugs/SKILL.md)** skill that wraps best debugging practices into a disciplined loop, gated phase by phase.
 
 ### #4: We Built A Ball Of Mud
 
@@ -173,9 +179,9 @@ For debugging, I've also built a **[`/diagnosing-bugs`](./skills/engineering/dia
 
 This is built in to every layer of these skills:
 
-- [`/to-spec`](./skills/engineering/to-spec/SKILL.md) quizzes you about which modules you're touching before creating a spec
+- [`$to-spec`](./skills/engineering/to-spec/SKILL.md) quizzes you about which modules you're touching before creating a spec
 
-And crucially, [`/improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) surveys a codebase for deepening opportunities and hands you the candidates. I recommend running it on your codebase once every few days. It is a survey, not a rescue: on a genuinely old codebase it will find real candidates, but it won't untangle the mud for you.
+And crucially, [`$improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) surveys a codebase for deepening opportunities and hands you the candidates. I recommend running it on your codebase once every few days. It is a survey, not a rescue: on a genuinely old codebase it will find real candidates, but it won't untangle the mud for you.
 
 ### Summary
 
@@ -183,7 +189,7 @@ Software engineering fundamentals matter more than ever. These skills are my bes
 
 ## Reference
 
-These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
+These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `$grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
 
 ### Engineering
 
@@ -198,7 +204,7 @@ Skills I use daily for code work.
 - **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
-- **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
+- **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `$tdd` at pre-agreed seams and closing out with `$code-review` before committing.
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)**: Plan a huge chunk of work, more than one agent session can hold, as a shared map of decision tickets on the issue tracker, and resolve them one at a time until the way to the destination is clear.
 
 **Model-invoked**

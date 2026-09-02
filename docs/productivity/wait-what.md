@@ -6,7 +6,7 @@ The skill is three lines long. That is the design, not an unfinished draft. Skil
 
 ## When to reach for it
 
-You invoke it by typing `/wait-what`. The agent will not reach for it on its own, and it shouldn't. Only you know when you stopped following.
+You invoke it by typing `$wait-what`. The agent will not reach for it on its own, and it shouldn't. Only you know when you stopped following.
 
 Use it the second you notice you're skimming. The agent has drifted into jargon it invented, stacked five acronyms, or explained a decision whose premise you never saw. It fixes the conversation you're already in. To stop the jargon arriving at all, use [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which builds the shared language upfront.
 

@@ -6,7 +6,7 @@ It is **[stateful](https://www.aihero.dev/ai-coding-dictionary/stateful)**. Ever
 
 ## When to reach for it
 
-You invoke this by typing `/grill-with-docs`; the agent will not reach for it on its own.
+You invoke this by typing `$grill-with-docs`; the agent will not reach for it on its own.
 
 Reach for it at the start of a change, in a repo, when the plan is still fuzzy and the words for the thing are not settled yet. It is the single-session tool. Which grilling skill you want depends on what is in front of you:
 
@@ -18,7 +18,7 @@ Reach for it at the start of a change, in a repo, when the plan is still fuzzy a
 | A repo with no domain docs at all, and no particular feature in mind | `grill-with-docs`, aimed at the repo rather than a change |
 | A decision blocked on knowledge in someone else's head | [to-questionnaire](https://aihero.dev/skills-to-questionnaire) |
 
-The wayfinder split comes down to session count: `/grill-with-docs` for single-session planning, `/wayfinder` for multi-session planning.
+The wayfinder split comes down to session count: `$grill-with-docs` for single-session planning, `$wayfinder` for multi-session planning.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ The glossary is the point. Domain language is the thing this skill is actually b
 
 ## Common questions
 
-**Should I use this or `/wayfinder`?**
+**Should I use this or `$wayfinder`?**
 Scope decides it. Use this for anything you can settle in one session; use [wayfinder](https://aihero.dev/skills-wayfinder) when the effort is too big to hold in one, and it charts the work as a map of decision [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) first. Wayfinder is slower and denser, and reaching for it on a well-scoped feature is the common mistake. It does not replace this skill: it can drop into a grilling session for the parts of the map that suit one.
 
 **It ran, but no `CONTEXT.md` and no ADRs appeared.**
