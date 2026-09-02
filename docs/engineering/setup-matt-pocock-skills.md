@@ -8,7 +8,7 @@ It is a prompt-driven skill, not a deterministic script. It reads your `git remo
 
 ## When to reach for it
 
-You invoke this by typing `$setup-matt-pocock-skills`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. It is deliberately marked non-invokable, so no other skill can fire it for you.
+Type `$setup-matt-pocock-skills` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable. Treat setup as a user decision boundary: another workflow should tell you to run it instead of silently starting it.
 
 Reach for it once per repo, before the first use of any other engineering skill. If [triage](https://aihero.dev/skills-triage), [to-spec](https://aihero.dev/skills-to-spec), [to-tickets](https://aihero.dev/skills-to-tickets) or [wayfinder](https://aihero.dev/skills-wayfinder) start guessing where your issues go, or apply labels your tracker doesn't have, they have not been set up here yet. A repo already halfway through a project is a fine place to run it; the skill reads what is already there and no earlier work is wasted.
 

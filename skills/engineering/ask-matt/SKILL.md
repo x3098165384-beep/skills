@@ -1,12 +1,24 @@
 ---
 name: ask-matt
 description: Ask which skill or flow fits your situation. A router over the skills in this repo.
-disable-model-invocation: true
 ---
 
 # Ask Matt
 
 You don't remember every skill, so ask.
+
+## Codex skill visibility
+
+Use the map below as the source of truth for routing. This Codex-specific branch
+keeps every workflow skill in Codex's visible skill catalog. Codex can otherwise
+misreport an installed explicit-only skill as unavailable when it is absent from
+that catalog. Present the exact `$skill-name` for the human to invoke. When the
+user asks whether a skill is installed, verify `~/.agents/skills/<name>` and
+`~/.codex/skills/<name>` before making an availability claim.
+
+Keep the prescribed flow intact. `$to-tickets` and `$implement` are
+orchestrators with behavior beyond `$tdd` and `$code-review`; the latter pair
+is not a substitute for either user-directed skill.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 

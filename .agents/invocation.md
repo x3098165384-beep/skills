@@ -1,15 +1,15 @@
-# Model-invoked vs user-invoked
+# Model-invoked vs user-directed
 
-Every `SKILL.md` in this repo is a skill. The one axis that splits them is **invocation**, who can reach it:
+Every `SKILL.md` in this repo is a skill. The upstream collection splits them by who is intended to start the workflow. This Codex edition preserves that design distinction but not the hard visibility boundary:
 
-- **User-invoked**: reachable **only by the human typing its name**. Set `disable-model-invocation: true` in the frontmatter (Claude Code) and `policy.allow_implicit_invocation: false` in `agents/openai.yaml` (Codex). The `description` is **human-facing**: a one-line summary read by a person browsing skills. Explicit invocation in Codex uses `$skill-name`. Strip trigger lists ("Use when the user says…").
-- **Model-invoked**: reachable by **model or user**. The default: omit `disable-model-invocation` and the `policy` block from `agents/openai.yaml`. The `description` is **model-facing** and keeps rich trigger phrasing ("Use when the user wants…, mentions…, asks for…") so auto-invocation fires. The test for whether a skill should stay model-invoked: _could the model usefully reach for this autonomously?_ (Reuse is the reason to extract a skill, not the test.)
+- **User-directed**: a workflow the human normally starts by typing `$skill-name`. Keep its `description` as a concise human-facing summary and strip broad trigger lists. In this branch, omit the unsupported `disable-model-invocation` field and set `policy.allow_implicit_invocation: true` so Codex advertises the skill reliably.
+- **Model-invoked**: a reusable discipline the model or user can reach. Omit `disable-model-invocation`; leave implicit invocation enabled. Its `description` is **model-facing** and keeps rich trigger phrasing ("Use when the user wants…, mentions…, asks for…") so automatic selection fires. The test is: _could the model usefully reach for this autonomously?_
 
-Each harness excludes a user-invoked skill from the model's reach in its own way, so nothing but the human can fire it: no other skill can. A user-invoked skill may invoke model-invoked skills, but it can never reach another user-invoked skill.
+Codex intends `policy.allow_implicit_invocation: false` to preserve explicit `$skill-name` invocation while hiding the skill from automatic routing. Current Codex releases can instead treat such local skills as unavailable when they are absent from the model-visible catalog. This branch deliberately keeps them visible. The tradeoff is that the model can select a user-directed workflow automatically; narrow descriptions and the normal task and permission boundaries limit that behavior.
 
-Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds Codex UI metadata: `interface.display_name` and `interface.short_description` for the skill picker, and, for user-invoked skills, the `policy.allow_implicit_invocation: false` that pairs with `disable-model-invocation`. Keep the two in sync: a skill is user-invoked in both harnesses or neither.
+Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds Codex UI metadata and the invocation policy. On this branch, keep `policy.allow_implicit_invocation: true` for both groups until Codex reliably resolves explicit-only local skills.
 
-Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
+Bucket `README.md`s and the top-level `README.md` group entries into **User-directed** and **Model-invoked**.
 
 ## Dependencies between them
 
@@ -19,7 +19,7 @@ This is about **operative** instructions: a skill's own steps telling the agent 
 
 When a step needs two skills, name the order explicitly (`Use $grilling, then $domain-modeling`) so each skill is loaded at the point where its instructions apply.
 
-This convention only lets the agent load a **model-invoked** skill. A user-invoked skill still requires the human to type its name. When a step's precondition is a user-invoked skill (for example `setup-matt-pocock-skills`), tell the user to run `$setup-matt-pocock-skills` instead of attempting to load it automatically.
+This convention lets Codex resolve either group on this branch. Preserve the intended control flow: when a step is a user decision or setup boundary (for example `setup-matt-pocock-skills`), tell the user to run the exact `$skill-name` instead of silently starting it.
 
 ## Passive vs active domain work
 

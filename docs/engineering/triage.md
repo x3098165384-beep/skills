@@ -8,7 +8,7 @@ The second thing that separates it from labelling by hand: it recommends and wai
 
 ## When to reach for it
 
-You invoke this by typing `$triage` and then describing what you want in plain language. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. "Show me anything that needs my attention", "let's look at #42", "move #42 to ready-for-agent".
+Type `$triage` and then describe what you want in plain language. This Codex edition also keeps it model-visible so it is not misreported as unavailable. "Show me anything that needs my attention", "let's look at #42", "move #42 to ready-for-agent".
 
 | What you have | Where to go |
 | --- | --- |

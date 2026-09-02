@@ -6,7 +6,7 @@ Every ticket is a **tracer bullet**: a narrow but complete path through every la
 
 ## When to reach for it
 
-You invoke this by typing `$to-tickets`. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.
+Type `$to-tickets` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable.
 
 | Where you are | What to run |
 | --- | --- |

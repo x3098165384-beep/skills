@@ -6,7 +6,7 @@ What it buys is **portability**, not compression. That makes the skill narrower 
 
 ## When to reach for it
 
-You invoke this by typing `$handoff`; the agent won't reach for it on its own. Pass a note about what the next session is for, and the document is written for it.
+Type `$handoff` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable. Pass a note about what the next session is for, and the document is written for it.
 
 Four situations are the whole trigger:
 

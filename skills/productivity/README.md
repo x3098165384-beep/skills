@@ -2,9 +2,9 @@
 
 General workflow tools, not code-specific.
 
-## User-invoked
+## User-directed
 
-Reachable only when you type them (Claude Code: `disable-model-invocation: true`; Codex: `policy.allow_implicit_invocation: false` in `agents/openai.yaml`).
+Workflows you normally start by typing their `$name`. This Codex edition keeps them model-visible because explicit-only local skills can otherwise be misreported as unavailable.
 
 - **[grill-me](./grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[handoff](./handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.

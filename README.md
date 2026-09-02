@@ -14,7 +14,9 @@
 > This is the `codex` branch, a personal Codex CLI edition of
 > [mattpocock/skills](https://github.com/mattpocock/skills). Explicit skill
 > invocations use Codex syntax such as `$tdd`. The `main` branch is the shared
-> personal base for future harness-specific editions.
+> personal base for future harness-specific editions. User-directed workflows
+> remain visible to Codex because explicit-only local skills can otherwise be
+> misreported as unavailable.
 
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
@@ -189,15 +191,15 @@ Software engineering fundamentals matter more than ever. These skills are my bes
 
 ## Reference
 
-These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `$grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
+These retain the upstream split by intended entry point. **User-directed** skills are workflows you normally start by typing their `$name` (for example, `$grill-me`); their job is to orchestrate. **Model-invoked** skills hold reusable disciplines the agent commonly selects when a task fits. In this Codex edition both groups stay in the visible catalog to avoid Codex's explicit-only resolution failure, so the distinction is guidance rather than a hard invocation boundary.
 
 ### Engineering
 
 Skills I use daily for code work.
 
-**User-invoked**
+**User-directed**
 
-- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-directed skills in this repo.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
@@ -223,7 +225,7 @@ Skills I use daily for code work.
 
 General workflow tools, not code-specific.
 
-**User-invoked**
+**User-directed**
 
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[handoff](./skills/productivity/handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.

@@ -6,7 +6,7 @@ It recommends and stops. It does not grill, write a [spec](https://www.aihero.de
 
 ## When to reach for it
 
-You invoke this by typing `$ask-matt`; the agent won't reach for it on its own.
+Type `$ask-matt` to invoke it directly. This Codex edition also keeps the router model-visible so it is not misreported as unavailable.
 
 | Your situation | What the router gives back |
 | --- | --- |
@@ -53,7 +53,7 @@ People keep asking for one in the README. This skill is that list: it is what it
 
 **It told me half the skills aren't installed.**
 
-User-invoked skills set `policy.allow_implicit_invocation: false`, so Codex will not select them automatically. That does not mean they are missing. Invoke the exact `$skill-name`, or inspect the installed `.agents/skills` directory when you need to verify what is present.
+Older builds of this fork preserved `policy.allow_implicit_invocation: false`, which hid user-directed skills from Codex's model-visible catalog. Codex can then misreport an installed explicit-only skill as unavailable. This branch keeps those skills visible instead. Invoke the exact `$skill-name`, or inspect the installed `.agents/skills` and `.codex/skills` directories when you need to verify what is present. The router keeps `$to-tickets` and `$implement` in the flow instead of replacing them with `$tdd` and `$code-review`, because the orchestration behavior is not equivalent.
 
 **It described a skill's behaviour, and the skill doesn't do that.**
 
