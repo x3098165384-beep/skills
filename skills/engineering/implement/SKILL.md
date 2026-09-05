@@ -5,9 +5,9 @@ description: "Implement a piece of work based on a spec or set of tickets."
 
 Implement the work described by the user in the spec or tickets.
 
-Use $tdd where possible, at pre-agreed seams.
+Before implementing, read [Testing and verification](../tdd/TESTING-POLICY.md). Use its default of existing checks and user manual verification. Invoke `$tdd` only for explicitly authorized new tests, and pass the authorized scope to any delegated work.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+Run the necessary compilation or type checks and existing tests that cover the change. Follow the policy's limits on repeated checks and full suites. Provide manual verification steps and expected results, marking any unperformed steps as awaiting user verification.
 
 Once done, use $code-review to review the work.
 

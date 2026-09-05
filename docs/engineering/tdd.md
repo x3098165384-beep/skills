@@ -2,23 +2,23 @@
 
 `tdd` builds a feature or fixes a bug test-first: one failing test, then just enough code to pass it, then the next behaviour. It carries the standards that make that loop produce tests worth keeping: what a good test is, where tests go, what mocks are for, and the three anti-patterns that quietly ruin a suite.
 
-It writes no test at a seam you have not agreed to first. Before any test exists, it names the public boundaries it intends to test at and stops for your confirmation, because testing effort is finite and this is where you spend it on the critical paths instead of on every edge case. The other thing to know is that `tdd` is a **reference**, not a driver. It holds the rules of the loop, and something else (you, or [implement](https://aihero.dev/skills-implement)) runs the [session](https://www.aihero.dev/ai-coding-dictionary/session) that applies them.
+It applies only to tests you explicitly requested or approved. It states the public interface it will test and uses the behavior and interface already agreed for the task. It asks you only when selecting that interface requires a new decision. `tdd` is a reference for the test loop; [implement](https://aihero.dev/skills-implement) uses it only within authorized test scope.
 
 ## When to reach for it
 
-Type `$tdd`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it automatically when a task fits: building a feature or fixing a bug test-first, or when you say "red-green-refactor".
+Type `$tdd` to authorize working test-first for the task. The agent may also select it after you explicitly request or approve automated tests. Another skill referencing it does not count as your permission.
 
 Reach for it when there is a concrete behaviour to build, with an input and an observable output, and you want tests that survive a refactor.
 
 | Your situation | Where to go |
 | --- | --- |
-| A behaviour with defined inputs and outputs (business logic, a request/response contract, a transformation, validation) | `tdd` |
-| The behaviour isn't pinned down yet | [to-spec](https://aihero.dev/skills-to-spec), which also agrees the test seams before any code is written |
+| A behavior with defined inputs and outputs that you want to build test-first | `tdd` |
+| The behavior is not pinned down yet | [to-spec](https://aihero.dev/skills-to-spec), which records behavior and verification decisions |
 | The question is really the shape of the interface, not the tests | [codebase-design](https://aihero.dev/skills-codebase-design) |
-| You have a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) or [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and want the whole build run for you | [implement](https://aihero.dev/skills-implement), which drives `tdd` per ticket |
-| Config, wiring, glue, type annotations, straight CRUD delegation | Nothing here fits well; see the open gap below |
+| You have a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) or [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and want the whole build run for you | [implement](https://aihero.dev/skills-implement), which uses existing checks and manual verification by default |
+| A change you can reliably confirm with a few actions | Implement it with existing checks and manual verification |
 
-That last row is a real hole, not a stylistic preference. The skill decides *where* the seams go; nothing in it decides *whether* a change is worth the loop at all. Run it on a change with no independent source of truth to assert against and you get a test that restates the implementation: the tautological anti-pattern the skill itself warns about, arrived at from the other direction. It is [issue #746](https://github.com/mattpocock/skills/issues/746) and it is open. Until it closes, that judgement is yours or your `CLAUDE.md`'s.
+The shared testing policy decides whether writing tests is authorized before this loop begins. A lack of coverage or a small, easily asserted function does not by itself justify asking for tests. Proposals need a specific behavior that manual checking cannot reliably or reasonably cover.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ Three words carry this skill.
 
 **Vertical slice.** One seam, one test, one minimal implementation, then repeat, the first cycle being a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Bulk tests verify *imagined* behaviour, they check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
-**Pre-agreed seam.** A seam is the public boundary you observe behaviour at without reaching inside. The rule is absolute: no test at an unconfirmed seam. In the full chain the seams are agreed earlier, during [to-spec](https://aihero.dev/skills-to-spec): "`$tdd` is told to only work at pre-agreed test seams, `$code-review` checks that only agreed-upon test seams were used." Invoked on its own, `tdd` asks you directly.
+**Pre-agreed seam.** A seam is the public interface through which a test observes behavior. Once tests are authorized, an established interface and accepted behavior can determine this boundary without another question. Defining the boundary alone does not authorize writing tests.
 
 The three anti-patterns it is written to prevent:
 
@@ -46,13 +46,17 @@ Mocks are for system boundaries only: external APIs, time, randomness, sometimes
 
 ## Common questions
 
-**Why doesn't it refactor? The description says "red-green-refactor".**
+**Does `$implement` still invoke TDD automatically?**
 
-Because the refactor step was removed and the description was not. The removal was deliberate: agents essentially never did it, and keeping implementation and review in separate sessions works better. Whether the result still counts as TDD by the book matters less than whether the loop produces better code. The mismatch between the trigger phrase and the body is filed as [issue #589](https://github.com/mattpocock/skills/issues/589) and is still open, so "red-green-refactor" continues to work as a phrase that fires the skill. What you get is red → green, and refactoring in [code-review](https://aihero.dev/skills-code-review).
+Only for new tests you explicitly requested or approved. Calling `$implement`, approving behavior, or accepting a ticket breakdown does not itself authorize tests. Calling `$tdd` directly does authorize them for the task you gave it.
+
+**Where does refactoring fit?**
+
+This skill keeps the loop to one failing test and the implementation that makes it pass. Its existing rules place refactoring in the [code-review](https://aihero.dev/skills-code-review) stage. The new permission rules change when the test loop starts; they preserve that division of work.
 
 **It asked me to choose a test seam and I had no idea which to pick.**
 
-This is the most-reported friction with the skill ([issue #607](https://github.com/mattpocock/skills/issues/607)). The prompt lists candidate seams by name only, with nothing about what each one catches or misses, so you are choosing between labels. There is no fix shipped yet. The practical workaround is to ask the agent for the trade-offs before answering: what does the component-level seam miss that the integration seam catches, and how much slower is it. It is also why the chain agrees seams up front in `to-spec`, where you have the whole feature in view rather than one prompt.
+The agent should use the established public interface when it already determines the test. If a choice changes the agreed behavior, interface, or scope, it must explain what each option can verify and what it misses before asking you to decide.
 
 **It wrote the implementation before the test, even though the skill says red first.**
 
@@ -76,7 +80,7 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 
 ## It's working if
 
-- It stops and names the seams it intends to test at, and waits, before any test file exists.
+- It writes tests only within your explicit request or approval, and states the public interface it will use without asking you to approve the same scope again.
 - One test appears, goes red, gets just enough code to pass, and only then does the next test appear, not a batch of tests followed by a batch of code.
 - Test names read as capabilities ("user can checkout with valid cart"), not as internals ("checkout calls paymentService.process").
 - Expected values in assertions are literals you can trace to the spec, not values recomputed the way the code computes them.
@@ -85,10 +89,10 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 
 ## Where it fits
 
-`tdd` is the engine inside the build step of the main chain, rather than a step of its own:
+`tdd` is optional within the build step, used when writing tests is explicitly authorized:
 
 ```txt
 grill-with-docs → to-spec → to-tickets → implement → code-review
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams up front, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [code-review](https://aihero.dev/skills-code-review) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. Its other neighbour is [codebase-design](https://aihero.dev/skills-codebase-design), the shared source of the seam and deep-module vocabulary `tdd` speaks. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+[to-spec](https://aihero.dev/skills-to-spec) records verification decisions and any test authorization. [implement](https://aihero.dev/skills-implement) uses `tdd` for that authorized scope, and [code-review](https://aihero.dev/skills-code-review) assesses the result under the same testing policy. [codebase-design](https://aihero.dev/skills-codebase-design) supplies interface-design vocabulary when an interface decision is needed. Invoke `tdd` directly when you want to work test-first; [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the workflow.

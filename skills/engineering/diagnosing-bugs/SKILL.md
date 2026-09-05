@@ -7,6 +7,8 @@ description: Diagnosis loop for hard bugs and performance regressions. Use when 
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
+Read [Testing and verification](../tdd/TESTING-POLICY.md) before choosing a reproduction method. Start with existing commands, existing tests, or repeatable manual steps. New test code, including temporary harnesses, requires the authorization described there. Follow project permissions for running the application and adding instrumentation.
+
 When exploring the codebase, read `CONTEXT.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
 
 ## Redact
@@ -19,20 +21,13 @@ If the redacted output is not enough to diagnose the bug, say so and ask the use
 
 **This is the skill.** Everything else is mechanical. If you have a **tight** pass/fail signal for the bug (one that goes red on _this_ bug), you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.
 
-Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
+Reuse a reproduction the user has already confirmed. Spend additional effort only when the existing evidence cannot distinguish the reported failure from correct behavior.
 
-### Ways to construct one, in roughly this order
+### Choose an available reproduction method
 
-1. **Failing test** at whatever seam reaches the bug: unit, integration, e2e.
-2. **Curl / HTTP script** against a running dev server.
-3. **CLI invocation** with a fixture input, diffing stdout against a known-good snapshot.
-4. **Headless browser script** (Playwright / Puppeteer) that drives the UI and asserts on DOM/console/network.
-5. **Replay a captured trace.** Save a real network request / payload / event log to disk; replay it through the code path in isolation.
-6. **Throwaway harness.** Spin up a minimal subset of the system (one service, mocked deps) that exercises the bug code path with a single function call.
-7. **Property / fuzz loop.** If the bug is "sometimes wrong output", run 1000 random inputs and look for the failure mode.
-8. **Bisection harness.** If the bug appeared between two known states (commit, dataset, version), automate "boot at state X, check, repeat" so you can `git bisect run` it.
-9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
-10. **HITL bash script.** Last resort. If a human must click, drive _them_ with `scripts/hitl-loop.template.sh` so the loop is still structured. Captured output feeds back to you.
+1. **Existing test or command.** Use the real input with an existing test, CLI, HTTP endpoint, or replay tool and inspect the specific wrong result.
+2. **Manual steps.** Record the user's actions, input, observed failure, and expected result. A confirmed manual reproduction is sufficient; no wrapper script is required.
+3. **New automated reproduction, with approval.** If manual verification is unreliable or requires substantial repetition, propose the smallest useful test, browser script, replay harness, or fuzz loop under the testing policy. Build it only after approval.
 
 Build the right feedback loop, and the bug is 90% fixed.
 
@@ -54,16 +49,15 @@ The goal is not a clean repro but a **higher reproduction rate**. Loop the trigg
 
 Stop and say so explicitly. List what you tried. Ask the user for: (a) access to whatever environment reproduces it, (b) a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. Do **not** proceed to hypothesise without a loop.
 
-### Completion criterion: a tight loop that goes red
+### Completion criterion: a confirmed reproduction
 
-Phase 1 is done when the loop is **tight** and **red-capable**: you can name **one command** (a script path, a test invocation, a curl) that you have **already run at least once** (show the invocation and its output, redacted), and that is:
+Phase 1 is done when an existing command, approved automated reproduction, or manual sequence has reproduced the reported failure. Show the redacted command output or record the manual steps and the user's observed result. The reproduction must:
 
-- [ ] **Red-capable**: it drives the actual bug code path and asserts the **user's exact symptom**, so it can go red on this bug and green once fixed. Not "runs without erroring"; it must be able to _catch this specific bug_.
-- [ ] **Deterministic**: same verdict every run (flaky bugs: a pinned, high reproduction rate, per above).
-- [ ] **Fast**: seconds, not minutes.
-- [ ] **Agent-runnable**: you can run it unattended; a human in the loop only via `scripts/hitl-loop.template.sh`.
+- [ ] Exercise the actual bug and distinguish the user's symptom from the expected result.
+- [ ] Be repeatable, or record the observed frequency and conditions of an intermittent failure.
+- [ ] Identify who performed it and who can repeat it after the fix. User confirmation is evidence of manual reproduction, not an automated test result.
 
-If you catch yourself reading code to build a theory before this command exists, **stop: jumping straight to a hypothesis is the exact failure this skill prevents.** No red-capable command, no Phase 2.
+Reading the relevant code can help clarify the reproduction. Base the diagnosis on the confirmed symptom; do not create a test harness merely to pass this phase.
 
 ## Phase 2: Reproduce + minimise
 
@@ -79,7 +73,7 @@ Confirm:
 
 Once it's red, shrink the repro to the **smallest scenario that still goes red**. Cut inputs, callers, config, data, and steps **one at a time**, re-running the loop after each cut, and keep only what's load-bearing for the failure.
 
-Why bother: a minimal repro shrinks the hypothesis space in Phase 3 (fewer moving parts left to suspect) and becomes the clean regression test in Phase 5.
+Why bother: a minimal reproduction reduces the possible causes in Phase 3 and the work needed to verify the fix in Phase 5.
 
 Done when **every remaining element is load-bearing**: removing any one of them makes the loop go green.
 
@@ -111,28 +105,20 @@ Tool preference:
 
 **Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second.
 
-## Phase 5: Fix + regression test
+## Phase 5: Fix and verify
 
-Write the regression test **before the fix**, but only if there is a **correct seam** for it.
+Apply the fix and repeat the original reproduction with existing checks or manual steps. If the user must perform the check, provide the steps and expected result and mark verification as pending until the result arrives.
 
-A correct seam is one where the test exercises the **real bug pattern** as it occurs at the call site. If the only available seam is too shallow (single-caller test when the bug needs multiple callers, unit test that can't replicate the chain that triggered the bug), a regression test there gives false confidence.
+When a regression test is explicitly authorized, write it before the fix at an existing public interface that exercises the real failure. Watch it fail for the reported reason, apply the fix, then watch it pass and repeat the original scenario.
 
-**If no correct seam exists, that itself is the finding.** Note it. The codebase architecture is preventing the bug from being locked down. Flag this for the next phase.
-
-If a correct seam exists:
-
-1. Turn the minimised repro into a failing test at that seam.
-2. Watch it fail.
-3. Apply the fix.
-4. Watch it pass.
-5. Re-run the Phase 1 feedback loop against the original (un-minimised) scenario.
+If an authorized test cannot exercise the real failure through an existing interface, report that limitation. Keep verification manual or use existing checks; do not change production interfaces or start architecture work solely to add a test.
 
 ## Phase 6: Cleanup
 
 Required before declaring done:
 
-- [ ] Original repro no longer reproduces (re-run the Phase 1 loop)
-- [ ] Regression test passes (or absence of seam is documented)
+- [ ] Original reproduction was checked after the fix, or the exact manual check is marked as awaiting user verification. Claim the bug is verified fixed only after that check passes.
+- [ ] Existing relevant checks and any authorized regression test results are reported, along with checks that could not run.
 - [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
 - [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
 - [ ] The hypothesis that turned out correct is stated in the commit / PR message, so the next debugger learns

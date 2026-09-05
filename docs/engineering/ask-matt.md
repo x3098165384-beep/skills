@@ -47,6 +47,10 @@ Two of those are routinely got wrong, which is why the router carries the order 
 
 ## Common questions
 
+**Does the implementation route still require TDD for every change?**
+
+No. This branch defaults to existing checks and manual verification. [implement](https://aihero.dev/skills-implement) uses [tdd](https://aihero.dev/skills-tdd) only for tests you explicitly requested or approved. Diagnosis follows the same authorization rule, including temporary automated reproductions.
+
 **Isn't there just a list of the skills in the right order?**
 
 People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → code-review` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `$grilling` and `$resolving-merge-conflicts` both shipped long before the router named them.
