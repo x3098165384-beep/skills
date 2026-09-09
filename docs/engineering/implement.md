@@ -32,11 +32,11 @@ If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the
 
 A run is five beats, in order:
 
-1. Read the ticket or spec and any recorded permission to write tests.
+1. Read the ticket or spec and any recorded permission to write tests; capture the starting commit and pre-existing changes.
 2. Implement the behavior, using [tdd](https://aihero.dev/skills-tdd) only for explicitly authorized new tests.
 3. Run necessary compilation or type checks and existing tests that cover the change.
 4. Provide manual steps and expected results, marking unperformed checks as awaiting your verification.
-5. Run [code-review](https://aihero.dev/skills-code-review), then commit to the current branch.
+5. Run [code-review](https://aihero.dev/skills-code-review) against the starting commit, including uncommitted work and new files; resolve substantiated findings, rerun affected checks, then commit only the task's work to the current branch.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
@@ -54,7 +54,7 @@ Not by default. The decision depends on whether the behavior can be reliably che
 
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
-Correct, and expected. `implement` has no completion step. It ends at the commit and never touches the work item, confirmed on GitHub Issues and on the local markdown tracker, so it is not a tracker integration problem. It also does not act on the findings `code-review` produced, and does not tick the `- [ ]` boxes on the originating issue. Close the ticket and reconcile the criteria yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
+The workflow fixes substantiated review findings and ends at a commit; it does not automatically close the ticket or tick its acceptance checkboxes. Close the ticket and reconcile the criteria yourself so dependent tickets can become unblocked.
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
@@ -66,7 +66,9 @@ Not built in. It commits straight to the current branch, which several people fi
 
 **`code-review` says it cannot see my changes.**
 
-`code-review` reviews `git diff <fixed-point>...HEAD`, which excludes staged and working-tree changes. `implement` runs it before committing, so unless an interim commit already exists there is nothing in that diff to review. Multiple people have reported this and it is unfixed on both sides. Commit first, then review against the point you branched from.
+The implementation passes its starting commit, scope, starting-state record, and requirements to current-work review. That mode covers tracked changes plus in-scope untracked files before committing. If it sees nothing, check that it received those inputs and selected current-work mode.
+
+Unperformed user manual checks remain reported as pending; they alone do not postpone the commit unless you or the project requires verification first.
 
 Separately, some people deliberately do not want the review inside the run at all, because an agent reviewing the code it just wrote is biased toward its own solution. Running [code-review](https://aihero.dev/skills-code-review) in a fresh session against a fixed point is a legitimate alternative, and is the same reason that skill runs its two axes in separate sub-agents.
 
