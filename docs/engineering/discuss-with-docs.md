@@ -20,7 +20,7 @@ Use a writable working directory. New notes live at `docs/plans/<topic>/discussi
 
 ## The discussion notes
 
-The first substantive response creates or updates the notes once the topic and initial question are understood. Writing starts before consensus, and continues throughout the discussion.
+The notes are created once the discussion's goal and necessary background are clear enough to record. Later updates happen when information materially changes the plan or informs a later decision, rather than on every reply.
 
 The document has six sections, in this order, with headings in your language:
 
@@ -34,6 +34,10 @@ The document has six sections, in this order, with headings in your language:
 Empty sections say `None yet`. The notes reflect the current discussion state: accepted proposals move into decisions and resolved questions leave the open list. They are not a transcript or a finished spec.
 
 ## Common questions
+
+**Why is the agent recording every message?**
+
+It should record changes to goals, constraints, decisions, consequential facts, concrete proposals, and unresolved questions that affect progress. Ordinary explanations, repeated confirmations, investigation steps, and tool output stay in the conversation. Several exchanges clarifying one point can become a single conclusion; if nothing material changed, the agent simply answers without editing the notes. You can also explicitly ask it to record a particular point.
 
 **Isn't this wayfinder?**
 
@@ -49,8 +53,9 @@ No. Accepting an edit settles that edit. The discussion ends when you say it is 
 
 ## It's working if
 
-- Your questions set the direction, and answers include specific revisions and their reasons.
-- The working document changes during the discussion, with proposals visibly distinct from agreed decisions.
+- Your questions set the direction, and recommendations explain their reasons when a revision is warranted.
+- The notes change when the discussion changes the plan or its decision basis, with proposals visibly distinct from agreed decisions.
+- Ordinary clarification can pass without a file edit, and repeated exchanges become one concise conclusion.
 - A later grilling pass updates that same document without repeating settled questions unless evidence warrants it.
 - The closing message identifies the document and any unresolved questions.
 
