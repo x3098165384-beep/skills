@@ -22,6 +22,8 @@ is not a substitute for either user-directed skill.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 
+`$discuss-with-docs` is a manual-only exception to the visibility workaround. Recommend its invocation when appropriate; start it only on the user's explicit instruction.
+
 ## The main flow: idea → ship
 
 The route most work travels. You have an idea and want it built.

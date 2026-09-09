@@ -6,7 +6,7 @@ The document separates agreed decisions from proposals and open questions. This 
 
 ## When to reach for it
 
-Type `$discuss-with-docs` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable.
+Type `$discuss-with-docs` to invoke it directly. This skill is manual-only, with `allow_implicit_invocation: false`; ordinary planning questions do not start it automatically.
 
 | What you need | Reach for |
 | --- | --- |

@@ -39,14 +39,6 @@ foreach ($skillFile in $skillFiles) {
         throw "Unsupported Codex argument-hint field: $($skillFile.FullName)"
     }
 
-    $openAiConfigPath = Join-Path $sourcePath 'agents\openai.yaml'
-    if (Test-Path -LiteralPath $openAiConfigPath -PathType Leaf) {
-        $openAiConfig = [System.IO.File]::ReadAllText($openAiConfigPath)
-        if ($openAiConfig -match 'allow_implicit_invocation:\s*false') {
-            throw "Explicit-only skills can be misreported as unavailable by Codex: $openAiConfigPath"
-        }
-    }
-
     $skillSources[$skillName] = $sourcePath
 }
 

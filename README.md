@@ -193,6 +193,8 @@ Software engineering fundamentals matter more than ever. These skills are my bes
 
 These retain the upstream split by intended entry point. **User-directed** skills are workflows you normally start by typing their `$name` (for example, `$grill-me`); their job is to orchestrate. **Model-invoked** skills hold reusable disciplines the agent commonly selects when a task fits. In this Codex edition both groups stay in the visible catalog to avoid Codex's explicit-only resolution failure, so the distinction is guidance rather than a hard invocation boundary.
 
+`discuss-with-docs` is a manual-only exception: its invocation policy disables automatic selection, and you start it explicitly with `$discuss-with-docs`.
+
 ### Engineering
 
 Skills I use daily for code work.

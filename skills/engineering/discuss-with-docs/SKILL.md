@@ -5,6 +5,8 @@ description: Discuss a plan or design through user-led questions, revising a sha
 
 The user leads the discussion. Answer their questions, challenge weak assumptions with evidence, and propose concrete changes with reasons and trade-offs. Ask only for missing information needed to answer the current question; let the user choose the next thread.
 
+Start this workflow only when the user explicitly invokes it or asks to use it. A question about the skill or a request to edit it is not an invocation.
+
 ## The working document
 
 Read the supplied document, relevant repo instructions, domain glossary, and decisions before discussing changes. The artifact is **discussion notes**, named `discussion-notes.md`. For a new discussion, use `<planning-doc-root>/<topic>/discussion-notes.md`, where the root is the repo's configured planning-doc location or `docs/plans` by default. Use a short kebab-case topic and reuse its existing notes when resuming. An explicitly supplied document or project naming convention takes precedence; preserve existing content when bringing it into the structure below. Keep discussion notes out of `CONTEXT.md`, which remains a glossary.

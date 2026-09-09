@@ -11,6 +11,10 @@ Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds
 
 Bucket `README.md`s and the top-level `README.md` group entries into **User-directed** and **Model-invoked**.
 
+## Explicit user overrides
+
+Preserve user-requested manual-only settings. `discuss-with-docs` uses `policy.allow_implicit_invocation: false` and starts only on explicit user invocation. This overrides the visibility workaround above for that skill. Linking skills preserves their invocation policies, including `false`.
+
 ## Dependencies between them
 
 Dependencies use Codex's explicit skill syntax (`Use $grilling`), not deep `../other-skill/FILE.md` cross-references and not a bare `/skill` mention. The `$name` marker tells Codex which installed skill owns the workflow or reference. Shared reference docs live inside the skill that owns them; other skills reach that material through the named skill rather than by linking across folders.

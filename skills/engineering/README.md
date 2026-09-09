@@ -17,6 +17,8 @@ Workflows you normally start by typing their `$name`. This Codex edition keeps t
 - **[implement](./implement/SKILL.md)**: Build a spec or ticket with existing checks and manual verification, use `$tdd` for authorized new tests, and run `$code-review` before committing.
 - **[wayfinder](./wayfinder/SKILL.md)**: Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
 
+`discuss-with-docs` is manual-only and starts on explicit user invocation.
+
 ## Model-invoked
 
 Model- or user-reachable (rich trigger phrasing so the model can reach for them).

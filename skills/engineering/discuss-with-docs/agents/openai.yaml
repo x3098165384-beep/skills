@@ -2,4 +2,4 @@ interface:
   display_name: "Discuss with Docs"
   short_description: "Discuss a design and revise its working document"
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

@@ -13,6 +13,8 @@ Classify a skill as model-invoked when the agent should reach it on its own, or 
 
 Shared reference that several skills need should live in a model-invoked reference skill or a plain file with an explicit pointer. Do not duplicate it across user-directed workflows.
 
+An explicit user request for manual-only invocation overrides the visibility workaround: preserve `policy.allow_implicit_invocation: false`. `discuss-with-docs` is such an exception.
+
 ## Splitting by invocation
 
 The invocation cut of splitting (the sequence cut lives in `SKILL.md`): split off a model-invoked skill when you have a distinct leading word that should trigger it on its own (a trigger word you actually use in your prompts), or another skill must reach it. You pay context load for the new always-loaded description, so that independent reach has to be worth it.
