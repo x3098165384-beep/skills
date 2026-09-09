@@ -4,7 +4,7 @@
 
 It is **[stateful](https://www.aihero.dev/ai-coding-dictionary/stateful)**. Every other grilling skill leaves the [session](https://www.aihero.dev/ai-coding-dictionary/session) in your head; this one leaves files on disk. A term gets resolved and it lands in `CONTEXT.md` the moment it resolves, not batched at the end. A decision passes three gates and it lands as an ADR. That is the whole difference, and it is also the source of most of the trouble people have with the skill: the artifacts are real files in a real repo, so they can be absent when you expected them, and they can drift when more than one person is writing them.
 
-When supplied a working plan or design document, it also keeps that document current. It starts from existing agreed decisions, examines gaps and assumptions, and writes newly agreed answers back into the same document.
+When supplied discussion notes, a plan, or a design document, it also keeps that document current. It starts from existing agreed decisions, examines gaps and assumptions, and writes newly agreed answers back into the same document. This is optional: standalone use needs no prior discussion or document.
 
 ## When to reach for it
 

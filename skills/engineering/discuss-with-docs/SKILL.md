@@ -7,9 +7,33 @@ The user leads the discussion. Answer their questions, challenge weak assumption
 
 ## The working document
 
-Read the supplied document, relevant repo instructions, domain glossary, and decisions before discussing changes. Continue in the existing plan or design document. If none exists, use the repo's configured planning-doc location, falling back to `docs/plans/<topic>.md`; name the path when you create it. Keep the plan out of `CONTEXT.md`, which remains a glossary.
+Read the supplied document, relevant repo instructions, domain glossary, and decisions before discussing changes. The artifact is **discussion notes**, named `discussion-notes.md`. For a new discussion, use `<planning-doc-root>/<topic>/discussion-notes.md`, where the root is the repo's configured planning-doc location or `docs/plans` by default. Use a short kebab-case topic and reuse its existing notes when resuming. An explicitly supplied document or project naming convention takes precedence; preserve existing content when bringing it into the structure below. Keep discussion notes out of `CONTEXT.md`, which remains a glossary.
 
-Keep one current account of the goal, scope, proposed approach, agreed decisions and their reasons, alternatives, and open questions. Adapt the document's existing structure. Separate user-agreed decisions from agent proposals and unverified assumptions; link supporting evidence where it matters. The document is a working design, not a transcript.
+Create or update the notes in the first substantive response, once the topic and initial question are understood. Populate what is already known and name the path; do not wait for consensus or discussion completion. Keep the six sections below in order, using `None yet` for empty sections. Write in the user's language, translating the headings as needed.
+
+```markdown
+# <Topic>: Discussion Notes
+
+## Goal and Scope
+What this discussion should resolve, including its boundaries.
+
+## Background and Known Facts
+Relevant context and verified facts, with supporting references where needed.
+
+## Agreed Decisions
+User-accepted decisions and their reasons.
+
+## Proposals for Discussion
+Unaccepted recommendations, alternatives, trade-offs, and unverified assumptions.
+
+## Open Questions
+Unresolved questions, identifying any that block a buildable spec.
+
+## Rejected or Superseded Alternatives
+Important alternatives set aside or replaced, and why.
+```
+
+Replace the template guidance with actual content. Maintain the current state of the discussion rather than appending a transcript: move accepted proposals into agreed decisions, remove resolved questions, and preserve the reasons for important changes in the final section. A proposal or assumption stays visibly provisional until accepted or verified, respectively.
 
 ## The loop
 

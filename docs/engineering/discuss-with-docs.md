@@ -1,6 +1,6 @@
 ## What it does
 
-`discuss-with-docs` turns your questions and feedback into a working design document. You lead the discussion; the agent investigates, recommends changes with reasons and trade-offs, and keeps the document current. You decide when the discussion is complete.
+`discuss-with-docs` turns your questions and feedback into discussion notes. You lead the discussion; the agent investigates, recommends changes with reasons and trade-offs, and keeps the document current. You decide when the discussion is complete.
 
 The document separates agreed decisions from proposals and open questions. This lets you explore an alternative without accidentally making it the plan.
 
@@ -16,7 +16,22 @@ Type `$discuss-with-docs` to invoke it directly. This Codex edition also keeps i
 
 ## Prerequisites
 
-Use a writable working directory. Supply an existing plan or design document if you have one. Otherwise the skill creates a document in the repo's configured planning-doc location, falling back to `docs/plans/<topic>.md`. Discussion itself needs no issue tracker.
+Use a writable working directory. New notes live at `docs/plans/<topic>/discussion-notes.md`, for example `docs/plans/notifications/discussion-notes.md`. A configured planning-doc root replaces `docs/plans`. An explicitly supplied document or project naming convention takes precedence. Discussion itself needs no issue tracker.
+
+## The discussion notes
+
+The first substantive response creates or updates the notes once the topic and initial question are understood. Writing starts before consensus, and continues throughout the discussion.
+
+The document has six sections, in this order, with headings in your language:
+
+1. **Goal and Scope**: what the discussion should resolve and its boundaries.
+2. **Background and Known Facts**: context, verified facts, and relevant evidence.
+3. **Agreed Decisions**: decisions you accepted, with reasons.
+4. **Proposals for Discussion**: recommendations, trade-offs, and unverified assumptions.
+5. **Open Questions**: remaining questions, including any that block a spec.
+6. **Rejected or Superseded Alternatives**: important alternatives set aside and why.
+
+Empty sections say `None yet`. The notes reflect the current discussion state: accepted proposals move into decisions and resolved questions leave the open list. They are not a transcript or a finished spec.
 
 ## Common questions
 
