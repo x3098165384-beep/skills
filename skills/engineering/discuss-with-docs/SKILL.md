@@ -37,6 +37,8 @@ Important alternatives set aside or replaced, and why.
 
 Replace the template guidance with actual content. Maintain the current state of the discussion rather than appending a transcript: move accepted proposals into agreed decisions, remove resolved questions, and preserve the reasons for important changes in the final section. A proposal or assumption stays visibly provisional until accepted or verified, respectively.
 
+Treat a supplied spec as reference unless the user explicitly identifies it as the document to edit. On a later discussion, use it to update the discussion notes without converting the spec into the notes template.
+
 ## What earns a note
 
 Record information that changes the plan or informs a later decision: goals, scope or constraints; accepted, rejected or replaced decisions and their reasons; facts that change the assessment of an approach; concrete proposals worth comparing and their trade-offs; and unresolved questions or assumptions that affect further progress. Honour explicit requests to record something.
@@ -55,4 +57,4 @@ Update only for a material change to that recorded state. Several clarification 
 
 The discussion ends when the user explicitly says it is complete or asks to move to the next phase. Reconcile the working document with the latest exchange, preserving unresolved questions and identifying any that block a buildable spec. Report the document and remaining gaps; discussion completion alone does not establish that the design has been stress-tested.
 
-The usual next step is `$grill-with-docs` against this document, to examine gaps, contradictions, edge cases, and assumptions. Present that invocation with the document path. Start it only when the user requests the transition, including an instruction already given. The user can explicitly skip that pass and request `$to-spec`; carry remaining uncertainties forward honestly rather than inventing decisions. Keep implementation outside this discussion workflow.
+The usual next step is `$grill-with-docs` with these notes as read-only reference, to examine gaps, contradictions, edge cases, and assumptions. Present that invocation with the document path. Grilling retains its own glossary and ADR responsibilities; pass its new conclusions and the notes to `$to-spec` rather than asking it to maintain the notes. Start the transition only when the user requests it, including an instruction already given. The user can explicitly skip that pass and request `$to-spec`; carry remaining uncertainties forward honestly rather than inventing decisions. A later discussion can use the resulting spec as reference when updating these notes. Keep implementation outside this discussion workflow.

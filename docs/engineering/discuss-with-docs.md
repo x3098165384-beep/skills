@@ -45,7 +45,7 @@ Wayfinder organises a large effort into a map of dependent decision tickets. Thi
 
 **Should I run grill-with-docs afterwards?**
 
-That is the usual next step. Discussion develops the proposal; grilling examines its gaps, contradictions, edge cases, and assumptions. Supply the working document so grilling starts from the agreed decisions and writes new answers back into it. You can explicitly skip this pass when you want to proceed directly to a spec.
+That is the usual next step. Discussion develops the proposal; grilling examines its gaps, contradictions, edge cases, and assumptions. Supply the notes as read-only reference. Grilling retains its own glossary and ADR responsibilities; its new conclusions feed into `to-spec` through the conversation without rewriting the discussion notes. You can explicitly skip this pass when you want to proceed directly to a spec. In a later discussion, the resulting spec can serve as reference for updating the notes.
 
 **Does accepting an edit end the discussion?**
 
@@ -56,7 +56,7 @@ No. Accepting an edit settles that edit. The discussion ends when you say it is 
 - Your questions set the direction, and recommendations explain their reasons when a revision is warranted.
 - The notes change when the discussion changes the plan or its decision basis, with proposals visibly distinct from agreed decisions.
 - Ordinary clarification can pass without a file edit, and repeated exchanges become one concise conclusion.
-- A later grilling pass updates that same document without repeating settled questions unless evidence warrants it.
+- A later grilling pass uses the notes as reference, leaving their updates to a subsequent discussion.
 - The closing message identifies the document and any unresolved questions.
 
 ## Where it fits
