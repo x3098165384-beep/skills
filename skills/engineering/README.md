@@ -7,6 +7,7 @@ Skills I use daily for code work.
 Workflows you normally start by typing their `$name`. This Codex edition keeps them model-visible because explicit-only local skills can otherwise be misreported as unavailable.
 
 - **[ask-matt](./ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-directed skills in this repo.
+- **[discuss-with-docs](./discuss-with-docs/SKILL.md)**: Lead the questions while the agent recommends changes and revises a working design, then choose when to move to grilling or a spec.
 - **[grill-with-docs](./grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.

@@ -200,6 +200,7 @@ Skills I use daily for code work.
 **User-directed**
 
 - **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-directed skills in this repo.
+- **[discuss-with-docs](./skills/engineering/discuss-with-docs/SKILL.md)**: Lead the questions while the agent recommends changes and revises a working design, then choose when to move to grilling or a spec.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
