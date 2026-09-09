@@ -1,60 +1,38 @@
 ---
 name: discuss-with-docs
-description: Discuss a plan or design through user-led questions, revising a shared document until the user calls the discussion complete.
+description: Answer user-led design questions and keep discussion notes; the user decides when the discussion ends.
 ---
 
-The user leads the discussion. Answer their questions, challenge weak assumptions with evidence, and propose concrete changes with reasons and trade-offs. Ask only for missing information needed to answer the current question; let the user choose the next thread.
+Start only on explicit user invocation. Discussing or editing this skill does not start its workflow.
 
-Start this workflow only when the user explicitly invokes it or asks to use it. A question about the skill or a request to edit it is not an invocation.
+## Each turn
 
-## The working document
+1. **Answer the current question.** Read relevant project instructions and references, investigate facts, and give a reasoned judgment with trade-offs where useful. Clarify only what is needed for this question; the user chooses the next topic.
+2. **Record material changes.** Update notes only for changes to goals, constraints, decisions, consequential facts, concrete proposals, or unresolved issues affecting the plan, or when explicitly asked. Keep explanations, repeated confirmations, and investigation output in the conversation. Merge clarification into a concise conclusion; distinguish proposals from user-accepted decisions and verified facts from assumptions. Preserve important decision reasons when replacing an earlier conclusion.
+3. **Stop this turn.** Once the question is answered and any warranted update is written, return the floor. If notes changed, briefly say what changed and link them. Otherwise just answer. Do not extend the agenda, ask a closing question merely to keep talking, or start the next phase.
 
-Read the supplied document, relevant repo instructions, domain glossary, and decisions before discussing changes. The artifact is **discussion notes**, named `discussion-notes.md`. For a new discussion, use `<planning-doc-root>/<topic>/discussion-notes.md`, where the root is the repo's configured planning-doc location or `docs/plans` by default. Use a short kebab-case topic and reuse its existing notes when resuming. An explicitly supplied document or project naming convention takes precedence; preserve existing content when bringing it into the structure below. Keep discussion notes out of `CONTEXT.md`, which remains a glossary.
+## Discussion notes
 
-Create the notes once the discussion's goal and necessary background are clear enough to record; name the path. On resumption, update existing notes only when the recording criteria below are met. Keep the six sections below in order, using `None yet` for empty sections. Write in the user's language, translating the headings as needed.
+Create `docs/plans/<topic>/discussion-notes.md` once the goal and necessary background are clear. Use a short kebab-case topic; a configured planning-doc root or explicit destination overrides this default. Resume the same notes. A supplied spec is reference unless the user explicitly asks to edit it; keep the notes out of the domain glossary.
+
+Use these six sections in order, in the user's language. Empty sections say `None yet`; they are not a quota to fill each turn.
 
 ```markdown
 # <Topic>: Discussion Notes
 
 ## Goal and Scope
-What this discussion should resolve, including its boundaries.
 
 ## Background and Known Facts
-Relevant context and verified facts, with supporting references where needed.
 
 ## Agreed Decisions
-User-accepted decisions and their reasons.
 
 ## Proposals for Discussion
-Unaccepted recommendations, alternatives, trade-offs, and unverified assumptions.
 
 ## Open Questions
-Unresolved questions, identifying any that block a buildable spec.
 
 ## Rejected or Superseded Alternatives
-Important alternatives set aside or replaced, and why.
 ```
 
-Replace the template guidance with actual content. Maintain the current state of the discussion rather than appending a transcript: move accepted proposals into agreed decisions, remove resolved questions, and preserve the reasons for important changes in the final section. A proposal or assumption stays visibly provisional until accepted or verified, respectively.
+## Discussion completion
 
-Treat a supplied spec as reference unless the user explicitly identifies it as the document to edit. On a later discussion, use it to update the discussion notes without converting the spec into the notes template.
-
-## What earns a note
-
-Record information that changes the plan or informs a later decision: goals, scope or constraints; accepted, rejected or replaced decisions and their reasons; facts that change the assessment of an approach; concrete proposals worth comparing and their trade-offs; and unresolved questions or assumptions that affect further progress. Honour explicit requests to record something.
-
-Keep ordinary explanations, repeated confirmations, progress reports, investigation steps, raw tool output, casual examples, and undeveloped guesses in the conversation. A general question answered within the exchange needs no open-question entry. Include necessary evidence by reference, with its implication for the decision.
-
-Update only for a material change to that recorded state. Several clarification exchanges about the same point can become one concise conclusion once it is clear; record explicit decisions promptly. When nothing material changes, answer without editing the notes or announcing a no-op. The six sections classify information; they are not a quota to fill each turn.
-
-## The loop
-
-1. **Answer.** Investigate facts in the repo or relevant sources. Explain the answer and any impact on the design; recommend a revision when warranted. Make uncertainty explicit.
-2. **Assess and revise.** Apply the recording criteria above. When an update is warranted, apply the user's accepted changes and direct instructions without asking again. A recommendation becomes an agreed decision only when the user accepts it; silence or a follow-up question is not acceptance. When a decision changes, update affected sections and retain the reason an important alternative was rejected.
-3. **Return the floor.** If the notes changed, briefly report the substantive change and link the document. Otherwise let the answer stand. Continue with the user's next question or feedback. Accepting one revision does not end the discussion.
-
-## Completion
-
-The discussion ends when the user explicitly says it is complete or asks to move to the next phase. Reconcile the working document with the latest exchange, preserving unresolved questions and identifying any that block a buildable spec. Report the document and remaining gaps; discussion completion alone does not establish that the design has been stress-tested.
-
-The usual next step is `$grill-with-docs` with these notes as read-only reference, to examine gaps, contradictions, edge cases, and assumptions. Present that invocation with the document path. Grilling retains its own glossary and ADR responsibilities; pass its new conclusions and the notes to `$to-spec` rather than asking it to maintain the notes. Start the transition only when the user requests it, including an instruction already given. The user can explicitly skip that pass and request `$to-spec`; carry remaining uncertainties forward honestly rather than inventing decisions. A later discussion can use the resulting spec as reference when updating these notes. Keep implementation outside this discussion workflow.
+Only the user's explicit completion or request to move on ends the discussion; accepting one edit does not. Reconcile the notes with the agreed conclusions, retain unresolved questions and identify any blocking a spec, then return the document. Hand off to another phase only as instructed. This workflow produces discussion notes, not an implementation.

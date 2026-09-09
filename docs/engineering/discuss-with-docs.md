@@ -51,11 +51,16 @@ That is the usual next step. Discussion develops the proposal; grilling examines
 
 No. Accepting an edit settles that edit. The discussion ends when you say it is complete or ask to move on. Any remaining gaps stay visible, and the next phase starts only on your instruction.
 
+**When should the agent stop replying?**
+
+Each turn ends once your current question is answered and any material change is recorded. The agent returns the floor without expanding the agenda or adding a question just to keep the conversation going. Ending a turn leaves the discussion open for your next question; only you end the overall discussion.
+
 ## It's working if
 
 - Your questions set the direction, and recommendations explain their reasons when a revision is warranted.
 - The notes change when the discussion changes the plan or its decision basis, with proposals visibly distinct from agreed decisions.
 - Ordinary clarification can pass without a file edit, and repeated exchanges become one concise conclusion.
+- After answering your question, the agent stops and lets you choose the next topic.
 - A later grilling pass uses the notes as reference, leaving their updates to a subsequent discussion.
 - The closing message identifies the document and any unresolved questions.
 
