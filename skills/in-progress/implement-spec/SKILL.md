@@ -5,7 +5,7 @@ description: "Implement a specification in code."
 
 You have been provided a spec. This spec should have tickets associated with it, describing how to implement the spec.
 
-Before dispatching work, read `TESTING-POLICY.md` from the installed `tdd` skill. In a flat skill installation it is at `../tdd/TESTING-POLICY.md`; when reading this repository directly, use the [repository copy](../../engineering/tdd/TESTING-POLICY.md). Pass the policy and any recorded test authorization to each implementer and reviewer. A spec or ticket alone does not authorize new tests. Collect the checks actually run and the manual steps awaiting user verification before closeout.
+Prioritize delivering the spec's functionality. Before dispatching, read `TESTING-POLICY.md` from the installed `tdd` skill (`../tdd/TESTING-POLICY.md` in a flat installation, or the [repository copy](../../engineering/tdd/TESTING-POLICY.md)). Pass that reference and relevant verification decisions to implementers and reviewers. Collect actual check results and manual steps before closeout; delivery can proceed with manual acceptance marked as pending.
 
 The goal is a PR which implements the entire spec on a single branch.
 

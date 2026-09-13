@@ -7,7 +7,7 @@ description: Diagnosis loop for hard bugs and performance regressions. Use when 
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
-Read [Testing and verification](../tdd/TESTING-POLICY.md) before choosing a reproduction method. Start with existing commands, existing tests, or repeatable manual steps. New test code, including temporary harnesses, requires the authorization described there. Follow project permissions for running the application and adding instrumentation.
+Use [Testing and verification](../tdd/TESTING-POLICY.md) to choose a reproduction method. Start with existing commands, existing tests, or confirmed manual steps. Follow project permissions for running the application and adding instrumentation.
 
 When exploring the codebase, read `CONTEXT.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
 
@@ -27,7 +27,7 @@ Reuse a reproduction the user has already confirmed. Spend additional effort onl
 
 1. **Existing test or command.** Use the real input with an existing test, CLI, HTTP endpoint, or replay tool and inspect the specific wrong result.
 2. **Manual steps.** Record the user's actions, input, observed failure, and expected result. A confirmed manual reproduction is sufficient; no wrapper script is required.
-3. **New automated reproduction, with approval.** If manual verification is unreliable or requires substantial repetition, propose the smallest useful test, browser script, replay harness, or fuzz loop under the testing policy. Build it only after approval.
+3. **Targeted automation.** When the failure is difficult to test reliably by hand or impossible to test manually, explain the gap and build the smallest useful reproduction under the testing policy.
 
 Build the right feedback loop, and the bug is 90% fixed.
 
@@ -51,7 +51,7 @@ Stop and say so explicitly. List what you tried. Ask the user for: (a) access to
 
 ### Completion criterion: a confirmed reproduction
 
-Phase 1 is done when an existing command, approved automated reproduction, or manual sequence has reproduced the reported failure. Show the redacted command output or record the manual steps and the user's observed result. The reproduction must:
+Phase 1 is done when an existing command, targeted automated reproduction, or manual sequence has reproduced the reported failure. Show the redacted command output or record the manual steps and the user's observed result. The reproduction must:
 
 - [ ] Exercise the actual bug and distinguish the user's symptom from the expected result.
 - [ ] Be repeatable, or record the observed frequency and conditions of an intermittent failure.
@@ -109,16 +109,16 @@ Tool preference:
 
 Apply the fix and repeat the original reproduction with existing checks or manual steps. If the user must perform the check, provide the steps and expected result and mark verification as pending until the result arrives.
 
-When a regression test is explicitly authorized, write it before the fix at an existing public interface that exercises the real failure. Watch it fail for the reported reason, apply the fix, then watch it pass and repeat the original scenario.
+When a regression test is needed under the testing policy, use an existing public interface that exercises the real failure. Confirm it distinguishes the buggy behavior from the fix. Use `$tdd` when the user requests a test-first workflow.
 
-If an authorized test cannot exercise the real failure through an existing interface, report that limitation. Keep verification manual or use existing checks; do not change production interfaces or start architecture work solely to add a test.
+If a test cannot exercise the real failure through an existing interface, report that limitation. Use other available evidence and mark any verification gap; do not change production interfaces or start architecture work solely to add a test.
 
 ## Phase 6: Cleanup
 
 Required before declaring done:
 
 - [ ] Original reproduction was checked after the fix, or the exact manual check is marked as awaiting user verification. Claim the bug is verified fixed only after that check passes.
-- [ ] Existing relevant checks and any authorized regression test results are reported, along with checks that could not run.
+- [ ] Existing relevant checks and any targeted regression test results are reported, along with checks that could not run.
 - [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
 - [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
 - [ ] The hypothesis that turned out correct is stated in the commit / PR message, so the next debugger learns

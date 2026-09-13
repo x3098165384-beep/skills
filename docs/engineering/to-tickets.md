@@ -2,7 +2,7 @@
 
 `to-tickets` takes a plan, a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the conversation you are in, and breaks it into a set of **[tickets](https://www.aihero.dev/ai-coding-dictionary/ticket)** on your issue tracker. Each ticket declares its **blocking edges**: the other tickets that have to finish before it can start.
 
-Every ticket is a **tracer bullet**: a complete behavior through the required layers that can be demonstrated on its own. Each carries manual verification steps, existing checks, and any explicitly authorized new test scope. Proposed tests awaiting approval stay outside acceptance criteria. Each ticket fits a fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so a new [session](https://www.aihero.dev/ai-coding-dictionary/session) can implement it without the earlier conversation.
+Every ticket is a **tracer bullet**: a complete behavior through the required layers that can be demonstrated on its own. Each carries relevant verification decisions: manual steps, existing checks, and the reason and scope for any needed automation. Each ticket fits a fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so a new [session](https://www.aihero.dev/ai-coding-dictionary/session) can implement it without the earlier conversation.
 
 ## When to reach for it
 
@@ -96,4 +96,4 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 grill-with-docs → to-spec → to-tickets → implement → code-review
 ```
 
-Upstream is [to-spec](https://aihero.dev/skills-to-spec), which provides the agreed behavior and verification decisions; keep both in one unbroken context window. Downstream is [implement](https://aihero.dev/skills-implement), which builds each ticket with existing checks and manual verification, uses [tdd](https://aihero.dev/skills-tdd) only for authorized new tests, and closes with [code-review](https://aihero.dev/skills-code-review). [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the flow.
+Upstream is [to-spec](https://aihero.dev/skills-to-spec), which provides the agreed behavior and verification decisions; keep both in one unbroken context window. Downstream is [implement](https://aihero.dev/skills-implement), which prioritizes functionality with existing checks and manual acceptance, adds automation for specific manual testing gaps or explicit requests, and closes with [code-review](https://aihero.dev/skills-code-review). [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the flow.

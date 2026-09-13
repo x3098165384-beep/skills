@@ -29,9 +29,9 @@ So it does not validate anything, and it does not decide anything. It captures w
 
 ## Verification decisions
 
-`to-spec` records manual steps, expected results, and existing checks from the agreed behavior. It records new tests only within an explicit request or approval, including the approved scope and existing public interfaces to use. It does not reopen the conversation just to choose tests.
+The spec's **Verification** section records manual steps, expected results, and existing checks from the agreed behavior. Needed automation carries its reason and scope: a specific manual testing gap or your explicit request. The skill does not reopen the conversation just to choose tests.
 
-These decisions travel into tickets and implementation. Proposed tests awaiting approval stay separate from required work. An accepted spec alone does not authorize writing tests; the spec must preserve any explicit authorization so [tdd](https://aihero.dev/skills-tdd) and [code-review](https://aihero.dev/skills-code-review) can use the agreed scope.
+These decisions travel into tickets and implementation so a fresh session knows what a person can check and where automation is needed. Routine functionality does not acquire a test-writing requirement just by appearing in the spec.
 
 ## Common questions
 
@@ -54,7 +54,7 @@ Mostly for the agent, and it reads that way: complete, dense, reference-heavy. T
 Nothing keeps it in sync, so in practice it is a snapshot of what you knew at that moment, and it goes stale the first time implementation teaches you something. Treat it as throwaway once the work ships. The artifacts meant to outlive it are your `CONTEXT.md` and your ADRs; if something learned during implementation deserves to last, it belongs there, not in an edited spec.
 
 **My work is a refactor or a module boundary, not a feature. Does the template fit?**
-Less well, and this is a known limitation. The template leans hard on user stories, which is the wrong shape for architectural work: you end up writing stories nobody asked for around decisions that are really about interfaces and invariants. Lean on the implementation-decisions and testing-decisions sections instead, and let the durable architectural calls land as ADRs via [grill-with-docs](https://aihero.dev/skills-grill-with-docs) rather than trying to make the spec carry them.
+Less well, and this is a known limitation. The template leans hard on user stories, which is the wrong shape for architectural work: you end up writing stories nobody asked for around decisions that are really about interfaces and invariants. Lean on the implementation decisions and verification sections instead, and let the durable architectural calls land as ADRs via [grill-with-docs](https://aihero.dev/skills-grill-with-docs) rather than trying to make the spec carry them.
 
 **Will it check the tracker for related work, or cite the ADRs it's respecting?**
 No to both. It reads and respects the ADRs covering the area it touches, but it doesn't link them, and it doesn't search the tracker for overlapping issues before drafting, so a spec can quietly duplicate work someone already filed. Search the tracker yourself first if the area is busy.
@@ -65,7 +65,7 @@ Very large specs can outgrow what a tracker issue will serve back cleanly, and t
 ## It's working if
 
 - It starts writing rather than asking you a fresh round of questions.
-- It puts the seams to you before it writes, and proposes as few as it can get away with.
+- Verification describes observable results and preserves the reason and scope for any needed automation.
 - It comes back in your project's nouns, not generic product-management boilerplate.
 - Every decision in it is one you can remember making. Nothing was invented to fill a section.
 - The out-of-scope section has real things in it: the things you refused are usually the most useful lines on the page.

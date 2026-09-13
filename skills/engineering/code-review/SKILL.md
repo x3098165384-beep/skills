@@ -14,7 +14,7 @@ The issue tracker should have been provided to you. If `docs/agents/issue-tracke
 
 ## Process
 
-Read [Testing and verification](../tdd/TESTING-POLICY.md) before assessing test coverage or recommending additional checks. Include the policy and any recorded test authorization in both review briefs below.
+Read [Testing and verification](../tdd/TESTING-POLICY.md) before assessing verification. Include that reference and relevant verification decisions in both review briefs below.
 
 ### 1. Pin the fixed point
 

@@ -5,7 +5,7 @@ description: Shared vocabulary for designing deep modules. Use when the user wan
 
 # Codebase Design
 
-Design **deep modules**: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. Use this language and these principles wherever code is being designed or restructured. The aim is leverage for callers, locality for maintainers, and testability for everyone.
+Design **deep modules**: a lot of behaviour behind a small interface, placed at a clean seam. Use this language and these principles wherever code is being designed or restructured. The aim is leverage for callers and locality for maintainers, so functionality is easier to understand and change. Apply [Testing and verification](../tdd/TESTING-POLICY.md) when considering tests.
 
 ## Glossary
 

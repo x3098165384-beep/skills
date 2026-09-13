@@ -11,7 +11,7 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
 
-2. Read [Testing and verification](../tdd/TESTING-POLICY.md). Record manual verification steps and existing relevant checks from the agreed behavior. For explicitly authorized new tests, record the approved scope and the existing public interfaces they exercise. Preserve pending test proposals as pending; do not add test requirements or reopen the conversation just to choose tests.
+2. Use [Testing and verification](../tdd/TESTING-POLICY.md) to record how the agreed behavior will be checked. Preserve known verification decisions without reopening the conversation to choose tests.
 
 3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
 
@@ -53,14 +53,13 @@ Do NOT include specific file paths or code snippets. They may end up being outda
 
 Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it within the relevant decision and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
 
-## Testing Decisions
+## Verification
 
 A list of verification decisions that were made. Include:
 
 - Manual actions and expected results
 - Existing checks that cover the behavior
-- New tests only when explicitly authorized, including their scope, public interfaces, and the source of authorization
-- Any proposed tests still awaiting approval, clearly separate from required work
+- Needed automation, with the specific manual testing gap or user request and the behavior it covers
 
 ## Out of Scope
 

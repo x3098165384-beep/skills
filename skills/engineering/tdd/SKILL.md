@@ -1,11 +1,11 @@
 ---
 name: tdd
-description: Test-driven development for explicitly requested or approved tests. Use when the user asks to work test-first, use TDD, or write automated tests.
+description: Test-driven development for a requested test-first workflow. Use when the user asks to work test-first or use TDD.
 ---
 
 # Test-Driven Development
 
-First read [Testing and verification](TESTING-POLICY.md) to determine whether writing tests is authorized. Apply the loop below only within that scope. When another skill selects this reference without user authorization, return to that workflow's existing checks and manual verification; do not start writing tests.
+Use this loop when the user requests test-first work. For ordinary implementation and targeted verification, follow [Testing and verification](TESTING-POLICY.md).
 
 TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle: consult them before and during the loop, not after.
 
@@ -21,7 +21,7 @@ See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking g
 
 A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
 
-**Test only at pre-agreed seams.** Once writing tests is authorized, use the behavior and public interface already established by the request, accepted spec, or ticket. State the boundary briefly and proceed when those sources determine it. Ask only when the choice would change the agreed behavior, public interface, or scope. Agreement on an interface does not itself authorize writing tests.
+**Test at established seams.** Use the behavior and public interface already established by the request, accepted spec, or ticket. State the boundary briefly and proceed. Ask only when the choice would change the agreed behavior, public interface, or scope.
 
 When a choice is needed, explain which behavior each interface can verify and what it misses before asking the user to choose.
 

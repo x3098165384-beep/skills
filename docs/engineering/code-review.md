@@ -49,7 +49,7 @@ The **smell baseline** is the floor underneath it, twelve Fowler code smells fro
 
 **Will it reject a change just because no new tests were added?**
 
-No. Both reviewers use the shared testing policy. A verification concern must identify a concrete possible failure and explain why existing checks and manual steps are insufficient. Tests you explicitly requested remain requirements, and unauthorized test additions can be reported as scope violations.
+No. Both reviewers use the shared testing policy. A verification concern must identify a concrete possible failure and explain why existing checks and manual steps are insufficient. New automation should address that gap or your explicit request. Unnecessary test additions can be reported as scope creep; explicitly requested tests remain requirements.
 
 **It collides with Claude Code's own `/code-review`. What do I do?**
 

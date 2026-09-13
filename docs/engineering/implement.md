@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or an agreed plan. It writes the code, runs necessary compilation and existing relevant checks, provides manual verification steps, runs [code-review](https://aihero.dev/skills-code-review), and commits to the current branch. New tests require your explicit request or approval.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or an agreed plan. It prioritizes working functionality, runs necessary compilation and directly relevant existing checks, provides manual acceptance steps, runs [code-review](https://aihero.dev/skills-code-review), and commits to the current branch.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a commit. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which will happily redesign the work while it builds it.
 
@@ -32,8 +32,8 @@ If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the
 
 A run is five beats, in order:
 
-1. Read the ticket or spec and any recorded permission to write tests; record the starting commit.
-2. Implement the behavior, using [tdd](https://aihero.dev/skills-tdd) only for explicitly authorized new tests.
+1. Read the ticket or spec and its verification decisions; record the starting commit.
+2. Implement the behavior, adding targeted verification only where the shared testing policy calls for it.
 3. Run necessary compilation or type checks and existing tests that cover the change.
 4. Provide manual steps and expected results, marking unperformed checks as awaiting your verification.
 5. Run [code-review](https://aihero.dev/skills-code-review) against the starting commit, including uncommitted work; fix substantiated findings, rerun affected checks, then commit to the current branch.
@@ -44,13 +44,15 @@ One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to
 
 Behavior you can reliably check with a few actions is left for your manual verification. Existing checks still run, and existing tests may be maintained when the change affects them. The agent does not ask about adding tests on every small change.
 
-For behavior that is unreliable or laborious to check manually, the agent explains the specific gap and proposes the smallest useful test scope. It waits for permission to write those tests. A defined interface or an accepted spec alone does not supply that permission. A full suite is also no longer a routine closing step; wider runs need a specific reason and authorization under the shared policy or project requirements.
+For behavior that is difficult to test reliably by hand or impossible to test manually, the agent explains the gap and writes only the necessary tests or verification code. It needs no separate test approval. This includes more than data checks: timing, concurrency, rare failures, and otherwise unobservable behavior may qualify. Your explicit test requests also apply. Wider check runs need a specific unresolved concern or a user or project requirement.
+
+Targeted verification does not automatically start [tdd](https://aihero.dev/skills-tdd); that workflow is for requests to work test-first. Implementation can be delivered while manual acceptance is pending, with that status stated clearly.
 
 ## Common questions
 
 **Will a two-line change still produce new tests?**
 
-Not by default. The decision depends on whether the behavior can be reliably checked manually, not the number of changed lines. Directly asking for tests or invoking `$tdd` authorizes the requested scope; invoking `$implement` alone does not.
+Not by default. The decision depends on whether a person can effectively verify the behavior, not the number of changed lines or missing coverage. New automation addresses a concrete manual testing gap or an explicit test request.
 
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
@@ -81,7 +83,7 @@ Inspect what consumed the time. This branch no longer requires a new test loop o
 ## It's working if
 
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
-- New tests appear only for a scope you explicitly requested or approved.
+- New tests address a stated manual testing gap or your explicit request.
 - Necessary compilation and existing relevant checks run, with their actual results reported.
 - You receive manual actions and expected results; checks you have not performed are marked as pending.
 - The run reaches a commit on your current branch without you prompting it to carry on.
@@ -95,7 +97,7 @@ Inspect what consumed the time. This branch no longer requires a new test loop o
 grill-with-docs → to-spec → to-tickets → implement → code-review
 ```
 
-Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which provides the work and any recorded test authorization; [tdd](https://aihero.dev/skills-tdd), used for authorized tests; and [code-review](https://aihero.dev/skills-code-review), which it runs before committing. The plan determines the requested behavior; the shared testing policy determines when new tests may be written.
+Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which provides the work and verification decisions; [tdd](https://aihero.dev/skills-tdd), used when you request test-first work; and [code-review](https://aihero.dev/skills-code-review), which it runs before committing. The plan determines the requested behavior; the shared testing policy determines when new tests are useful.
 
 That trust is why [wayfinder](https://aihero.dev/skills-wayfinder) merges onto the chain at [to-spec](https://aihero.dev/skills-to-spec) rather than looping its map straight into `implement`. Go straight to `implement` from a map only when the effort turned out genuinely small.
 

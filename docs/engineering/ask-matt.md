@@ -49,7 +49,7 @@ Two of those are routinely got wrong, which is why the router carries the order 
 
 **Does the implementation route still require TDD for every change?**
 
-No. This branch defaults to existing checks and manual verification. [implement](https://aihero.dev/skills-implement) uses [tdd](https://aihero.dev/skills-tdd) only for tests you explicitly requested or approved. Diagnosis follows the same authorization rule, including temporary automated reproductions.
+No. This branch prioritizes functionality with necessary existing checks and manual acceptance. [implement](https://aihero.dev/skills-implement) adds automation for behavior that is difficult to test reliably by hand or impossible to test manually, or for your explicit request. Diagnosis follows the same rule, including temporary reproductions. No separate test approval is needed for these gaps; [tdd](https://aihero.dev/skills-tdd) is for requests to work test-first.
 
 **Isn't there just a list of the skills in the right order?**
 

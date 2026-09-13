@@ -7,9 +7,9 @@ Implement the work described by the user in the spec or tickets.
 
 Record the starting commit before editing.
 
-Before implementing, read [Testing and verification](../tdd/TESTING-POLICY.md). Use its default of existing checks and user manual verification. Invoke `$tdd` only for explicitly authorized new tests, and pass the authorized scope to any delegated work.
+Prioritize delivering the requested functionality. Use [Testing and verification](../tdd/TESTING-POLICY.md) to choose checks, and carry those decisions into any delegated work.
 
-Run the necessary compilation or type checks and existing tests that cover the change. Follow the policy's limits on repeated checks and full suites. Provide manual verification steps and expected results, marking any unperformed steps as awaiting user verification.
+Run necessary compilation or type checks and directly relevant existing checks. Provide short manual steps and expected results; delivery can proceed with manual acceptance marked as pending.
 
 Once done, use $code-review with the starting commit and spec to review the current work, including uncommitted changes. Fix substantiated findings and rerun affected checks.
 

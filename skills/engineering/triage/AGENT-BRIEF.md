@@ -29,6 +29,8 @@ Describe **what** the system should do, not **how** to implement it. The agent w
 
 The agent needs to know when it's done. Every agent brief must have concrete, testable acceptance criteria. Each criterion should be independently verifiable.
 
+Describe observable behavior. Use [Testing and verification](../tdd/TESTING-POLICY.md) for verification decisions; explain the manual testing gap or user request when a brief calls for new automation.
+
 - **Good:** "Running `gh issue list --label needs-triage` returns issues that have been through initial classification"
 - **Bad:** "Triage should work correctly"
 
@@ -157,9 +159,8 @@ For a PR, "Current behavior" describes the state of the diff, and the brief asks
 
 **Current behavior:**
 The PR adds a `--json` flag that serializes the issue list to JSON. The happy
-path works and the diff matches the project's command structure. Two gaps
-remain: errors are still printed as human text (not JSON), and the new flag has
-no test coverage.
+path works and the diff matches the project's command structure. Errors are
+still printed as human text instead of JSON.
 
 **Desired behavior:**
 With `--json`, all output (including errors) is well-formed JSON on stdout,
@@ -174,7 +175,6 @@ is untouched when the flag is absent.
 **Acceptance criteria:**
 - [ ] `triage list --json` emits valid JSON for both success and error cases
 - [ ] Exit codes match the non-JSON command
-- [ ] A test covers the `--json` success output and one error case
 - [ ] Default (non-JSON) output is byte-for-byte unchanged
 
 **Out of scope:**

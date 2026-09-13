@@ -39,7 +39,7 @@ If you want to lead the questions first, start with **`$discuss-with-docs`**. Th
    - **Yes** → **`$to-spec`** (turn the thread into a spec), then **`$to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed: kick off **`$implement`** per ticket, **`/clear`ing context between each one**. Each ticket is self-contained, so the last one's context is disposable.
    - **No** → **`$implement`** right here, in the same context window.
 
-   Either way, **`$implement`** builds each issue, runs necessary compilation and existing relevant checks, and provides manual verification steps. It uses **`$tdd`** only for explicitly authorized tests, then runs **`$code-review`** before committing. For decisions about writing or running tests, read [Testing and verification](../tdd/TESTING-POLICY.md). Reach for **`$tdd`** directly when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
+   Either way, **`$implement`** prioritizes functionality, runs necessary compilation and directly relevant existing checks, and hands off manual acceptance steps. It follows [Testing and verification](../tdd/TESTING-POLICY.md) for any needed automation, then runs **`$code-review`** before committing. Reach for **`$tdd`** when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
 
 ### Context hygiene
 

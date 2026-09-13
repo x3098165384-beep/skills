@@ -15,7 +15,7 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 Work from whatever is already in the conversation context. If the user passes a reference (a spec path, an issue number or URL) as an argument, fetch it and read its full body and comments.
 
-Read [Testing and verification](../tdd/TESTING-POLICY.md). Carry manual verification steps, existing checks, and the scope and source of any explicit test authorization into each affected ticket. Keep proposed tests awaiting approval separate from acceptance criteria; approval of the ticket breakdown alone does not authorize writing tests.
+Read [Testing and verification](../tdd/TESTING-POLICY.md). Carry relevant verification decisions into each ticket, including the reason and scope for any needed automation.
 
 ### 2. Explore the codebase (optional)
 
@@ -29,7 +29,7 @@ Break the work into **tracer bullet** tickets.
 
 <vertical-slice-rules>
 
-- Each slice delivers a complete behavior through the required layers, with manual verification and existing checks. Include new tests only within explicit authorization.
+- Each slice delivers a complete behavior through the required layers, with a clear way for the user to verify it. Use the testing policy for behavior that needs automation.
 - A completed slice is demoable or verifiable on its own
 - Each slice is sized to fit in a single fresh context window
 - Any prefactoring should be done first

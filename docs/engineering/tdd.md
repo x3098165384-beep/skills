@@ -2,11 +2,11 @@
 
 `tdd` builds a feature or fixes a bug test-first: one failing test, then just enough code to pass it, then the next behaviour. It carries the standards that make that loop produce tests worth keeping: what a good test is, where tests go, what mocks are for, and the three anti-patterns that quietly ruin a suite.
 
-It applies only to tests you explicitly requested or approved. It states the public interface it will test and uses the behavior and interface already agreed for the task. It asks you only when selecting that interface requires a new decision. `tdd` is a reference for the test loop; [implement](https://aihero.dev/skills-implement) uses it only within authorized test scope.
+It applies when you request a test-first workflow. It states the public interface it will test and uses the behavior and interface already agreed for the task. It asks you only when selecting that interface requires a new decision. Ordinary [implementation](https://aihero.dev/skills-implement) and targeted verification follow the shared testing policy without requiring this loop.
 
 ## When to reach for it
 
-Type `$tdd` to authorize working test-first for the task. The agent may also select it after you explicitly request or approve automated tests. Another skill referencing it does not count as your permission.
+Type `$tdd`, or ask to work test-first, to use this loop for the task. Asking for a targeted test alone does not require the whole workflow.
 
 Reach for it when there is a concrete behaviour to build, with an input and an observable output, and you want tests that survive a refactor.
 
@@ -18,7 +18,7 @@ Reach for it when there is a concrete behaviour to build, with an input and an o
 | You have a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) or [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and want the whole build run for you | [implement](https://aihero.dev/skills-implement), which uses existing checks and manual verification by default |
 | A change you can reliably confirm with a few actions | Implement it with existing checks and manual verification |
 
-The shared testing policy decides whether writing tests is authorized before this loop begins. A lack of coverage or a small, easily asserted function does not by itself justify asking for tests. Proposals need a specific behavior that manual checking cannot reliably or reasonably cover.
+The shared testing policy defaults to manual acceptance, with new automation for behavior that is difficult to test reliably by hand or impossible to test manually, or for your explicit requests. Coverage gaps and easily asserted functions alone are not reasons to start a test-first workflow.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ Three words carry this skill.
 
 **Vertical slice.** One seam, one test, one minimal implementation, then repeat, the first cycle being a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Bulk tests verify *imagined* behaviour, they check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
-**Pre-agreed seam.** A seam is the public interface through which a test observes behavior. Once tests are authorized, an established interface and accepted behavior can determine this boundary without another question. Defining the boundary alone does not authorize writing tests.
+**Established seam.** A seam is the public interface through which a test observes behavior. The request, spec, or ticket usually determines this boundary without another question. A new choice is needed only when it changes the agreed behavior, interface, or scope.
 
 The three anti-patterns it is written to prevent:
 
@@ -48,11 +48,11 @@ Mocks are for system boundaries only: external APIs, time, randomness, sometimes
 
 **Does `$implement` still invoke TDD automatically?**
 
-Only for new tests you explicitly requested or approved. Calling `$implement`, approving behavior, or accepting a ticket breakdown does not itself authorize tests. Calling `$tdd` directly does authorize them for the task you gave it.
+Only when you request test-first work. A targeted check for a manual testing gap can be written without this loop. Calling `$tdd` directly chooses the test-first workflow for the task you give it.
 
 **Where does refactoring fit?**
 
-This skill keeps the loop to one failing test and the implementation that makes it pass. Its existing rules place refactoring in the [code-review](https://aihero.dev/skills-code-review) stage. The new permission rules change when the test loop starts; they preserve that division of work.
+This skill keeps the loop to one failing test and the implementation that makes it pass. Its existing rules place refactoring in the [code-review](https://aihero.dev/skills-code-review) stage. Making TDD optional preserves that division of work when you choose it.
 
 **It asked me to choose a test seam and I had no idea which to pick.**
 
@@ -80,7 +80,7 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 
 ## It's working if
 
-- It writes tests only within your explicit request or approval, and states the public interface it will use without asking you to approve the same scope again.
+- It starts because you requested test-first work, and uses an established public interface without reopening settled decisions.
 - One test appears, goes red, gets just enough code to pass, and only then does the next test appear, not a batch of tests followed by a batch of code.
 - Test names read as capabilities ("user can checkout with valid cart"), not as internals ("checkout calls paymentService.process").
 - Expected values in assertions are literals you can trace to the spec, not values recomputed the way the code computes them.
@@ -89,10 +89,10 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 
 ## Where it fits
 
-`tdd` is optional within the build step, used when writing tests is explicitly authorized:
+`tdd` is optional within the build step, used when you request test-first work:
 
 ```txt
 grill-with-docs → to-spec → to-tickets → implement → code-review
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) records verification decisions and any test authorization. [implement](https://aihero.dev/skills-implement) uses `tdd` for that authorized scope, and [code-review](https://aihero.dev/skills-code-review) assesses the result under the same testing policy. [codebase-design](https://aihero.dev/skills-codebase-design) supplies interface-design vocabulary when an interface decision is needed. Invoke `tdd` directly when you want to work test-first; [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the workflow.
+[to-spec](https://aihero.dev/skills-to-spec) records verification decisions. [implement](https://aihero.dev/skills-implement) uses `tdd` when you request this workflow, and [code-review](https://aihero.dev/skills-code-review) assesses the result under the same testing policy. [codebase-design](https://aihero.dev/skills-codebase-design) supplies interface-design vocabulary when an interface decision is needed. [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the workflow.
