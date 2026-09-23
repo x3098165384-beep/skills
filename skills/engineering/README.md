@@ -15,6 +15,7 @@ Workflows you normally start by typing their `$name`. This Codex edition keeps t
 - **[to-spec](./to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker.
 - **[to-tickets](./to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, whether as text in a local file or as native blocking links on a real tracker.
 - **[implement](./implement/SKILL.md)**: Deliver a spec or ticket's functionality with necessary checks and manual acceptance steps, then review before committing.
+- **[deepseek-implement](./deepseek-implement/SKILL.md)**: Hand a settled spec or ticket to a separate DeepSeek Flash CLI, keeping the planning session lean.
 - **[wayfinder](./wayfinder/SKILL.md)**: Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
 
 `discuss-with-docs` is manual-only and starts on explicit user invocation.

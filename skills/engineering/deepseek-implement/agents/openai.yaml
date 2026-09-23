@@ -1,0 +1,5 @@
+interface:
+  display_name: "DeepSeek Implement"
+  short_description: "Hand a spec or ticket to DeepSeek Flash"
+policy:
+  allow_implicit_invocation: true
