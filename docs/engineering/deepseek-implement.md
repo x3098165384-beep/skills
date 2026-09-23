@@ -4,7 +4,7 @@
 
 ## When to reach for it
 
-任务已经确定，需要 DeepSeek 执行时使用 `$deepseek-implement`。Codex 用户目录中需已有 `tools/Invoke-DeepSeekTask.ps1`、`tools/DeepSeekTask.md` 和可用配置。
+任务已经确定，需要 DeepSeek 执行时显式调用 `$deepseek-implement`；本技能不自动触发。Codex 用户目录中需已有 `tools/Invoke-DeepSeekTask.ps1`、`tools/DeepSeekTask.md` 和可用配置。
 
 ## Common questions
 
@@ -15,6 +15,10 @@
 **主代理还会重复实现和审查吗？**
 
 不会。主代理接收结果与阻塞；用户要求后才安排 Astra low 审查。
+
+**等待 DeepSeek 时，我发消息也要等 5 分钟吗？**
+
+不需要。5 分钟只限制主代理主动查询 DeepSeek 的频率；你的新消息立即处理，任务主动返回完成通知时也立即处理。等待使用可被新消息打断的方式。
 
 ## It's working if
 

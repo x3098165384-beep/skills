@@ -13,7 +13,7 @@ Bucket `README.md`s and the top-level `README.md` group entries into **User-dire
 
 ## Explicit user overrides
 
-Preserve user-requested manual-only settings. `discuss-with-docs` uses `policy.allow_implicit_invocation: false` and starts only on explicit user invocation. This overrides the visibility workaround above for that skill. Linking skills preserves their invocation policies, including `false`.
+Preserve user-requested manual-only settings. `discuss-with-docs` and `deepseek-implement` use `policy.allow_implicit_invocation: false` and start only on explicit user invocation. This overrides the visibility workaround above for those skills. Linking skills preserves their invocation policies, including `false`.
 
 ## Dependencies between them
 

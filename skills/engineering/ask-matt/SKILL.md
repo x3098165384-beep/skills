@@ -41,7 +41,7 @@ If you want to lead the questions first, start with **`$discuss-with-docs`**. Th
 
    Either way, **`$implement`** prioritizes functionality, runs necessary compilation and directly relevant existing checks, and hands off manual acceptance steps. It follows [Testing and verification](../tdd/TESTING-POLICY.md) for any needed automation, then runs **`$code-review`** before committing. Reach for **`$tdd`** when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
 
-   Use **`$deepseek-implement`** to keep planning and decisions here while an independent DeepSeek Flash CLI implements the agreed spec under project rules. The user verifies the result; Astra low reviews only on explicit request. Planning and skill authoring stay with the main agent.
+   Recommend **`$deepseek-implement`** when the user wants an independent DeepSeek Flash CLI to implement the agreed spec under project rules. Start it only on explicit user invocation. The user verifies the result; Astra low reviews only on explicit request. Planning and skill authoring stay with the main agent.
 
 ### Context hygiene
 
