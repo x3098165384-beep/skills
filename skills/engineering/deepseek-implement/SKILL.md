@@ -1,16 +1,16 @@
 ---
 name: deepseek-implement
-description: 将已确定的 spec 或票据交给 DeepSeek Flash 独立 CLI，按 implement 执行。
+description: 通过独立 CLI 启动 DeepSeek Flash，按 implement 执行已确定的任务。
 ---
 
-主代理与用户通过 Matt skills 完成需求、spec 和规划；实现交给 DeepSeek Flash。规划、技能编写和工作流设计仍由主代理负责。
+用 DeepSeek Flash 独立 CLI 执行用户已确定的任务。
 
-读取 Codex 用户目录下的 `tools/Invoke-DeepSeekTask.ps1` 和 `tools/DeepSeekTask.md`，通过该脚本启动独立 CLI。用户目录取 `CODEX_HOME`，未设置时用 `~/.codex`。缺少工具或调用失败时如实报告，不静默改用内置子代理或自行实现。
+脚本位于 `$CODEX_HOME/tools/Invoke-DeepSeekTask.ps1`，用法见同目录 `DeepSeekTask.md`；未设置 `CODEX_HOME` 时用 `~/.codex`。按需读取，已知用法直接复用。
 
-交接只写一份简短任务说明：spec 或票据位置、必要背景、项目规则、已有授权、修改范围和验证边界。提供 `$implement` 的可读绝对路径，要求执行者读取它及 Testing policy；独立进程不继承当前对话。明确取消自动审查和自动提交。
+写一份简短任务文件，包含 spec 或任务、项目规则、已有授权和验证边界，以及 `$implement` 的可读路径。要求 DeepSeek 按 `$implement` 执行；独立进程不继承当前对话。明确不自动审查或提交。
 
-按脚本支持的模式和具体文件范围执行。遵守项目对源码修改、测试、Unity 操作和提交的要求；技能调用和系统写入权限不扩大授权。
+通过脚本的 `TaskFile`、`WorkDirectory` 提交。需要写文件时按授权使用 `TaskMode ScopedWrite` 和具体 `WritableFiles`；只读默认模式不能用于实现。遵守项目的测试和 Unity 限制。
 
-DeepSeek 完成实现、必要自查和已授权验证。主代理处理方案决策与阻塞，只核对交付状态、修改范围和验证证据，不追读中间源码或重复调查。修正只传当前问题与必要背景，不累加交接历史。
+等待结果，只核对交付状态、修改范围和验证证据，不重复执行者的调查和源码自查。需要修正时只交接当前问题。调用失败如实报告，不静默换成自己执行或内置子代理。
 
-交付改动摘要、验证结果、简短手工验收步骤和运行记录，由用户验证。仅在用户明确要求审查时，安排 `gpt-6-astra`、`reasoning_effort: low` 使用 `$code-review`；不可用时说明。审查发现交给 DeepSeek 修正。提交和推送由主代理按用户已有授权处理。
+返回完成内容、验证结果和运行记录路径，交给用户验证。用户明确要求后才安排 Astra low 审查；提交和推送按已有授权处理。
