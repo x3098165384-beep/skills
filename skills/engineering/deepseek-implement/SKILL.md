@@ -9,6 +9,8 @@ description: 通过独立 CLI 启动 DeepSeek Flash，按 implement 执行已确
 
 脚本位于 `$CODEX_HOME/tools/Invoke-DeepSeekTask.ps1`，用法见同目录 `DeepSeekTask.md`；未设置 `CODEX_HOME` 时用 `~/.codex`。按需读取，已知用法直接复用。
 
+脚本和用法说明的版本源在本技能的 `scripts/`。安装或更新时将其中两个文件复制到上述 `tools/` 目录。默认在 Windows Terminal 新窗口中运行 PowerShell 7，用户可直接观看执行输出；需要无窗口运行时使用 `-Hidden`。
+
 写一份简短任务文件，包含 spec 或任务、项目规则、已有授权和验证边界，以及 `$implement` 的可读路径。要求 DeepSeek 按 `$implement` 执行；独立进程不继承当前对话。明确不自动审查或提交。
 
 通过脚本的 `TaskFile`、`WorkDirectory` 提交。需要写文件时按授权使用 `TaskMode ScopedWrite` 和具体 `WritableFiles`；只读默认模式不能用于实现。遵守项目的测试和 Unity 限制。
