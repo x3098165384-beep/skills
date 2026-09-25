@@ -8,14 +8,6 @@
 
 ## Common questions
 
-**能直接看到 DeepSeek 的执行过程吗？**
-
-可以。启动脚本默认新开 Windows Terminal 窗口，里面运行 PowerShell 7，显示模型公开输出的说明、命令结果和文件修改事件。窗口只用于观看，不增加 DeepSeek 的任务指令或上下文；运行时可最小化，关闭窗口可能中断任务。主代理仍自动接收最终报告。
-
-**更新技能后，本机脚本怎样同步？**
-
-将技能目录 `scripts/` 内的 `Invoke-DeepSeekTask.ps1` 和 `DeepSeekTask.md` 复制到 Codex 用户目录的 `tools/`。可见模式需要 PATH 中有 `wt.exe` 和 `pwsh.exe`；`-Hidden` 保留原来的无窗口方式。DeepSeek 配置和凭据继续使用本机已有设置。
-
 **需要重新整理整段对话吗？**
 
 不需要。只传任务或 spec、必要背景、项目规则、已有授权和验证边界。独立进程不继承对话。
