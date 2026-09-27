@@ -78,6 +78,7 @@ A real and unfixed rough edge, reported across [harnesses](https://www.aihero.de
 - Nothing in a round needs another question in the same round answered first.
 - Later rounds ask things the first round could not have asked.
 - It goes and looks facts up (reading files, dispatching a sub-agent) rather than asking you something it could have found out.
+- When existing project code offers a useful approach, it explains how that would work for your task and asks whether you want to adopt it.
 - Research running in the background does not stall the round; only the questions that depend on it wait.
 - It stops at the end and asks you to confirm the understanding is shared, instead of starting work.
 - Question count stays high while round count stays low.
