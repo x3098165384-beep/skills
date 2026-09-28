@@ -92,6 +92,7 @@ Read [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md) for the ordered tree: the five q
 
 Off the main flow entirely.
 
+- **`$pr`**: format a pull request body with a visual summary, before/after evidence, and the merge's reversibility and impact. This model-invoked reference is in `in-progress`, available through local skill links but not shipped in the plugin.
 - **`$grill-me`**: the same relentless interview as `$grill-with-docs`, but **stateless**: it saves nothing locally and builds no `CONTEXT.md`. Reach for it when you are **not working in a working directory** (sharpening a plan, a design, a piece of writing, anything with no repo under it). If you are in a working directory, use `$grill-with-docs` instead: it runs the same interview and leaves a paper trail, so it is strictly the better one.
 - **`$grilling`** is the interview primitive itself: rounds, the frontier, facts are the agent's job and decisions are yours. `$grill-me` and `$grill-with-docs` are the two named ways in, and `$triage`, `$wayfinder` and `$improve-codebase-architecture` all run it internally. Reach for it directly only when you want the interview with no wrapper around it.
 - **`$resolving-merge-conflicts`** works an in-progress merge or rebase conflict hunk by hunk, resolving by **intent** traced to each side's primary source rather than by picking lines, then finishes the operation. It never runs `--abort`. Standalone and off every flow: reach for it when you are already mid-conflict.
