@@ -7,11 +7,13 @@ description: 通过独立 CLI 启动 DeepSeek Flash，按 implement 执行已确
 
 仅在用户明确调用本技能时启动，不自动触发。
 
-脚本位于 `$CODEX_HOME/tools/Invoke-DeepSeekTask.ps1`，用法见同目录 `DeepSeekTask.md`；未设置 `CODEX_HOME` 时用 `~/.codex`。按需读取，已知用法直接复用。
+使用随技能提供的 `scripts/Invoke-DeepSeekTask.ps1`，用法见 `scripts/DeepSeekTask.md`。`$CODEX_HOME/tools/` 中的安装副本需要与此同步；未设置 `CODEX_HOME` 时用 `~/.codex`。按需读取，已知用法直接复用。
 
 写一份简短任务文件，包含 spec 或任务、项目规则、已有授权和验证边界，以及 `$implement` 的可读路径。要求 DeepSeek 按 `$implement` 执行；独立进程不继承当前对话。明确不自动审查或提交。
 
 通过脚本的 `TaskFile`、`WorkDirectory` 提交。需要写文件时按授权使用 `TaskMode ScopedWrite` 和具体 `WritableFiles`；只读默认模式不能用于实现。遵守项目的测试和 Unity 限制。
+
+默认关闭所有 MCP。任务需要 Unity 且请求者已批准具体操作范围时，传入 `EnableUnityMcp` 和 `UnityOperationScope`，范围同时写入任务文件；此时只开启 `unityMCP`。Unity 资源写入仍须列入 `WritableFiles`。仅要求实现或开启 MCP 不构成 Unity 操作授权。`InputFiles` 模式禁止工具调用，不能启用 Unity MCP。
 
 等待结果，只核对交付状态、修改范围和验证证据，不重复执行者的调查和源码自查。需要修正时只交接当前问题。调用失败如实报告，不静默换成自己执行或内置子代理。
 
