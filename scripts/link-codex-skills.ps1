@@ -76,6 +76,30 @@ try {
         $destinationBackup = Join-Path $backupPath $destination.Label
         New-Item -ItemType Directory -Path $destinationBackup | Out-Null
 
+        # Retire only junctions owned by this repository; preserve other skills.
+        foreach ($existingEntry in (Get-ChildItem -LiteralPath $destinationRoot -Force)) {
+            if ($existingEntry.LinkType -ne 'Junction' -or
+                -not $existingEntry.Target -or
+                $skillSources.ContainsKey($existingEntry.Name)) {
+                continue
+            }
+
+            $existingSource = [System.IO.Path]::GetFullPath([string]$existingEntry.Target)
+            if (-not $existingSource.StartsWith(
+                    $skillsPath + [System.IO.Path]::DirectorySeparatorChar,
+                    [System.StringComparison]::OrdinalIgnoreCase
+                )) {
+                continue
+            }
+
+            $entryBackup = Join-Path $destinationBackup $existingEntry.Name
+            [System.IO.Directory]::Move($existingEntry.FullName, $entryBackup)
+            $movedEntries.Add([pscustomobject]@{
+                Original = $existingEntry.FullName
+                Backup = $entryBackup
+            })
+        }
+
         foreach ($skillName in ($skillSources.Keys | Sort-Object)) {
             $sourcePath = $skillSources[$skillName]
             $targetPath = [System.IO.Path]::GetFullPath(
@@ -89,8 +113,8 @@ try {
                 throw "Skill target escaped its destination root: $targetPath"
             }
 
-            if (Test-Path -LiteralPath $targetPath) {
-                $existingItem = Get-Item -LiteralPath $targetPath -Force
+            $existingItem = Get-Item -LiteralPath $targetPath -Force -ErrorAction SilentlyContinue
+            if ($null -ne $existingItem) {
                 $existingTarget = if ($existingItem.Target) {
                     [System.IO.Path]::GetFullPath([string]$existingItem.Target)
                 } else {
@@ -104,7 +128,11 @@ try {
                 }
 
                 $entryBackup = Join-Path $destinationBackup $skillName
-                Move-Item -LiteralPath $targetPath -Destination $entryBackup
+                if ($existingItem.LinkType -eq 'Junction') {
+                    [System.IO.Directory]::Move($targetPath, $entryBackup)
+                } else {
+                    Move-Item -LiteralPath $targetPath -Destination $entryBackup
+                }
                 $movedEntries.Add([pscustomobject]@{
                     Original = $targetPath
                     Backup = $entryBackup
@@ -125,8 +153,13 @@ try {
     }
 
     foreach ($entry in $movedEntries) {
-        if (Test-Path -LiteralPath $entry.Backup) {
-            Move-Item -LiteralPath $entry.Backup -Destination $entry.Original
+        $backupItem = Get-Item -LiteralPath $entry.Backup -Force -ErrorAction SilentlyContinue
+        if ($null -ne $backupItem) {
+            if ($backupItem.LinkType -eq 'Junction') {
+                [System.IO.Directory]::Move($entry.Backup, $entry.Original)
+            } else {
+                Move-Item -LiteralPath $entry.Backup -Destination $entry.Original
+            }
         }
     }
 

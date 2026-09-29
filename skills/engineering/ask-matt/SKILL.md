@@ -10,7 +10,8 @@ You don't remember every skill, so ask.
 ## Codex skill visibility
 
 Use the map below as the source of truth for routing. This Codex-specific branch
-keeps every workflow skill in Codex's visible skill catalog. Codex can otherwise
+keeps workflow skills in Codex's visible skill catalog, except the manual-only
+`discuss-with-docs` and `deepseek-implement`. Codex can otherwise
 misreport an installed explicit-only skill as unavailable when it is absent from
 that catalog. Present the exact `$skill-name` for the human to invoke. When the
 user asks whether a skill is installed, verify `~/.agents/skills/<name>` and
@@ -22,7 +23,7 @@ is not a substitute for either user-directed skill.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 
-`$discuss-with-docs` is a manual-only exception to the visibility workaround. Recommend its invocation when appropriate; start it only on the user's explicit instruction.
+`$discuss-with-docs` and `$deepseek-implement` are manual-only exceptions to the visibility workaround. Recommend their invocation when appropriate; start them only on the user's explicit instruction.
 
 ## The main flow: idea → ship
 
@@ -30,22 +31,28 @@ The route most work travels. You have an idea and want it built.
 
 If you want to lead the questions first, start with **`$discuss-with-docs`**. The agent answers, recommends changes, and maintains `discussion-notes.md` with agreed decisions separated from proposals and open questions. You decide when discussion is complete. The usual next step is `$grill-with-docs` with those notes as read-only reference, checking gaps while retaining its own glossary and ADR responsibilities. New conclusions feed into `$to-spec` through the conversation; a later discussion can use the spec as reference to update the notes. Start that transition only on your instruction; you can explicitly skip grilling and request `$to-spec`. Discussion completion alone does not mean every design question is settled. `$grill-with-docs` also works independently, without prior notes.
 
-1. **`$grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining what it learns in `CONTEXT.md` and ADRs. (No working directory? Use `$grill-me` instead, covered under Standalone. Both run the same `$grilling` primitive; `grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
+1. **`$grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining what it learns in `GLOSSARY.md` and ADRs. (No working directory? Use `$grill-me` instead, covered under Standalone. Both run the same `$grilling` primitive; `grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
 2. **Branch: can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`$handoff`** in both directions (a prototype lives in its own directory, which is exactly what `$handoff` is for; see Phase boundaries):
    - **`$handoff`** out, then open a fresh session against that file,
    - **`$prototype`** to answer the question with throwaway code,
    - **`$handoff`** back what you learned, and reference it from the original idea thread.
 3. **Branch: is this a multi-session build?**
-   - **Yes** → **`$to-spec`** (turn the thread into a spec), then **`$to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed: kick off **`$implement`** per ticket, **`/clear`ing context between each one**. Each ticket is self-contained, so the last one's context is disposable.
+   - **Yes** → **`$to-spec`** (turn the thread into a spec), then **`$to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. Then work the tickets one of two ways:
+     - **`$implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
+     - **`$implement-spec`** for the whole spec in one run. It reads the tickets as a **task graph**, runs implementer subagents across the ready **frontier** in parallel, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
    - **No** → **`$implement`** right here, in the same context window.
 
-   Either way, **`$implement`** prioritizes functionality, runs necessary compilation and directly relevant existing checks, and hands off manual acceptance steps. It follows [Testing and verification](../tdd/TESTING-POLICY.md) for any needed automation, then runs **`$code-review`** before committing. Reach for **`$tdd`** when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
+   Both build paths prioritize functionality, run necessary compilation and directly relevant existing checks, and provide manual acceptance steps. They follow [Testing and verification](../tdd/TESTING-POLICY.md) for any needed automation, then use **`$code-review`** before closeout. Reach for **`$tdd`** when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
 
    用户希望独立的 DeepSeek Flash CLI 按项目规则实施已确定规格时，推荐 **`$deepseek-implement`**，仅在用户明确调用后启动。任务需要 Unity 且已获具体操作授权时，可用启动脚本的 Unity MCP 开关。结果交给用户验证，只有明确要求后才安排 Astra low 审查；规划和技能编写由主代理完成。
 
+   When the work goes up as a pull request, **`$pr`** shapes the body: the smallest visual that shows the change, before/after evidence that it works, and a one-way or two-way door call. It's model-invoked, so the agent reaches for it whenever it writes a PR.
+
+4. **`$retro`** closes the loop. After a build, and especially one that went sideways, it looks back over the session and suggests changes to the agent's **environment**, not the code: navigation pointers, automated checks, the coding standards `$code-review` enforces, steering files, tooling. Mechanical mistakes become deterministic checks; judgement calls become coding standards. The next build then starts from a better environment.
+
 ### Context hygiene
 
-Keep steps 1–3 in **one unbroken context window** (don't compact or clear until after `$to-tickets`) so the grilling, spec, and tickets all build on the same thinking. Each `$implement` then starts fresh, working from the ticket.
+Keep steps 1–3 in **one unbroken context window** (don't compact or clear until after `$to-tickets`) so the grilling, spec, and tickets all build on the same thinking. Each `$implement` then starts fresh, working from the ticket. Run `$retro` in the session it's looking back on, before you clear; after clearing, point it at that session's log instead.
 
 The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~150k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `$to-tickets`, don't push on degraded; `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
 
@@ -73,7 +80,7 @@ Not feature work, just upkeep.
 
 Two model-invoked references that run *beneath* the other skills, each the single source of truth for its vocabulary. Reach for them directly when the **words**, not the process, are the problem; or let the skills above pull them in.
 
-- **`$domain-modeling`**: sharpen the project's *domain* language: challenge a fuzzy term, resolve an overloaded word ("account" doing three jobs), record a hard-to-reverse decision as an ADR. It's the active discipline `$grill-with-docs` drives to keep `CONTEXT.md` a clean glossary.
+- **`$domain-modeling`**: sharpen the project's *domain* language: challenge a fuzzy term, resolve an overloaded word ("account" doing three jobs), record a hard-to-reverse decision as an ADR. It's the active discipline `$grill-with-docs` drives to keep `GLOSSARY.md` a clean glossary.
 - **`$codebase-design`** is the deep-module vocabulary (module, interface, depth, seam, adapter, leverage, locality) for designing a module's *shape*: a lot of behaviour behind a small interface at a clean seam. `$tdd` and `$improve-codebase-architecture` both speak it.
 
 ## Phase boundaries
@@ -92,15 +99,13 @@ Read [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md) for the ordered tree: the five q
 
 Off the main flow entirely.
 
-- **`$pr`**: format a pull request body with a visual summary, before/after evidence, and the merge's reversibility and impact. This model-invoked reference is in `in-progress`, available through local skill links but not shipped in the plugin.
-- **`$grill-me`**: the same relentless interview as `$grill-with-docs`, but **stateless**: it saves nothing locally and builds no `CONTEXT.md`. Reach for it when you are **not working in a working directory** (sharpening a plan, a design, a piece of writing, anything with no repo under it). If you are in a working directory, use `$grill-with-docs` instead: it runs the same interview and leaves a paper trail, so it is strictly the better one.
+- **`$grill-me`**: the same relentless interview as `$grill-with-docs`, but **stateless**: it saves nothing locally and builds no `GLOSSARY.md`. Reach for it when you are **not working in a working directory** (sharpening a plan, a design, a piece of writing, anything with no repo under it). If you are in a working directory, use `$grill-with-docs` instead: it runs the same interview and leaves a paper trail, so it is strictly the better one.
 - **`$grilling`** is the interview primitive itself: rounds, the frontier, facts are the agent's job and decisions are yours. `$grill-me` and `$grill-with-docs` are the two named ways in, and `$triage`, `$wayfinder` and `$improve-codebase-architecture` all run it internally. Reach for it directly only when you want the interview with no wrapper around it.
-- **`$resolving-merge-conflicts`** works an in-progress merge or rebase conflict hunk by hunk, resolving by **intent** traced to each side's primary source rather than by picking lines, then finishes the operation. It never runs `--abort`. Standalone and off every flow: reach for it when you are already mid-conflict.
 - **`$prototype`** is a small, throwaway program that answers one design question: does this state model feel right, or what should this UI look like. Throwaway is a constraint on how the code is written, not a promise to destroy it: the answer folds into the real code, and the prototype itself is kept as a **primary source** on a `prototype/<name>` branch out of main, pointed at from the implementation issue. It's the detour in step 2 of the main flow, but reach for it any time a design question is hard to settle on paper.
 - **`$research`**: delegate reading legwork to a **background agent**: it investigates a question against **primary sources**, then leaves a cited Markdown file in the repo. Keep working while it reads. The file it produces is something to take *into* the main flow at `$grill-with-docs`, since research feeds the thinking rather than replacing it.
 - **`$to-questionnaire`** comes in when the thing blocking you isn't in your head or the codebase but in **someone else's**, and it writes them a questionnaire to fill in. It's the inverse of `$grill-me`: instead of interviewing you about the subject, it interviews you about the **send** (who it's going to, what you need back) and aims the questions at the gap. What comes back is material for `$grill-with-docs` or `$to-spec`.
 - **`$wizard`** is for the steps only a **human** can take: provisioning infrastructure, setting up credentials or CI secrets, clicking through an unfamiliar third-party dashboard, running a one-off migration or cutover. It generates an interactive bash script that opens each URL, captures each value, and writes it into `.env` and GitHub secrets, so the procedure stops being something you re-explain to an agent every time. Model-invoked, so the agent reaches for it the moment it hits a wall only you can pass. If the agent could just do it itself, it should; this is for where a human is genuinely in the loop.
-- **`$wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in plain English, using the `CONTEXT.md` vocabulary. It works after the fact; `$grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
+- **`$wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in plain English, using the `GLOSSARY.md` vocabulary. It works after the fact; `$grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
 - **`$teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
 - **`$writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
 

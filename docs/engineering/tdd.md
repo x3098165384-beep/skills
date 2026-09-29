@@ -92,7 +92,7 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 `tdd` is optional within the build step, used when you request test-first work:
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review
+grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
 [to-spec](https://aihero.dev/skills-to-spec) records verification decisions. [implement](https://aihero.dev/skills-implement) uses `tdd` when you request this workflow, and [code-review](https://aihero.dev/skills-code-review) assesses the result under the same testing policy. [codebase-design](https://aihero.dev/skills-codebase-design) supplies interface-design vocabulary when an interface decision is needed. [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the workflow.
