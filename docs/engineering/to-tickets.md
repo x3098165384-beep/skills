@@ -1,6 +1,6 @@
 ## What it does
 
-`to-tickets` takes a plan, a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the conversation you are in, and breaks it into a set of **[tickets](https://www.aihero.dev/ai-coding-dictionary/ticket)** on your issue tracker. Each ticket declares its **blocking edges**: the other tickets that have to finish before it can start.
+`to-tickets` takes a plan, a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the conversation you are in, and breaks it into a set of **[tickets](https://www.aihero.dev/ai-coding-dictionary/ticket)** on your issue tracker. It chooses the granularity and publishes directly, then reports the created tickets. Each ticket declares its **blocking edges**: the other tickets that have to finish before it can start.
 
 Every ticket is a **tracer bullet**: a complete behavior through the required layers that can be demonstrated on its own. Each carries relevant verification decisions: manual steps, existing checks, and the reason and scope for any needed automation. Each ticket fits a fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so a new [session](https://www.aihero.dev/ai-coding-dictionary/session) can implement it without the earlier conversation.
 
@@ -28,7 +28,7 @@ A **horizontal** slice ships one layer of the change. Nothing works until every 
 
 This is the rule people break most often, and the consequences are well documented. One team ran a 26-ticket stack sliced by layer (corpus, producer, aggregator, selector) and got roughly twenty agent runs per closed ticket, about three quarters of them rework. Their own post-mortem traced every failure class back to the horizontal slicing rather than to the implementations.
 
-Two things happen before anything is published. `to-tickets` looks for prefactoring (the principle "make the change easy, then make the easy change") and orders that work first. Then it presents the breakdown as a numbered list and quizzes you on it: is the granularity right, are the blocking edges real, should anything merge or split. Nothing reaches the tracker until you approve, and that quiz is the place to push back.
+Before publishing, `to-tickets` looks for prefactoring (the principle "make the change easy, then make the easy change") and orders that work first. It checks the breakdown itself, merging unnecessary fragments, splitting work that exceeds a fresh context window, and keeping only real dependencies. Routine sizing decisions go straight to publication. It asks only when missing information materially affects scope or intended behavior and cannot be inferred. If you explicitly ask to review a draft first, it honors that request.
 
 ## Blocking edges
 
@@ -56,10 +56,10 @@ Where even the batches can't stay green alone, they share an integration branch 
 ## Common questions
 
 **It produced twelve tickets for a three-line change.**
-Over-decomposition is the most reported friction on this skill, and it is consistent across practitioners: the [model](https://www.aihero.dev/ai-coding-dictionary/model) defaults to atomic units and loses the grouping that would make them meaningful. The quiz step exists for exactly this: ask it to merge, and it will. The deeper answer is that the tickets have a floor: if the whole change fits in one context window, you don't need this skill at all. Go straight to [implement](https://aihero.dev/skills-implement).
+The [model](https://www.aihero.dev/ai-coding-dictionary/model) checks for unnecessary fragments before publishing, but you can still ask it to merge tickets if the result is too fine. If the whole change fits in one context window, go straight to [implement](https://aihero.dev/skills-implement).
 
 **The tickets came out one per layer: all the schema in one, all the API in another.**
-This is the failure the vertical-slice rule is written against, and the skill still produces it sometimes. Catch it at the quiz step by asking one question per ticket: what can I demo when this is done? A ticket with no answer is a horizontal slice. Some people add a "demo path" line to each ticket for this reason, and report it nudges the model toward vertical decomposition.
+The model should catch this before publishing by checking what each ticket delivers on its own. You can review the created-ticket summary with the same question: what can I demo when this is done? A ticket with no answer needs to be regrouped around a complete behavior.
 
 **On GitHub the tickets weren't created as sub-issues of the spec issue.**
 Known and unfixed. It has been reported across a dozen runs and several models, [most fully in issue #554](https://github.com/mattpocock/skills/issues/554), and it is worse on Codex than on Claude. `gh` has supported this natively since v2.94: `gh issue create --parent <n>`, and `gh issue edit <parent> --add-sub-issue <n>` after the fact. Until the tracker template prefers those, wiring the parent links yourself after a run is the reliable move.
@@ -82,7 +82,7 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 ## It's working if
 
 - Every ticket has an answer to "what can I demo when this is done?", and the answer is behaviour, not a layer.
-- The list comes back to you numbered, with a "Blocked by" line on each, before anything is published.
+- Tickets are created without a routine approval round, and the numbered summary links to each one with its deliverable and blockers.
 - The ticket at the top has no blockers and can be started immediately.
 - Nothing in a ticket body is a file path or a line number, except a snippet a prototype produced.
 - Each ticket reads like something a fresh session could finish without you in the room.
