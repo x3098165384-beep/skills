@@ -2,7 +2,7 @@
 
 `implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or an agreed plan. It prioritizes working functionality, runs necessary compilation and directly relevant existing checks, provides manual acceptance steps, runs [code-review](https://aihero.dev/skills-code-review), and commits to the current branch.
 
-It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a commit. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which will happily redesign the work while it builds it.
+The agreed behavior and constraints remain the input. Within those decisions, the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) considers existing configuration and business entry points before extending the code. It weighs correctness and maintenance rather than preserving the old structure or simply minimizing the number of changed files. This guides implementation choices without adding a new design interview or approval stage.
 
 ## When to reach for it
 
@@ -41,6 +41,8 @@ A run is five beats, in order:
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
 ## Choosing verification
+
+New dependencies, shared-flow changes, and defensive handling are assessed against actual callers and supported use cases. Unconfirmed risks can remain verification questions. Existing investigation is reused, with further checks focused on facts that could affect the implementation choice.
 
 Behavior you can reliably check with a few actions is left for your manual verification. Existing checks still run, and existing tests may be maintained when the change affects them. The agent does not ask about adding tests on every small change.
 

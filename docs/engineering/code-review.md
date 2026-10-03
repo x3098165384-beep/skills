@@ -47,6 +47,10 @@ The **smell baseline** is the floor underneath it, twelve Fowler code smells fro
 
 ## Common questions
 
+**Does the review consider whether the implementation could be simpler?**
+
+Yes. The Standards reviewer considers whether added complexity serves actual callers and agreed behavior, and whether existing configuration or business entry points offer a more direct approach. Simplification suggestions are judgement calls supported by code and maintenance benefits, not automatic defects. The comparison looks beyond dependencies introduced by the change itself and stays within the review's scope.
+
 **Will it reject a change just because no new tests were added?**
 
 No. Both reviewers use the shared testing policy. A verification concern must identify a concrete possible failure and explain why existing checks and manual steps are insufficient. New automation should address that gap or your explicit request. Unnecessary test additions can be reported as scope creep; explicitly requested tests remain requirements.
