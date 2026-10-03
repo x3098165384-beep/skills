@@ -53,6 +53,10 @@ Two of those are routinely got wrong, which is why the router carries the order 
 
 No. This branch prioritizes functionality with necessary existing checks and manual acceptance. [implement](https://aihero.dev/skills-implement) adds automation for behavior that is difficult to test reliably by hand or impossible to test manually, or for your explicit request. Diagnosis follows the same rule, including temporary reproductions. No separate test approval is needed for these gaps; [tdd](https://aihero.dev/skills-tdd) is for requests to work test-first.
 
+**Do the implementation routes include committing?**
+
+Yes. Both include local commits in delivery and report a final commit hash. `implement` commits to the current branch; `implement-spec` commits each ticket and includes review fixes in its integration branch. User or project instructions to defer committing take precedence.
+
 **Isn't there just a list of the skills in the right order?**
 
 People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → code-review → retro` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `$grilling` shipped long before the router named it.

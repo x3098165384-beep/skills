@@ -27,7 +27,9 @@ Everything lands on one branch. Each implementer:
 
 1. confirms its worktree is based on the integration branch before it starts,
 2. builds its ticket following the shared testing policy, using necessary compilation, relevant existing checks, and manual acceptance steps; [tdd](https://aihero.dev/skills-tdd) supplies a test-first loop when requested,
-3. merges the integration branch tip into its own branch before reporting done, so landing it is a fast-forward.
+3. commits its ticket's changes, then merges the integration branch tip into its own branch and reports the resulting commit hash, so landing it is a fast-forward.
+
+Local commits are included in the workflow without another confirmation. Manual acceptance can remain pending; a user or project instruction to defer commits takes precedence. After the final review, any fixes are checked, committed, and merged into the integration branch before closeout. The final response identifies that branch and its final commit hash, or explains what blocks completion.
 
 Whether a pull request exists at all is the tracker's call. If your tracker closes work through PRs, or you ask for one, a draft PR opens after the first merge and is marked ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
 
@@ -72,6 +74,7 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 - Several implementers are running at once whenever the graph allows, not one after another.
 - A ticket starts as soon as its last blocker lands on the integration branch, not when the whole run ends.
 - Every ticket reports actual check results and manual acceptance steps, including any acceptance still pending.
+- Each completed ticket has a commit, and the final integration commit includes the review fixes.
 - Merges into the integration branch are fast-forwards, not conflict resolutions.
 - The run ends on one branch with every ticket resolved, and a PR only if your tracker wanted one.
 

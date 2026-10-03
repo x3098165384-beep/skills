@@ -68,6 +68,10 @@ Not with `$implement`: one invocation, one ticket. For a whole spec in one run, 
 
 Not built in. It commits straight to the current branch, which several people find too eager: the code lands before they have had a chance to verify it works. There is no configuration flag and no PR mode. People override it in the invocation ("commit to a branch and open a PR") or by editing their local copy of the skill. When the agent does write the PR, [pr](https://aihero.dev/skills-pr) shapes its body.
 
+**Do I need to ask it to commit after implementation?**
+
+No. After the required checks and review fixes, it commits this task's changes to the current branch without another confirmation and reports the commit hash. Unrelated changes stay outside the commit. Pending manual acceptance alone does not delay it; an explicit user or project instruction to defer committing takes precedence. If it cannot commit, it reports the blocker and remaining changes.
+
 **`code-review` says it cannot see my changes.**
 
 `implement` now passes its starting commit and spec to review. Current-work review includes staged, unstaged, and in-scope untracked files, so no interim commit is needed.
@@ -88,7 +92,7 @@ Inspect what consumed the time. This branch no longer requires a new test loop o
 - New tests address a stated manual testing gap or your explicit request.
 - Necessary compilation and existing relevant checks run, with their actual results reported.
 - You receive manual actions and expected results; checks you have not performed are marked as pending.
-- The run reaches a commit on your current branch without you prompting it to carry on.
+- The run reaches a commit on your current branch without you prompting it to carry on, and reports the commit hash or a specific blocker.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.
 
 ## Where it fits

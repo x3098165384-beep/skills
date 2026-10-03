@@ -11,6 +11,8 @@ The issue tracker should have been provided to you. If not, tell the user to run
 
 The goal is the entire spec implemented on a single **integration branch**, with every ticket resolved the way the issue tracker closes work.
 
+Local commits are part of this workflow and need no separate confirmation. Commit only the task's work. Pending manual acceptance alone does not block committing; honor any user or project instruction to defer it. If committing is deferred or blocked, preserve uncommitted work and report the blocker before dependent merges or cleanup.
+
 The tickets are not a list of steps. They are a **task graph** with blocking relationships between them. This means there is always a **frontier** of tickets which are ready to be grabbed.
 
 Communication to and from subagents should be sparse. Communicate primarily through **context pointers**: to the spec, tickets, research notes, and previous commits. Don't duplicate information already available via pointers.
@@ -28,14 +30,14 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 4. Use **implementer subagents** to implement each ticket, each in its own worktree on its own branch. Each implementer subagent:
    - confirms its worktree is based on the integration branch before starting, recreating a clean worktree from that branch if necessary while preserving existing work;
    - builds the ticket's functionality, runs necessary compilation and directly relevant existing checks, and supplies manual acceptance steps under the shared testing policy; uses $tdd when test-first work was requested;
-   - merges the integration branch tip into its own branch before reporting done
+   - commits its ticket's work to its own branch, then merges the integration branch tip into that branch and reports the resulting commit hash before reporting done.
 
 5. Once an **implementer subagent** completes, merge its work to the integration branch with a **merger subagent**.
 
 6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
 
-7. Once all tickets are complete, use $code-review on the integration branch. Fix all issues raised by the code review in a single **implementer subagent**.
+7. Once all tickets are complete, use $code-review on the integration branch. Fix all issues raised by the code review in a single **implementer subagent**. Rerun affected checks, commit the fixes, and merge them into the integration branch before closeout.
 
-8. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work, and report the integration branch.
+8. Confirm all task changes, including review fixes, are committed and merged; otherwise report the blocker before closeout. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work. Report the integration branch, its final commit hash, and verification results.
 
 9. Clean up all **implementer subagent** worktrees.

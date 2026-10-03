@@ -44,6 +44,8 @@ If you want to lead the questions first, start with **`$discuss-with-docs`**. Th
 
    Both build paths prioritize functionality, run necessary compilation and directly relevant existing checks, and provide manual acceptance steps. They follow [Testing and verification](../tdd/TESTING-POLICY.md) for any needed automation, then use **`$code-review`** before closeout. Reach for **`$tdd`** when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
 
+   Both build paths include local commits and report the final commit hash as part of delivery. `$implement` commits to the current branch; `$implement-spec` commits each ticket and merges review fixes into the integration branch.
+
    用户希望独立的 DeepSeek Flash CLI 按项目规则实施已确定规格时，推荐 **`$deepseek-implement`**，仅在用户明确调用后启动。任务需要 Unity 且已获具体操作授权时，可用启动脚本的 Unity MCP 开关。结果交给用户验证，只有明确要求后才安排 Astra low 审查；规划和技能编写由主代理完成。
 
    When the work goes up as a pull request, **`$pr`** shapes the body: the smallest visual that shows the change, before/after evidence that it works, and a one-way or two-way door call. It's model-invoked, so the agent reaches for it whenever it writes a PR.

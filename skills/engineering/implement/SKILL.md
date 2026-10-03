@@ -17,4 +17,6 @@ Run necessary compilation or type checks and directly relevant existing checks. 
 
 Once done, use $code-review with the starting commit and spec to review the current work, including uncommitted changes. Fix substantiated findings and rerun affected checks.
 
-Commit your work to the current branch.
+Commit this task's work to the current branch as part of completing the workflow, without a separate confirmation. Keep unrelated changes out of the commit. Pending manual acceptance alone does not block committing; honor any user or project instruction to defer it.
+
+Report the commit hash and verification results. If committing is blocked, report the specific blocker and remaining changes instead of treating implementation alone as completion.
