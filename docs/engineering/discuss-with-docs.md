@@ -2,7 +2,7 @@
 
 `discuss-with-docs` turns your questions and feedback into discussion notes. You lead the discussion; the agent investigates, recommends changes with reasons and trade-offs, and keeps the document current. You decide when the discussion is complete.
 
-The document separates agreed decisions from proposals and open questions. This lets you explore an alternative without accidentally making it the plan.
+The document separates agreed decisions from proposals and open questions, keeping their reasons and supporting references. When you end the discussion, the agent reconciles the notes and uses [domain-modeling](https://aihero.dev/skills-domain-modeling) to record confirmed terms and qualifying decisions. This lets you explore an alternative without accidentally making it the plan.
 
 ## When to reach for it
 
@@ -25,19 +25,33 @@ The notes are created once the discussion's goal and necessary background are cl
 The document has six sections, in this order, with headings in your language:
 
 1. **Goal and Scope**: what the discussion should resolve and its boundaries.
-2. **Background and Known Facts**: context, verified facts, and relevant evidence.
+2. **Background and Known Facts**: context, verified investigation conclusions, and references to relevant source files, methods, document sections, or resources, including what remains uncertain.
 3. **Agreed Decisions**: decisions you accepted, with reasons.
 4. **Proposals for Discussion**: recommendations, trade-offs, and unverified assumptions.
 5. **Open Questions**: remaining questions, including any that block a spec.
 6. **Rejected or Superseded Alternatives**: important alternatives set aside and why.
 
-Empty sections say `None yet`. The notes reflect the current discussion state: accepted proposals move into decisions and resolved questions leave the open list. They are not a transcript or a finished spec.
+Empty sections say `None yet`. During discussion, focused updates preserve meaningful outcomes without reorganizing the whole document on every reply. Repeated emphasis can sharpen an existing constraint even when the overall direction has not changed. Resuming the discussion starts from the relevant earlier conclusions and their references.
+
+## Closing the discussion
+
+When you say the discussion can end, the agent brings the notes into a coherent current state. Accepted proposals become decisions, resolved questions leave the open list, and older alternatives retain their rejection or replacement reasons. Later accepted changes replace earlier agreements within their scope; later suggestions remain proposals. If the intended resolution of a contradiction is unclear, the agent asks you rather than choosing silently.
+
+The reconciled conclusions then feed a single domain-modeling pass. Established project terms belong in your glossary, such as `CONTEXT.md` or `GLOSSARY.md`; qualifying accepted decisions belong in ADRs. Proposals and unresolved choices stay in the discussion notes. Long notes can open with a short current summary and point to the detailed evidence, so the next session can find the effective conclusions.
 
 ## Common questions
 
 **Why is the agent recording every message?**
 
-It should record changes to goals, constraints, decisions, consequential facts, concrete proposals, and unresolved questions that affect progress. Ordinary explanations, repeated confirmations, investigation steps, and tool output stay in the conversation. Several exchanges clarifying one point can become a single conclusion; if nothing material changed, the agent simply answers without editing the notes. You can also explicitly ask it to record a particular point.
+It should record meaningful outcomes and clarifications, together with the reasons and limits that affect later choices. Routine explanations, investigation steps, and raw tool output can stay in the conversation. Several exchanges clarifying one point can refine a single conclusion; if the existing record already captures the point, another edit is unnecessary. You can also explicitly ask it to record something.
+
+**The next session remembers the conclusion but loses the investigation behind it.**
+
+Notes should retain the investigation result, the relevant file and method or document section, and what that evidence means for the choice. "Reuse the existing control switch" is incomplete if the next reader cannot locate the switch or tell which of its effects fit the proposed behavior. References accompany the conclusions they support, including what was not established.
+
+**When do terms and decisions enter the glossary or ADRs?**
+
+At closeout, after the notes have been reconciled. Domain-modeling applies its criteria to confirmed terms and accepted decisions in the project's existing locations. Casual proposals remain in the notes; finishing discussion does not turn every proposal into a decision.
 
 **Isn't this wayfinder?**
 
@@ -49,7 +63,7 @@ That is the usual next step. Discussion develops the proposal; grilling examines
 
 **Does accepting an edit end the discussion?**
 
-No. Accepting an edit settles that edit. The discussion ends when you say it is complete or ask to move on. Any remaining gaps stay visible, and the next phase starts only on your instruction.
+No. Accepting an edit settles that edit. Saying the discussion can end starts reconciliation and domain recording. Unclear contradictions are brought back to you, other remaining gaps stay visible, and the next phase starts only on your instruction.
 
 **When should the agent stop replying?**
 
@@ -58,11 +72,13 @@ Each turn ends once your current question is answered and any material change is
 ## It's working if
 
 - Your questions set the direction, and recommendations explain their reasons when a revision is warranted.
-- The notes change when the discussion changes the plan or its decision basis, with proposals visibly distinct from agreed decisions.
+- The notes retain meaningful outcomes, reasons, applicable limits, and references that explain the decision basis, with proposals visibly distinct from agreed decisions.
 - Ordinary clarification can pass without a file edit, and repeated exchanges become one concise conclusion.
 - After answering your question, the agent stops and lets you choose the next topic.
 - A later grilling pass uses the notes as reference, leaving their updates to a subsequent discussion.
-- The closing message identifies the document and any unresolved questions.
+- At closeout, earlier suggestions no longer appear as unresolved after you accepted or rejected them, and replaced decisions point to the current conclusion.
+- Confirmed terms and qualifying decisions appear in the project's domain records, linked from the notes.
+- The closing message identifies the organized notes, any domain records changed, and unresolved questions.
 
 ## Where it fits
 

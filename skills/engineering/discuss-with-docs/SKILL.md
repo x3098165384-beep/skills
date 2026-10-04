@@ -8,12 +8,16 @@ Start only on explicit user invocation. Discussing or editing this skill does no
 ## Each turn
 
 1. **Answer the current question.** Read relevant project instructions and references, investigate facts, and give a reasoned judgment with trade-offs where useful. Clarify only what is needed for this question; the user chooses the next topic.
-2. **Record material changes.** Update notes only for changes to goals, constraints, decisions, consequential facts, concrete proposals, or unresolved issues affecting the plan, or when explicitly asked. Keep explanations, repeated confirmations, and investigation output in the conversation. Merge clarification into a concise conclusion; distinguish proposals from user-accepted decisions and verified facts from assumptions. Preserve important decision reasons when replacing an earlier conclusion.
+2. **Record material outcomes.** Capture goals, constraints, decisions, consequential facts, concrete proposals, and unresolved issues affecting the plan, including their reasons and applicable limits. Honor explicit requests to record a point. When the user repeats or corrects a point, check whether the existing record captures the clarification and refine it where needed. Distinguish proposals from user-accepted decisions and verified facts from assumptions. A follow-up question or silence leaves a proposal unaccepted.
 3. **Stop this turn.** Once the question is answered and any warranted update is written, return the floor. If notes changed, briefly say what changed and link them. Otherwise just answer. Do not extend the agenda, ask a closing question merely to keep talking, or start the next phase.
 
 ## Discussion notes
 
-Create `docs/plans/<topic>/discussion-notes.md` once the goal and necessary background are clear. Use a short kebab-case topic; a configured planning-doc root or explicit destination overrides this default. Resume the same notes. A supplied spec is reference unless the user explicitly asks to edit it; keep the notes out of the domain glossary.
+Create `docs/plans/<topic>/discussion-notes.md` once the goal and necessary background are clear. Use a short kebab-case topic; a configured planning-doc root or explicit destination overrides this default. Resume the same notes, reading the relevant earlier conclusions and linked references before continuing. A supplied spec is reference unless the user explicitly asks to edit it.
+
+Keep investigation conclusions and reference material that affect the design beside the conclusions they support. Point to relevant source files and methods, document sections, resources, or external references; explain what was established, its implication, and any remaining uncertainty. Prefer project-relative paths and stable names for local references. Routine explanations, investigation steps, and raw tool output can stay in the conversation.
+
+Favor focused updates during discussion, preserving enough context to interpret changes later. Whole-document reconciliation belongs at discussion completion. The notes carry the discussion; the domain glossary carries established project terms.
 
 Use these six sections in order, in the user's language. Empty sections say `None yet`; they are not a quota to fill each turn.
 
@@ -35,4 +39,8 @@ Use these six sections in order, in the user's language. Empty sections say `Non
 
 ## Discussion completion
 
-Only the user's explicit completion or request to move on ends the discussion; accepting one edit does not. Reconcile the notes with the agreed conclusions, retain unresolved questions and identify any blocking a spec, then return the document. Hand off to another phase only as instructed. This workflow produces discussion notes, not an implementation.
+Only the user's explicit completion or request to move on ends the discussion; accepting one edit does not. Treat statements such as "I think we can finish the discussion" as the cue to close out:
+
+1. **Reconcile the notes.** Review the available discussion and notes together. Merge repeated points, collect the current agreed conclusions, move accepted proposals into decisions, and remove resolved questions from the open list. Preserve important rejected or superseded alternatives and why they changed. Use later accepted changes and their scope to resolve older statements; a later suggestion alone does not override an agreement. Ask about contradictions whose intended resolution is unclear, and carry genuinely unresolved questions forward, identifying any that block a spec. For long notes, a short current summary and links to detailed evidence help the next reader.
+2. **Record the domain model.** Use [$domain-modeling](../domain-modeling/SKILL.md) with the reconciled conclusions to maintain confirmed project terms and qualifying accepted decisions in the project's glossary and ADR locations. Keep proposals and unresolved choices in the notes. Link to the resulting domain records; this is the closeout pass, rather than a routine on every reply.
+3. **Return the result.** Link the organized notes, any domain records changed, and the remaining gaps. Hand off to another phase only as instructed. This workflow produces discussion notes and applicable domain records, not an implementation.
