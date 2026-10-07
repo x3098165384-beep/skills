@@ -16,6 +16,8 @@ The issue tracker should have been provided to you. If `docs/agents/issue-tracke
 
 Read [Testing and verification](../tdd/TESTING-POLICY.md) before assessing verification. Include that reference and relevant verification decisions in both review briefs below.
 
+Consider whether affected existing operations retain their behavior outside requested or already approved changes, including when new functionality is inactive or stopped. Implementation changes that preserve behavior are fine. Include this guidance in both review briefs and support concerns with concrete before/after behavior.
+
 ### 1. Pin the fixed point
 
 Use the fixed point supplied by the user or calling workflow. If neither supplied one, ask for it.

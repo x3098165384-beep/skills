@@ -47,6 +47,10 @@ The **smell baseline** is the floor underneath it, twelve Fowler code smells fro
 
 ## Common questions
 
+**Does changing the implementation count as breaking existing functionality?**
+
+No. The reviewers look for unintended changes to existing operations outside requested or already approved changes, including when a new feature is inactive or stopped. A concern needs concrete before/after behavior; implementation changes that preserve behavior are fine.
+
 **Does the review consider whether the implementation could be simpler?**
 
 Yes. The Standards reviewer considers whether added complexity serves actual callers and agreed behavior, and whether existing configuration or business entry points offer a more direct approach. Simplification suggestions are judgement calls supported by code and maintenance benefits, not automatic defects. The comparison looks beyond dependencies introduced by the change itself and stays within the review's scope.
