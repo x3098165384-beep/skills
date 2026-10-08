@@ -11,4 +11,8 @@ Include a "suggested skills" section in the document, naming which skills the ne
 
 Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
 
+Give the next agent a resource index for continuing the work. List key paths or links in suggested reading order, noting their purpose and any pointers needed to locate the relevant detail, so the agent can find the evidence, understand the current state, and start the next step quickly.
+
+Distil the session's lessons and pitfalls that affect the remaining work: when they apply, what worked, why failed attempts failed, and how to avoid repeating them. Distinguish verified conclusions from judgments still to be checked, prioritising information that saves repeated exploration.
+
 If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.

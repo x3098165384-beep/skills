@@ -31,6 +31,8 @@ Three of the five options at a phase boundary preserve different things: `/compa
 
 The document carries the live thread (what's in flight, why, and what's next) plus a **suggested skills** section naming what the next agent should reach for.
 
+Its resource index gives the next agent a suggested reading order, with the purpose of each key path or link and pointers to the relevant detail. Lessons and pitfalls preserve what worked, where it applies, and why earlier attempts failed, so the next session can avoid repeating the same exploration. Verified conclusions are distinguished from judgments that still need checking.
+
 What it deliberately does not carry is anything already written down. Specs, plans, ADRs, issues, commits and diffs are referenced by path or URL, never copied. That keeps the file small, and it keeps the settled detail in one place instead of two that drift.
 
 ## Common questions
@@ -67,6 +69,7 @@ Both work; they suit different situations. As a skill it ships and updates throu
 - The file is under the project's `docs/handoff/` directory (or your explicitly requested path), and the agent gives you a link to it.
 - The document is a small fraction of the conversation, and the specs, issues and diffs appear in it as paths and URLs rather than as copied text.
 - You can read it cold, without the original session open, and know what to do next.
+- The resource index shows where to start reading, and the lessons make clear which approaches worked or failed and which conclusions still need checking.
 - The fresh agent starts working instead of asking you to re-explain the setup.
 - In the fork case, your original session is still sitting there untouched when you come back to it.
 - The suggested-skills section names the skill you'd have reached for yourself.
