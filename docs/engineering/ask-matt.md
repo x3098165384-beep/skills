@@ -27,7 +27,7 @@ The tracker-dependent routes (triage, `to-spec`, `to-tickets`, `implement`) assu
 
 The word the skill gives you to think with is **flow**: a path *through* the skills, not a single one. Naming your situation places you on a flow at a step, which is a different answer from "here is the skill that matches your keywords". Five kinds of route exist, and the skill itself carries them in full:
 
-- **The main flow**, idea to ship. Optionally start with `$discuss-with-docs` to lead the questions and develop discussion notes with reasons and references. Ending that discussion reconciles the notes and records confirmed terms and qualifying decisions through [domain-modeling](https://aihero.dev/skills-domain-modeling); you choose when to enter grilling. Grill, spec, tickets, implement (one ticket at a time, or the whole task graph in parallel with [implement-spec](https://aihero.dev/skills-implement-spec)), review, then [retro](https://aihero.dev/skills-retro), which feeds what the build taught back into the agent's environment. Two branches sit inside it: a prototype detour when a question needs runnable code to settle, and the spec-and-tickets split, which only earns its cost when the build spans more than one session.
+- **The main flow**, idea to ship. Optionally start with `$discuss-with-docs` to lead the questions and develop discussion notes with reasons and references. Ending that discussion reconciles the notes and records confirmed terms and qualifying decisions through [domain-modeling](https://aihero.dev/skills-domain-modeling); you choose when to enter grilling. Grill, spec, tickets, implement (one ticket at a time, or the whole task graph in parallel with [implement-spec](https://aihero.dev/skills-implement-spec)), review when requested, then [retro](https://aihero.dev/skills-retro), which feeds what the build taught back into the agent's environment. Two branches sit inside it: a prototype detour when a question needs runnable code to settle, and the spec-and-tickets split, which only earns its cost when the build spans more than one session.
 - **On-ramps**, for a situation that generates work and then merges onto the main flow: incoming bug reports, something broken, or an effort too foggy and too large to hold in one session.
 - **Codebase health**, upkeep rather than feature work: [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) surveys the code for deepening opportunities, and each one it finds re-enters the main flow as an idea.
 - **Standalones**, off every flow, reached for on their own terms: the prototype, the questionnaire, the research run.
@@ -55,11 +55,11 @@ No. This branch prioritizes functionality with necessary existing checks and man
 
 **Do the implementation routes include committing?**
 
-Yes. Both include local commits in delivery and report a final commit hash. `implement` commits to the current branch; `implement-spec` commits each ticket and includes review fixes in its integration branch. User or project instructions to defer committing take precedence.
+Yes. Both include local commits in delivery and report a final commit hash. `implement` commits to the current branch; `implement-spec` commits each ticket and includes any subsequent fixes in its integration branch. User or project instructions to defer committing take precedence.
 
 **Isn't there just a list of the skills in the right order?**
 
-People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → code-review → retro` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `$grilling` shipped long before the router named it.
+People keep asking for one in the README. This skill is that list: it is what it exists for. A static table would say `wayfinder → to-spec → to-tickets → implement → [requested code-review] → retro` and be wrong for most situations, because the interesting parts are the branches: is there a codebase, does the build span sessions, can this question be settled by talking. The honest cost is that the router is hand-maintained and lags the repo. `$grilling` shipped long before the router named it.
 
 **It told me half the skills aren't installed.**
 

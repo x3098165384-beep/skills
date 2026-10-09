@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or an agreed plan. It prioritizes working functionality, runs necessary compilation and directly relevant existing checks, provides manual acceptance steps, runs [code-review](https://aihero.dev/skills-code-review), and commits to the current branch.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or an agreed plan. It prioritizes working functionality, runs necessary compilation and directly relevant existing checks, provides manual acceptance steps, and commits to the current branch.
 
 The agreed behavior and constraints remain the input. Within those decisions, the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) considers existing configuration and business entry points before extending the code. It weighs correctness and maintenance rather than preserving the old structure or simply minimizing the number of changed files. This guides implementation choices without adding a new design interview or approval stage.
 
@@ -26,7 +26,7 @@ The same-session case is worth naming because the skill's own first line doesn't
 
 `implement` commits to the branch you are on. It does not create one, and it does not ask. Check you are on the branch you want the work on before you start.
 
-If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the tracker they live on was configured by [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills). `code-review` reads the same configuration to find the originating spec at close-out.
+If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the tracker they live on was configured by [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills). When requested, `code-review` reads the same configuration to find the originating spec.
 
 ## What one run does
 
@@ -34,9 +34,9 @@ A run is five beats, in order:
 
 1. Read the ticket or spec and its verification decisions; record the starting commit.
 2. Implement the behavior, adding targeted verification only where the shared testing policy calls for it.
-3. Run necessary compilation or type checks and existing tests that cover the change.
+3. Check the changed code and its actual callers, and run necessary compilation or type checks and existing tests that cover the change.
 4. Provide manual steps and expected results, marking unperformed checks as awaiting your verification.
-5. Run [code-review](https://aihero.dev/skills-code-review) against the starting commit, including uncommitted work; fix substantiated findings, rerun affected checks, then commit to the current branch.
+5. If a separate review was requested, run [code-review](https://aihero.dev/skills-code-review) against the starting commit and fix substantiated findings. Commit the completed task to the current branch after the required checks.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
@@ -58,7 +58,7 @@ Not by default. The decision depends on whether a person can effectively verify 
 
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
-Correct, and expected. `implement` has no completion step. It ends at the commit and never touches the work item, confirmed on GitHub Issues and on the local markdown tracker, so it is not a tracker integration problem. It fixes substantiated review findings, but does not tick the `- [ ]` boxes on the originating issue. Close the ticket and reconcile the criteria yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
+Correct, and expected. `implement` has no completion step. It ends at the commit and never touches the work item, confirmed on GitHub Issues and on the local markdown tracker, so it is not a tracker integration problem. It fixes substantiated findings from any requested review, but does not tick the `- [ ]` boxes on the originating issue. Close the ticket and reconcile the criteria yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
@@ -70,13 +70,13 @@ Not built in. It commits straight to the current branch, which several people fi
 
 **Do I need to ask it to commit after implementation?**
 
-No. After the required checks and review fixes, it commits this task's changes to the current branch without another confirmation and reports the commit hash. Unrelated changes stay outside the commit. Pending manual acceptance alone does not delay it; an explicit user or project instruction to defer committing takes precedence. If it cannot commit, it reports the blocker and remaining changes.
+No. After the required checks and any requested review fixes, it commits this task's changes to the current branch without another confirmation and reports the commit hash. Unrelated changes stay outside the commit. Pending manual acceptance alone does not delay it; an explicit user or project instruction to defer committing takes precedence. If it cannot commit, it reports the blocker and remaining changes.
 
 **`code-review` says it cannot see my changes.**
 
-`implement` now passes its starting commit and spec to review. Current-work review includes staged, unstaged, and in-scope untracked files, so no interim commit is needed.
+When a review is requested, `implement` passes its recorded starting commit and spec. Current-work review includes staged, unstaged, and in-scope untracked files, so no interim commit is needed.
 
-Separately, some people deliberately do not want the review inside the run at all, because an agent reviewing the code it just wrote is biased toward its own solution. Running [code-review](https://aihero.dev/skills-code-review) in a fresh session against a fixed point is a legitimate alternative, and is the same reason that skill runs its two axes in separate sub-agents.
+A separate review runs only when you request it, including when you include it in the original task. Implementation still includes checking changed code and actual callers. You can also request [code-review](https://aihero.dev/skills-code-review) later in a fresh session.
 
 **One ticket burned 150k tokens. Am I using it wrong?**
 
@@ -100,10 +100,10 @@ Inspect what consumed the time. This branch no longer requires a new test loop o
 `implement` is the build step of the main chain:
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review → retro
+grill-with-docs → to-spec → to-tickets → implement → [requested code-review] → retro
 ```
 
-Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which provides the work and verification decisions; [tdd](https://aihero.dev/skills-tdd), used when you request test-first work; and [code-review](https://aihero.dev/skills-code-review), which it runs before committing. The plan determines the requested behavior; the shared testing policy determines when new tests are useful.
+Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which provides the work and verification decisions; [tdd](https://aihero.dev/skills-tdd), used when you request test-first work; and [code-review](https://aihero.dev/skills-code-review), which it runs before committing when you requested a separate review. The plan determines the requested behavior; the shared testing policy determines when new tests are useful.
 
 That trust is why [wayfinder](https://aihero.dev/skills-wayfinder) merges onto the chain at [to-spec](https://aihero.dev/skills-to-spec) rather than looping its map straight into `implement`. Go straight to `implement` from a map only when the effort turned out genuinely small.
 

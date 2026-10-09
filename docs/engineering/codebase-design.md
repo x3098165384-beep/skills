@@ -22,26 +22,26 @@ Several skills sit close to it. Which one you want depends on what the actual pr
 
 ## The vocabulary
 
-The glossary is the skill. Every term is defined against the others, and each one comes with the word it replaces.
+The glossary explains design concepts. Concrete discussions keep the user's and project's existing names; a new design term is introduced only when it clarifies a decision, with an explanation of the object or dependency it describes.
 
-| Term | What it means | Don't say |
-|---|---|---|
-| **Module** | Anything with an interface and an implementation. Deliberately scale-agnostic: a function, a class, a package, a slice spanning tiers. | unit, component, service |
-| **Interface** | Everything a caller must know to use it correctly: the type signature, plus invariants, ordering constraints, error modes, required config, performance characteristics. | API, signature |
-| **Depth** | Leverage at the interface: how much behaviour a caller or a test can exercise per unit of interface they have to learn. **Deep**: a lot of behaviour behind a small interface. **Shallow**: the interface is nearly as complex as the implementation. | none |
-| **Seam** | Michael Feathers' term: a place you can alter behaviour without editing in that place. It is the *location* of an interface, and where to put it is its own decision, separate from what goes behind it. | boundary |
-| **Adapter** | A concrete thing satisfying an interface at a seam. Names a role, not a substance: an in-memory fake and a Postgres repo are both adapters. | none |
-| **Leverage** | What callers get from depth: more capability per unit of interface learned. | none |
-| **Locality** | What maintainers get from depth: change, bugs and verification concentrate in one place. Fix once, fixed everywhere. | none |
+| Term | What it means |
+| --- | --- |
+| **Module** | A function, class, package, or behavior with an interface and an implementation. |
+| **Interface** | What callers need to know: signatures, required state, ordering, error behavior, configuration, and performance. |
+| **Depth** | How much useful behavior callers can use through a small interface. |
+| **Seam** | A place where an implementation can be replaced without changing callers. |
+| **Adapter** | An implementation that connects a dependency to the interface its callers use. |
+| **Leverage** | The capability callers gain from the interface. |
+| **Locality** | How closely related behavior and changes stay together. |
 
 Depth is deliberately *not* defined as the ratio of implementation lines to interface lines, which is Ousterhout's own definition. That metric rewards padding the implementation. Depth-as-leverage is used instead.
 
 ## The four principles
 
-- **Depth is a property of the interface, not the implementation.** A deep module can be built internally from small swappable parts. They just don't surface to callers. A module can have internal seams its own tests use, and one external seam at its interface.
-- **The deletion test.** Imagine deleting the module. If complexity vanishes, it was a pass-through. If it reappears across N callers, it was earning its keep.
-- **The interface is the test surface.** Callers and tests cross the same seam. If you want to test *past* the interface, the module is the wrong shape.
-- **One adapter means a hypothetical seam. Two adapters means a real one.** Don't cut a seam until something actually varies across it. A single-adapter seam is just indirection.
+- **Depth is a property of the interface, not the implementation.** Internal parts are chosen for the behavior and callers they serve.
+- **The deletion test.** If deleting a module would move its necessary complexity back into many callers, it earns its place.
+- **The interface is the test surface.** Tests observe behavior through production interfaces.
+- **Dependency boundaries need production reasons.** Choose them from actual callers and supported business behavior; a production implementation plus a test replacement does not by itself justify a new interface.
 
 Two supporting files go further, and the skill reads them on demand rather than up front. [DEEPENING.md](https://github.com/x3098165384-beep/skills/blob/codex/skills/engineering/codebase-design/DEEPENING.md) classifies dependencies into four categories (in-process, local-substitutable, remote-but-owned, true-external) to understand what varies across a seam. Its testing examples apply to existing tests or automation justified by a manual testing gap or your explicit request. [DESIGN-IT-TWICE.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/codebase-design/DESIGN-IT-TWICE.md) spins up parallel [sub-agents](https://www.aihero.dev/ai-coding-dictionary/subagent) to produce three or more radically different interfaces for the same module, then compares them on depth, locality and seam placement.
 
@@ -77,12 +77,12 @@ People have proposed exactly those. [Issue #180](https://github.com/mattpocock/s
 
 ## It's working if
 
-- The design conversation stops producing the words "component", "service" and "boundary", and starts producing "module", "interface" and "seam".
+- The discussion uses your project's names and explains design concepts through concrete objects and behavior.
 - Someone can point at a proposed extraction and say whether it passes the deletion test, without hedging.
-- A proposed seam comes with a second adapter named, not just the first one.
+- A proposed dependency interface names the production caller or business behavior that requires it.
 - Discussion of an interface covers invariants, ordering and error modes, not only the type signature.
 - Invoking it does not start a session. If the agent begins reading files and proposing refactors off the back of `$codebase-design` alone, it has mistaken the reference for a driver.
 
 ## Where it fits
 
-`codebase-design` is a **reach-for-it-anytime standalone**, and the vocabulary layer underneath the engineering skills rather than a step in any chain. Its closest neighbour is [domain-modeling](https://aihero.dev/skills-domain-modeling), the parallel reference for the *problem domain*'s words rather than the module's shape. The two are usually wanted together, since naming a deep module well needs both. [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) is the other: it surveys a codebase for deepening candidates and writes every one of them in this glossary, so it finds the module and this skill is the bench you design it on. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+`codebase-design` is a **reach-for-it-anytime standalone**, and the vocabulary layer underneath the engineering skills rather than a step in any chain. Its closest neighbour is [domain-modeling](https://aihero.dev/skills-domain-modeling), the parallel reference for the *problem domain*'s words rather than the module's shape. The two are usually wanted together, since naming a deep module well needs both. [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) is the other: it surveys a codebase for design improvements and explains them using project names, so it finds the module and this skill is the bench you design it on. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

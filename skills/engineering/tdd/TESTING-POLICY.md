@@ -14,7 +14,7 @@ Judge the gap by whether a person can effectively verify the behavior, not by ch
 
 Maintain valid existing tests affected by the change. Remove checks only when the requested behavior makes them obsolete, and explain why.
 
-Choose production interfaces and dependencies for actual callers and project requirements. Keep verification helpers in test code; use existing interfaces or report the limitation rather than reshaping production code solely for a test.
+Choose production interfaces and dependencies for actual callers and project requirements before choosing tests. A test replacement alone does not justify adding or retaining a production parameter, interface, wrapper, or dependency replacement entry point. Keep verification helpers in test code; use an existing production interface or report the missing automated coverage. Dependency injection remains appropriate when actual production callers or supported business behavior require it.
 
 ## Run scope and reporting
 

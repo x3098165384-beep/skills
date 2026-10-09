@@ -9,7 +9,7 @@ Use this loop when the user requests test-first work. For ordinary implementatio
 
 TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle: consult them before and during the loop, not after.
 
-When exploring the codebase, read `GLOSSARY.md` (if it exists) so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching.
+When exploring the codebase, read the glossary and relevant ADRs using the [configured domain document locations](../domain-modeling/SKILL.md#domain-document-locations), so test names and interface vocabulary match the project.
 
 ## What a good test is
 
@@ -37,4 +37,4 @@ When the shape of that interface is itself in question (how deep the module is, 
 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
-- **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
+- After a test passes, make any cleanup needed for correctness and maintenance within the agreed scope, then rerun the affected checks. A separate review follows the user's request, not every red → green cycle.

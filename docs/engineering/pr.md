@@ -4,6 +4,8 @@
 
 The summary is a picture, not a paragraph. Where a default PR body narrates the diff in prose, this one picks the **smallest view** that makes the key point clear (pseudocode, a call tree, a component tree, a file tree, a Mermaid diagram, or a shaped diff) and keeps the words around it brief. The reviewer already has the diff open; the body's job is to show them its shape before they read it.
 
+It uses the project's configured glossary and relevant ADRs as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
+
 ## When to reach for it
 
 Type `$pr`, or the agent reaches for it automatically whenever it is writing a PR body.
@@ -11,7 +13,7 @@ Type `$pr`, or the agent reaches for it automatically whenever it is writing a P
 | Your situation | Reach for |
 | --- | --- |
 | A branch is ready and needs a body a reviewer can scan | `pr` |
-| The code is written but nobody has reviewed it yet | [code-review](https://aihero.dev/skills-code-review) first, then `pr` |
+| You want a separate review before writing the PR | Request [code-review](https://aihero.dev/skills-code-review), then use `pr` |
 | The PR is open and review comments are coming back | Nothing in this set yet; `pr` only writes the body |
 
 ## The template
@@ -71,9 +73,9 @@ Not by itself. One user's approach is a standing instruction in the repo's agent
 
 ## Where it fits
 
-`pr` sits between review and retro when the build goes up as a pull request: `to-spec → to-tickets → implement → code-review → pr → retro`. It is model-invoked, so it also fires on its own any time the agent writes a PR body outside that chain.
+`pr` sits between review and retro when the build goes up as a pull request: `to-spec → to-tickets → implement → [requested code-review] → pr → retro`. It is model-invoked, so it also fires on its own any time the agent writes a PR body outside that chain.
 
-- [code-review](https://aihero.dev/skills-code-review) runs before it, because a PR body should describe a diff that has already been reviewed.
+- [code-review](https://aihero.dev/skills-code-review) can run before it when a separate review was requested; the PR body reports the checks and review actually performed.
 - [implement](https://aihero.dev/skills-implement) produces the commits the body describes.
 
 [ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you are unsure which skill the situation wants.

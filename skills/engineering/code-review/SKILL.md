@@ -3,7 +3,7 @@ name: code-review
 description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 
-Two-axis review of changes since a fixed point:
+Run this workflow when the user requests a review, including one agreed as part of the original task. Review changes since a fixed point along two axes:
 
 - **Standards**: does the code conform to this repo's documented coding standards?
 - **Spec**: does the code faithfully implement the originating issue / spec?
@@ -20,7 +20,7 @@ Consider whether affected existing operations retain their behavior outside requ
 
 ### 1. Pin the fixed point
 
-Use the fixed point supplied by the user or calling workflow. If neither supplied one, ask for it.
+Use the fixed point supplied by the user or calling workflow. Otherwise, reuse the pre-task commit recorded for this task when it reliably identifies the review scope. Ask only when no reliable starting commit is available or existing changes and commits make the scope ambiguous. The current HEAD at review time is not a substitute for an unrecorded starting commit.
 
 Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so the comparison is against the merge-base). Also note the list of commits via `git log <fixed-point>..HEAD --oneline`.
 

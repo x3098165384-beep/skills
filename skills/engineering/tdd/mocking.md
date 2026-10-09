@@ -15,45 +15,22 @@ Don't mock:
 
 ## Designing for Mockability
 
-At system boundaries, design interfaces that are easy to mock:
+Use replacement points that production already needs, following [Testing and verification](TESTING-POLICY.md). Passing a client into a function is appropriate when actual callers own or select that client. Keep client creation inside the responsible production code when callers do not need to supply it.
 
-**1. Use dependency injection**
-
-Pass external dependencies in rather than creating them internally:
+When the application needs a shared client interface, give its operations the names and arguments production callers use:
 
 ```typescript
-// Easy to mock
-function processPayment(order, paymentClient) {
-  return paymentClient.charge(order.total);
-}
-
-// Hard to mock
-function processPayment(order) {
-  const client = new StripeClient(process.env.STRIPE_KEY);
-  return client.charge(order.total);
-}
-```
-
-**2. Prefer SDK-style interfaces over generic fetchers**
-
-Create specific functions for each external operation instead of one generic function with conditional logic:
-
-```typescript
-// GOOD: Each function is independently mockable
+// Each operation names the behavior its callers need.
 const api = {
   getUser: (id) => fetch(`/users/${id}`),
   getOrders: (userId) => fetch(`/users/${userId}/orders`),
   createOrder: (data) => fetch('/orders', { method: 'POST', body: data }),
 };
 
-// BAD: Mocking requires conditional logic inside the mock
+// Callers must know how every endpoint works.
 const api = {
   fetch: (endpoint, options) => fetch(endpoint, options),
 };
 ```
 
-The SDK approach means:
-- Each mock returns one specific shape
-- No conditional logic in test setup
-- Easier to see which endpoints a test exercises
-- Type safety per endpoint
+Choose between these shapes from production usage, not the convenience of a mock. Keep fake responses and test setup in test code. If no production replacement point exists, use an available integration check or report what remains unverified.

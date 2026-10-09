@@ -4,6 +4,8 @@
 
 The investigation needs an observed failure that can be distinguished from correct behavior. A manual reproduction you have already confirmed supplies that evidence; the agent does not need to create an automated test just to begin diagnosis.
 
+It uses the project's configured glossary and relevant ADRs as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
+
 ## When to reach for it
 
 Type `$diagnosing-bugs`, or the agent reaches for it on its own when a task fits: it is model-invoked, and fires on "diagnose" / "debug this" or on a report that something is broken, throwing, failing, or slow.

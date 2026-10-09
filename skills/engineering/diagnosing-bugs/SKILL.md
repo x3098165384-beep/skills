@@ -9,7 +9,7 @@ A discipline for hard bugs. Skip phases only when explicitly justified.
 
 Use [Testing and verification](../tdd/TESTING-POLICY.md) to choose a reproduction method. Start with existing commands, existing tests, or confirmed manual steps. Follow project permissions for running the application and adding instrumentation.
 
-When exploring the codebase, read `GLOSSARY.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
+When exploring the codebase, read the glossary and relevant ADRs using the [configured domain document locations](../domain-modeling/SKILL.md#domain-document-locations).
 
 ## Redact
 

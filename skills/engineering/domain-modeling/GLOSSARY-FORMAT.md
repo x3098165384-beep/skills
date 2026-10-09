@@ -1,4 +1,6 @@
-# GLOSSARY.md Format
+# Domain glossary format
+
+Use the [configured domain document locations](SKILL.md#domain-document-locations). The paths below illustrate the default layout; use the project's configured names when applying it.
 
 ## Structure
 
@@ -51,7 +53,7 @@ _Avoid_: Client, buyer, account
 - **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
 ```
 
-The skill infers which structure applies:
+When no project layout is configured, infer which default structure applies:
 
 - If `GLOSSARY-MAP.md` exists, read it to find contexts
 - If only a root `GLOSSARY.md` exists, single context

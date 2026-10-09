@@ -15,7 +15,7 @@ Prioritize delivering the requested functionality. Use [Testing and verification
 
 Run necessary compilation or type checks and directly relevant existing checks. Provide short manual steps and expected results; delivery can proceed with manual acceptance marked as pending.
 
-Once done, use $code-review with the starting commit and spec to review the current work, including uncommitted changes. Fix substantiated findings and rerun affected checks.
+Check the changed code and its actual callers against the agreed behavior and project rules, and fix issues found during implementation. Use $code-review only when the user requested a separate review, including a review agreed at the start of the task. Pass the starting commit and spec, include uncommitted changes, fix substantiated findings, and rerun affected checks.
 
 Commit this task's work to the current branch as part of completing the workflow, without a separate confirmation. Keep unrelated changes out of the commit. Pending manual acceptance alone does not block committing; honor any user or project instruction to defer it.
 

@@ -1,15 +1,21 @@
 ---
 name: domain-modeling
-description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.
+description: Build and sharpen a project's domain model. Use when discussing codebase terminology, maintaining its domain glossary, or recording or editing an ADR.
 ---
 
 # Domain Modeling
 
-Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `GLOSSARY.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+Actively build and sharpen the project's domain model as you design. Challenge unclear terms, discuss concrete scenarios, and record terms and decisions when they are agreed. Reading an existing glossary for vocabulary does not start this workflow.
+
+## Domain document locations
+
+Use the glossary, glossary map, and ADR locations configured in the project's instructions and `docs/agents/domain.md`. Preserve those locations, including a glossary named `CONTEXT.md`. References to the glossary in these skills mean the configured file.
+
+When the project has no configured locations, use root `GLOSSARY.md` and `docs/adr/`, or follow root `GLOSSARY-MAP.md` if present. Create a missing glossary only when a term is agreed, and an ADR directory only when a decision needs recording. Skill updates do not require renaming or duplicating existing configured documents.
 
 ## File structure
 
-Most repos have a single context:
+The default layout for a repo with a single context is:
 
 ```
 /
@@ -21,7 +27,7 @@ Most repos have a single context:
 └── src/
 ```
 
-If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The map points to where each one lives:
+For multiple contexts, the configured map points to where each one lives. With the default names:
 
 ```
 /
@@ -37,13 +43,12 @@ If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The m
 │       └── docs/adr/
 ```
 
-Create files lazily: only when you have something to write. If no `GLOSSARY.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
 
 ## During the session
 
 ### Challenge against the glossary
 
-When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"
+When the user uses a term that conflicts with the configured glossary, explain the existing definition and the apparent difference before asking which meaning is intended.
 
 ### Sharpen fuzzy language
 
@@ -57,11 +62,11 @@ When domain relationships are being discussed, stress-test them with specific sc
 
 When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
 
-### Update GLOSSARY.md inline
+### Update the glossary inline
 
-When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up: capture them as they happen. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
+When a term is resolved, update the configured glossary right there. Capture terms as they are agreed. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
 
-`GLOSSARY.md` should be totally devoid of implementation details. Do not treat `GLOSSARY.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
+Keep the glossary focused on project terms and their relationships. Put specifications, discussion notes, and implementation decisions in their respective project documents.
 
 ### Offer ADRs sparingly
 

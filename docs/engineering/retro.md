@@ -24,7 +24,7 @@ Each candidate belongs to one category, and the category decides where the fix g
 | A steering file is full of lines that change nothing | Delete the **no-ops** |
 | The agent needed information it couldn't reach | Widen its access: tee the dev server log to a file, give read-only access to a service |
 
-The leading idea is that standards belong to the **reviewer**, not the implementer. The implementing agent carries the most context pressure: it explores, writes code, and debugs failures. The reviewing agent receives a diff and nothing else. So a new rule goes where there is room to apply it, in review, and never in [AGENTS.md](https://www.aihero.dev/ai-coding-dictionary/agents-md), which loads into every session's [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) whether it's relevant or not.
+Project standards guide implementation and any requested review. The implementing agent checks its changes and actual callers; an independent reviewer checks the requested scope with its own evidence. A retrospective places guidance where the responsible stage will read it, with short references from [AGENTS.md](https://www.aihero.dev/ai-coding-dictionary/agents-md) when needed.
 
 Before any rule gets written, the violation is classified. A **mechanical** one (a banned API, an import shape, a file-location rule) gets a deterministic check, because a check can fail and a sentence in a standards file can't. Only genuine judgement calls, the kind no linter could ever enforce, become prose. A repo with no guardrail at all (no pre-commit hook, no CI job running lint, typecheck, and tests) is reported as a finding in its own right.
 
@@ -48,7 +48,7 @@ By default it reviews the current session, which is the best case: the struggles
 
 **The agent keeps making the same mistake. Should I add a line to `CLAUDE.md`?**
 
-Usually not, and that's the most common place `retro` pushes back. A line in `CLAUDE.md` is loaded into every session, dilutes everything else in the file, and drifts as the code changes. If the mistake is mechanical, the fix is a check that fails. If it's a judgement call, it goes in the coding standards the reviewer reads. `AGENTS.md` and `CLAUDE.md` are for navigation pointers, and little else. For the same reason `retro` is not a [memory system](https://www.aihero.dev/ai-coding-dictionary/memory-system): it doesn't store what happened, it changes the environment so it can't happen again.
+Usually not, and that's the most common place `retro` pushes back. A line in `CLAUDE.md` is loaded into every session, dilutes everything else in the file, and drifts as the code changes. If the mistake is mechanical, the fix is a check that fails. If it's a judgement call, it goes in the coding standards used during implementation and any requested review. `AGENTS.md` and `CLAUDE.md` are for navigation pointers, and little else. For the same reason `retro` is not a [memory system](https://www.aihero.dev/ai-coding-dictionary/memory-system): it doesn't store what happened, it changes the environment so it can't happen again.
 
 **My setup mentions `CODING_STANDARDS.md` and I don't have one. Where does it come from?**
 
@@ -70,7 +70,7 @@ The input. [improve-codebase-architecture](https://aihero.dev/skills-improve-cod
 `retro` is the last step of the main chain, where the flow looks back at itself:
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review → retro
+grill-with-docs → to-spec → to-tickets → implement → [requested code-review] → retro
 ```
 
 Run it after a build worth learning from, in the same session or pointed at that session's log. A smooth build can skip it.

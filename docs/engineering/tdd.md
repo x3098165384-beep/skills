@@ -28,7 +28,7 @@ The shared testing policy defaults to manual acceptance, with new automation for
 
 Three words carry this skill.
 
-**Red-green.** Write the failing test, then only enough code to pass it. No anticipating the test after next. There is no refactor phase: it was dropped in June 2026 because agents essentially never performed it, and because review and implementation work better as separate sessions. Refactoring belongs to [code-review](https://aihero.dev/skills-code-review).
+**Red-green.** Write the failing test, then enough code to pass it. After it passes, make any cleanup needed for correctness and maintenance within the agreed scope and rerun affected checks. A separate [code-review](https://aihero.dev/skills-code-review) runs when requested.
 
 **Vertical slice.** One seam, one test, one minimal implementation, then repeat, the first cycle being a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Bulk tests verify *imagined* behaviour, they check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
@@ -42,7 +42,7 @@ The three anti-patterns it is written to prevent:
 | Tautological | The expected value is computed the way the code computes it, so the test passes by construction. Expected values have to come from somewhere else: a known-good literal, a worked example, the spec. |
 | Horizontal slicing | A batch of tests landed before any implementation. |
 
-Mocks are for system boundaries only: external APIs, time, randomness, sometimes the filesystem or the database. Not your own modules.
+Mocks belong at system boundaries and use replacement points production already needs. The interface is chosen from actual callers and business requirements before tests; a test replacement alone does not justify an extra production parameter or interface. Test helpers stay in test code, and missing automated coverage is reported when the production interface cannot support the check.
 
 ## Common questions
 
@@ -52,7 +52,7 @@ Only when you request test-first work. A targeted check for a manual testing gap
 
 **Where does refactoring fit?**
 
-This skill keeps the loop to one failing test and the implementation that makes it pass. Its existing rules place refactoring in the [code-review](https://aihero.dev/skills-code-review) stage. Making TDD optional preserves that division of work when you choose it.
+After a test passes, the implementing agent can make the cleanup needed for the agreed behavior and rerun affected checks. This does not require a separate review or expand the task into unrelated refactoring.
 
 **It asked me to choose a test seam and I had no idea which to pick.**
 
@@ -72,7 +72,7 @@ No. `$tdd` documents the methodology; `$implement` is a very simple work→feedb
 
 **Where did the deep-modules and interface-design guidance go?**
 
-Into [codebase-design](https://aihero.dev/skills-codebase-design) in v1.0, generalised so several skills share one vocabulary. `refactoring.md` left at the same time; refactoring is now [code-review](https://aihero.dev/skills-code-review)'s job, and that skill carries the Fowler smell baseline.
+Into [codebase-design](https://aihero.dev/skills-codebase-design) in v1.0. It supplies interface-design guidance when the application needs a design decision. Implementation owns necessary cleanup; a requested [code-review](https://aihero.dev/skills-code-review) can identify further issues.
 
 **Does it know about my other tickets?**
 
@@ -92,7 +92,7 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 `tdd` is optional within the build step, used when you request test-first work:
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review → retro
+grill-with-docs → to-spec → to-tickets → implement → [requested code-review] → retro
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) records verification decisions. [implement](https://aihero.dev/skills-implement) uses `tdd` when you request this workflow, and [code-review](https://aihero.dev/skills-code-review) assesses the result under the same testing policy. [codebase-design](https://aihero.dev/skills-codebase-design) supplies interface-design vocabulary when an interface decision is needed. [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the workflow.
+[to-spec](https://aihero.dev/skills-to-spec) records verification decisions. [implement](https://aihero.dev/skills-implement) uses `tdd` when you request this workflow, and a requested [code-review](https://aihero.dev/skills-code-review) assesses the result under the same testing policy. [codebase-design](https://aihero.dev/skills-codebase-design) supplies interface-design vocabulary when an interface decision is needed. [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the workflow.

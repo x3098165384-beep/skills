@@ -16,18 +16,18 @@ Dependencies that have local test stand-ins (PGLite for Postgres, in-memory file
 
 ### 3. Remote but owned (Ports & Adapters)
 
-Your own services across a network boundary (microservices, internal APIs). Define a **port** (interface) at the seam. The deep module owns the logic; the transport is injected as an **adapter**. Tests use an in-memory adapter. Production uses an HTTP/gRPC/queue adapter.
+For your own services across a network boundary, inspect how production callers use the existing client. Add an interface or pass in a transport only when supported business behavior requires it, such as choosing between transports. Tests can replace dependencies through an interface the application already needs.
 
-Recommendation shape: *"Keep the logic in one deep module and isolate the varying transport behind an adapter."* Add a test adapter only when the verification need justifies it.
+Keep the business logic together. When the application needs interchangeable transports, explain which callers select them and keep test replacements in test code.
 
 ### 4. True external (Mock)
 
-Third-party services (Stripe, Twilio, etc.) you don't control. The deepened module takes the external dependency as an injected port; tests provide a mock adapter.
+For third-party services such as Stripe or Twilio, use the client or interface required by production callers. The fact that a service is external does not by itself justify an extra interface. Tests may use an existing replacement point; otherwise use an available integration check or report the verification limit.
 
 ## Seam discipline
 
-- **One adapter means a hypothetical seam. Two adapters means a real one.** Don't introduce a port unless at least two adapters are justified (typically production + test). A single-adapter seam is just indirection.
-- **Internal seams vs external seams.** A deep module can have internal seams (private to its implementation, used by its own tests) as well as the external seam at its interface. Don't expose internal seams through the interface just because tests use them.
+- Choose dependency boundaries for actual production callers and supported business behavior, following [Testing and verification](../tdd/TESTING-POLICY.md).
+- Keep internal details out of the public interface. Verification code belongs in tests and uses the same business interfaces as production callers.
 
 ## Testing strategy: replace, don't layer
 

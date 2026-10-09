@@ -93,7 +93,7 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 `to-tickets` is a step in the main build chain:
 
 ```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review → retro
+grill-with-docs → to-spec → to-tickets → implement → [requested code-review] → retro
 ```
 
-Upstream is [to-spec](https://aihero.dev/skills-to-spec), which provides the agreed behavior and verification decisions; keep both in one unbroken context window. Downstream is [implement](https://aihero.dev/skills-implement), which prioritizes functionality with existing checks and manual acceptance, adds automation for specific manual testing gaps or explicit requests, and closes with [code-review](https://aihero.dev/skills-code-review). [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the flow. [implement-spec](https://aihero.dev/skills-implement-spec) reads the same blocking edges as a task graph and builds ready tickets in parallel on one integration branch, following the same testing policy.
+Upstream is [to-spec](https://aihero.dev/skills-to-spec), which provides the agreed behavior and verification decisions; keep both in one unbroken context window. Downstream is [implement](https://aihero.dev/skills-implement), which prioritizes functionality with existing checks and manual acceptance, adds automation for specific manual testing gaps or explicit requests, and commits the result. A separate [code-review](https://aihero.dev/skills-code-review) runs when requested. [ask-matt](https://aihero.dev/skills-ask-matt) helps choose the flow. [implement-spec](https://aihero.dev/skills-implement-spec) reads the same blocking edges as a task graph and builds ready tickets in parallel on one integration branch, following the same testing policy.

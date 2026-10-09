@@ -3,4 +3,4 @@ name: wait-what
 description: "Stop. That last message did not land: re-pitch it."
 ---
 
-Wait, I don't understand where you've got to here. Re-pitch that: give me a little bit of context, talk in ASD-STE100 Simplified Technical English, and use the ubiquitous language from `GLOSSARY.md` (follow `GLOSSARY-MAP.md` to the right one if the repo has more than one).
+Explain the previous answer again in the user's language. State the relevant facts and why they matter, using plain words and the project's established names. Use the [configured domain glossary](../../engineering/domain-modeling/SKILL.md#domain-document-locations) when project terminology is needed.

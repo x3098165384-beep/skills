@@ -2,7 +2,7 @@
 
 `domain-modeling` builds and sharpens a project's **ubiquitous language** while you are designing: challenging a term that conflicts with the glossary, forcing a precise word where you used a vague one, and stress-testing a relationship with a concrete scenario until the boundaries are exact.
 
-It is the **active** discipline, not the passive one. Reading `GLOSSARY.md` to borrow its vocabulary is a one-line habit any skill can do; this skill is for when you are *changing* the model. That is what makes it interrupt. It writes a resolved term into `GLOSSARY.md` at the moment it is resolved, in the middle of the conversation, rather than producing a tidy glossary at the end, because the batched version is a summary of a [session](https://www.aihero.dev/ai-coding-dictionary/session), and the inline version is the session's actual output.
+The skill records terms and relationships as you agree them during a [session](https://www.aihero.dev/ai-coding-dictionary/session). It uses the glossary and ADR locations configured in project instructions and `docs/agents/domain.md`. Without configured paths, the defaults are `GLOSSARY.md`, an optional `GLOSSARY-MAP.md`, and `docs/adr/`. An existing configured glossary such as `CONTEXT.md` keeps its name.
 
 ## When to reach for it
 
@@ -23,7 +23,7 @@ Reach for it when the *words* are the problem:
 
 None up front. The skill writes into two places and creates both lazily:
 
-- **`GLOSSARY.md`** at the repo root, created by the first resolved term. In a repo with a `GLOSSARY-MAP.md` at the root, terms go into the per-context `GLOSSARY.md` the map points at instead.
+- **The configured glossary**, created when the first term is agreed. When a glossary map is configured, follow it to the file for the relevant context.
 - **`docs/adr/`**, created by the first ADR that clears the bar.
 
 Nothing needs to exist before you start, and nothing is created speculatively.
@@ -54,8 +54,7 @@ The limit is worth knowing. It cross-references **code** and the committed `GLOS
 **My `GLOSSARY.md` is 500 lines. 1,000. 3,000. What do I do?**
 The size is a symptom, not the disease: the file has absorbed implementation detail and decisions that were never glossary material. The fix is a direct instruction: `$grill-with-docs make my GLOSSARY.md more concise and remove any implementation details from it`. Run it against a bloated file and most of it goes. Only reach for a `GLOSSARY-MAP.md` split once the file is genuinely lean and still covers two domains that a reader would not want to hold at once; splitting a bloated file just gives you several bloated files. The skill's guidance here is not yet strong enough to prevent the growth in the first place, and the issue tracking that is still open.
 
-**Why is it `GLOSSARY.md` and not `GLOSSARY.md`?**
-This is the most-argued naming question in the whole skill set and it has no settled answer. The case against the current name is good: if it is "a glossary and nothing else", `GLOSSARY.md` says so, and, as one reader put it, "with ai agents everything is [context](https://www.aihero.dev/ai-coding-dictionary/context)". The case for it is the map: `GLOSSARY-MAP.md` pointing at several `GLOSSARY.md` files reads naturally in a way `GLOSSARY-MAP.md` does not, and `context` is the standing DDD word for a bounded area of the model. At least one person maintains a local fork purely to rename the file. You can do the same, but every other skill in the set looks for `GLOSSARY.md`, so a rename means patching all of them.
+No. Configure the existing glossary in your project instructions or `docs/agents/domain.md`. Skills read and update that file. `GLOSSARY.md` is the default for an unconfigured project, so a skill update does not require a document migration.
 
 **Where did `/ubiquitous-language` go?**
 It was removed, and it was not deprecated. Its job moved into `domain-modeling`, which maintains the whole model continuously rather than dumping a glossary out of one conversation. Vocabulary enforcement got more load-bearing, not less: it now runs underneath grilling, triage and mapping rather than as a separate pass you remember to do.
@@ -63,8 +62,7 @@ It was removed, and it was not deprecated. Its job moved into `domain-modeling`,
 **How do I get a glossary for a codebase that has none?**
 Ask for it explicitly rather than waiting for it to accumulate. `$grill-with-docs help me scaffold my existing repo with a GLOSSARY.md` is the documented route; expect a long interrogation: one user reported 50+ questions before the file was in shape. Incidental use builds the glossary far too slowly on a brownfield repo.
 
-**Can I keep the domain model and use my own ADR format?**
-Not cleanly today. The glossary half and the ADR half ship in one skill, so a team with an established ADR convention (different template, different location, different naming) gets instructions that conflict with its house style. The current options are to copy the skill locally and edit it, or to override the ADR conventions in your repo's own agent docs. Splitting the two apart is [an open request](https://github.com/mattpocock/skills/issues/557).
+Use the ADR location and project conventions recorded in your project instructions or `docs/agents/domain.md`. The skill preserves those locations. Its default format applies where the project has not supplied one.
 
 **Does a glossary actually earn its keep? It is one more artifact to review, and it can go stale.**
 Sometimes it does not, and it is worth being honest about where. DDD gets less useful the closer it gets to the implementation: the payoff is upstream, in naming and concept alignment, not in aggregates and layer ceremony. Synonym control matters at naming boundaries: module names, table names, status enums, issue titles, CLI commands. It matters much less in ordinary prose. There is also a live objection that domain terms compress communication *between humans* who already share them, and that an agent responds the same way to the plain-English description. On that reading, the glossary's value is keeping you and your reviewers aligned with what the agent is doing, not making the agent better. On a one-day build, skip it. And an unreviewed, agent-authored glossary is worse than none: it becomes confident-sounding lore that later sessions treat as truth.

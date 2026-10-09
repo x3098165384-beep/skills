@@ -1,6 +1,6 @@
 ## What it does
 
-`implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, runs [code-review](https://aihero.dev/skills-code-review) over the result, and resolves the tickets.
+`implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, checks the integrated changes and their callers, and resolves the tickets.
 
 It reads the tickets as a **task graph**, not a list. Blocking edges decide what can start, so at any moment there is a **frontier** of tickets whose blockers have all landed, and every ticket on the frontier runs at once. That is the difference from working the tickets one by one: the graph's shape, not its order on the tracker, sets the pace.
 
@@ -29,7 +29,7 @@ Everything lands on one branch. Each implementer:
 2. builds its ticket following the shared testing policy, using necessary compilation, relevant existing checks, and manual acceptance steps; [tdd](https://aihero.dev/skills-tdd) supplies a test-first loop when requested,
 3. commits its ticket's changes, then merges the integration branch tip into its own branch and reports the resulting commit hash, so landing it is a fast-forward.
 
-Local commits are included in the workflow without another confirmation. Manual acceptance can remain pending; a user or project instruction to defer commits takes precedence. After the final review, any fixes are checked, committed, and merged into the integration branch before closeout. The final response identifies that branch and its final commit hash, or explains what blocks completion.
+Local commits are included in the workflow without another confirmation. Manual acceptance can remain pending; a user or project instruction to defer commits takes precedence. A separate review runs only when requested, including when agreed at the start. Any fixes are checked, committed, and merged into the integration branch before closeout. The final response identifies that branch and its final commit hash, or explains what blocks completion.
 
 Whether a pull request exists at all is the tracker's call. If your tracker closes work through PRs, or you ask for one, a draft PR opens after the first merge and is marked ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
 
@@ -47,7 +47,7 @@ No, not any more. One user who liked the in-progress version had exactly this co
 
 **Its review and fix loop ran for hours, or kept "fixing" tickets that hadn't been built yet.**
 
-Both come from `code-review` running outside the one slot the skill gives it. It compares the code against the whole spec, so it only makes sense once every ticket has landed; run it mid-run and every unbuilt ticket reads as a failure, the agent sets about building it, and that triggers another review. At the end, the skill runs `code-review` once and sends every finding to one fix subagent, but it doesn't yet say when to stop after that fix. One user reported a five-ticket feature where "the review and fix loop took roughly four hours". If you see a second broad review start, tell it to run focused checks for the fixed findings and stop. Expect that first review to find real problems: the run's output is a draft that the review finishes, not something to ship on its own.
+Implementation includes checks of each ticket and the integrated result. A requested review runs once after all tickets have landed, using the recorded starting commit and the whole spec. Review findings are checked and substantiated issues are fixed; affected checks then run without automatically starting another broad review. Reviewing the whole spec before its tickets are complete would incorrectly report unbuilt work as missing.
 
 **Does every implementer have to use tdd?**
 
@@ -74,7 +74,7 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 - Several implementers are running at once whenever the graph allows, not one after another.
 - A ticket starts as soon as its last blocker lands on the integration branch, not when the whole run ends.
 - Every ticket reports actual check results and manual acceptance steps, including any acceptance still pending.
-- Each completed ticket has a commit, and the final integration commit includes the review fixes.
+- Each completed ticket has a commit, and the final integration commit includes any fixes from the requested review.
 - Merges into the integration branch are fast-forwards, not conflict resolutions.
 - The run ends on one branch with every ticket resolved, and a PR only if your tracker wanted one.
 
@@ -86,4 +86,4 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 grill-with-docs → to-spec → to-tickets → implement-spec → retro
 ```
 
-Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which declares the blocking edges it reads as a task graph, and [code-review](https://aihero.dev/skills-code-review), which it runs over the integration branch before closing out. [ask-matt](https://aihero.dev/skills-ask-matt) is the router over the whole set when you are not sure which flow you are in.
+Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which declares the blocking edges it reads as a task graph, and [code-review](https://aihero.dev/skills-code-review), which checks the integration branch before closeout when you requested a separate review. [ask-matt](https://aihero.dev/skills-ask-matt) is the router over the whole set when you are not sure which flow you are in.
