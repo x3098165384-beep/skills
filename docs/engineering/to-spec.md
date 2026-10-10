@@ -8,12 +8,12 @@ It does not interview you. By the time you reach for it the deciding is already 
 
 Type `$to-spec` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable.
 
-Reach for it when the build is too big for one agent [session](https://www.aihero.dev/ai-coding-dictionary/session) and has to survive being split across several. That is the whole trigger:
+Reach for it when settled decisions need a consolidated record for implementation or handoff, especially when the build spans several agent [sessions](https://www.aihero.dev/ai-coding-dictionary/session):
 
 | Where you are | What to run |
 | --- | --- |
 | You haven't decided anything yet | [grill-with-docs](https://aihero.dev/skills-grill-with-docs) first |
-| Decided, and the work fits one [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) | [implement](https://aihero.dev/skills-implement): skip the spec |
+| Decided, and the work fits one [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) | [implement](https://aihero.dev/skills-implement), or `$to-spec` first when a consolidated record is useful |
 | Decided, and the work spans several sessions | `$to-spec`, then [to-tickets](https://aihero.dev/skills-to-tickets) |
 | A [wayfinder](https://aihero.dev/skills-wayfinder) map has cleared | `$to-spec #<map_issue>` |
 
@@ -42,7 +42,7 @@ It is this skill, renamed in v1.1. "Spec" is now the single through-line term, a
 The label means "no further triage needed": the document is complete enough for an agent to work from. It is an input designation, not a work order. But if you run [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) agents that poll for `ready-for-agent`, that distinction isn't visible to them, and they will happily try to build the whole spec in one run instead of picking up the ticket slices. This is the most-reported rough edge on the skill. Until it changes, exclude the parent spec explicitly in your AFK agent's prompt, or strip the label once `$to-tickets` has run.
 
 **Why not go straight from grilling to `$to-tickets` and skip the spec?**
-Often you should; the spec earns its step only on multi-session work. Where it pays is that the tickets are disposable and the spec isn't: each ticket is sized for one fresh context window and gets deleted or closed, while the spec stays as the one place the reasoning behind them lives. On a single-session change that buys you nothing, and you have paid an extra synthesis step where the [model](https://www.aihero.dev/ai-coding-dictionary/model) can drift. Go grilling → `$implement`.
+Go straight to tickets when the notes or conversation already provide a clear plan. A spec earns its step when decisions need one consolidated record, especially across sessions. For a bounded change with clear acceptance criteria, direct implementation may be enough. Writing a spec does not commit you to ticket decomposition.
 
 **I just finished a wayfinder map. What do I feed it?**
 The main map issue: `$to-spec #<map_issue>`, not the individual decision tickets. [wayfinder](https://aihero.dev/skills-wayfinder) produces decisions rather than deliverables, scattered across a map; `to-spec` is the step that collapses them into one buildable document. Looping the map straight into `$implement` throws that collapse away.
@@ -69,13 +69,13 @@ Very large specs can outgrow what a tracker issue will serve back cleanly, and t
 - It comes back in your project's nouns, not generic product-management boilerplate.
 - Every decision in it is one you can remember making. Nothing was invented to fill a section.
 - The out-of-scope section has real things in it: the things you refused are usually the most useful lines on the page.
+- The closing response links the spec and recommends tickets or direct implementation, with a reason based on the work's scope and dependencies.
 
 ## Where it fits
 
-`to-spec` is a step in the main build chain, and only on the multi-session branch of it:
+`to-spec` consolidates decisions in the main build flow. Its neighbours upstream are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which sharpens the design, and [wayfinder](https://aihero.dev/skills-wayfinder), whose finished map feeds the spec. After publication, it recommends one route:
 
-```txt
-grill-with-docs → to-spec → to-tickets → implement → [requested code-review] → retro
-```
+- [to-tickets](https://aihero.dev/skills-to-tickets) when the work benefits from independently verifiable tasks, explicit dependencies, or multiple sessions.
+- [implement](https://aihero.dev/skills-implement) when the work can be implemented and verified as one bounded task in a single session.
 
-Its neighbours upstream are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which does the deciding this skill only records, and [wayfinder](https://aihero.dev/skills-wayfinder), whose finished map merges onto the chain right here. Downstream, [to-tickets](https://aihero.dev/skills-to-tickets) cuts the spec into tracer-bullet tickets for [implement](https://aihero.dev/skills-implement) to build. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+The recommendation uses the completed spec and existing context. Your chosen route takes precedence, and the next workflow starts when already authorized. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

@@ -15,6 +15,13 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
 
+4. **Recommend the next step.** Return the published spec's link and recommend one route with a brief reason:
+
+   - **[$to-tickets](../to-tickets/SKILL.md)**: the work benefits from independently verifiable tasks, explicit dependencies, or multiple implementation sessions.
+   - **[$implement](../implement/SKILL.md)**: the work can be implemented and verified as one bounded task in a single session.
+
+   Base the recommendation on the completed spec and existing context. Follow the user's chosen route and proceed when already authorized.
+
 <spec-template>
 
 ## Problem Statement

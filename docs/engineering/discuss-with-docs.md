@@ -59,11 +59,20 @@ Wayfinder organises a large effort into a map of dependent decision tickets. Thi
 
 **Should I run grill-with-docs afterwards?**
 
-That is the usual next step. Discussion develops the proposal; grilling examines its gaps, contradictions, edge cases, and assumptions. Supply the notes as read-only reference. Grilling retains its own glossary and ADR responsibilities; its new conclusions feed into `to-spec` through the conversation without rewriting the discussion notes. You can explicitly skip this pass when you want to proceed directly to a spec. In a later discussion, the resulting spec can serve as reference for updating the notes.
+At closeout, the agent recommends one next step and explains why:
+
+| What remains | Next step |
+| --- | --- |
+| Consequential design questions need your judgment | [grill-with-docs](https://aihero.dev/skills-grill-with-docs), entered directly with the notes as read-only reference |
+| The settled design needs a consolidated specification | [to-spec](https://aihero.dev/skills-to-spec) |
+| Clear work benefits from verifiable tasks with dependencies | [to-tickets](https://aihero.dev/skills-to-tickets) |
+| Clear scope and acceptance criteria fit one implementation session | [implement](https://aihero.dev/skills-implement) |
+
+Your explicitly chosen route takes precedence. Routes other than grilling begin when you have already authorized them; otherwise they remain recommendations. Grilling builds on accepted decisions and retains its own glossary and ADR responsibilities. Discoverable facts and routine implementation choices are handled through investigation and judgment.
 
 **Does accepting an edit end the discussion?**
 
-No. Accepting an edit settles that edit. Saying the discussion can end starts reconciliation and domain recording. Unclear contradictions are brought back to you, other remaining gaps stay visible, and the next phase starts only on your instruction.
+No. Accepting an edit settles that edit. Saying the discussion can end starts reconciliation, domain recording, and the next-step assessment. If consequential design questions remain, the agent explains the gap and begins grilling unless you have chosen another route.
 
 **When should the agent stop replying?**
 
@@ -78,8 +87,8 @@ Each turn ends once your current question is answered and any material change is
 - A later grilling pass uses the notes as reference, leaving their updates to a subsequent discussion.
 - At closeout, earlier suggestions no longer appear as unresolved after you accepted or rejected them, and replaced decisions point to the current conclusion.
 - Confirmed terms and qualifying decisions appear in the project's domain records, linked from the notes.
-- The closing message identifies the organized notes, any domain records changed, and unresolved questions.
+- At closeout, the agent links the organized notes and updated domain records, explains its recommended next step, and begins grilling when your judgment is still needed.
 
 ## Where it fits
 
-This is an optional entry into the main chain: `discuss-with-docs → grill-with-docs → to-spec → to-tickets → implement`. Each transition follows your instruction. [Grill-with-docs](https://aihero.dev/skills-grill-with-docs) tests the working design; [to-spec](https://aihero.dev/skills-to-spec) synthesises the agreed result. [Ask-matt](https://aihero.dev/skills-ask-matt) routes you through the wider set.
+This is an optional entry into the main build flow. Closeout selects the next useful step using the routes above. [Grill-with-docs](https://aihero.dev/skills-grill-with-docs) tests unresolved design choices; [to-spec](https://aihero.dev/skills-to-spec) consolidates the agreed result. [Ask-matt](https://aihero.dev/skills-ask-matt) routes you through the wider set.
