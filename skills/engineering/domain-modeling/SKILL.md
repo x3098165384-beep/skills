@@ -9,13 +9,13 @@ Actively build and sharpen the project's domain model as you design. Challenge u
 
 ## Domain document locations
 
-Use the glossary, glossary map, and ADR locations configured in the project's instructions and `docs/agents/domain.md`. Preserve those locations, including a glossary named `CONTEXT.md`. References to the glossary in these skills mean the configured file.
+Use root `GLOSSARY.md` and `docs/adr/`. If root `GLOSSARY-MAP.md` exists, follow it to the per-context `GLOSSARY.md` files and relevant ADRs.
 
-When the project has no configured locations, use root `GLOSSARY.md` and `docs/adr/`, or follow root `GLOSSARY-MAP.md` if present. Create a missing glossary only when a term is agreed, and an ADR directory only when a decision needs recording. Skill updates do not require renaming or duplicating existing configured documents.
+Create a missing `GLOSSARY.md` only when a term is agreed, and an ADR directory only when a decision needs recording.
 
 ## File structure
 
-The default layout for a repo with a single context is:
+The layout for a repo with a single context is:
 
 ```
 /
@@ -27,7 +27,7 @@ The default layout for a repo with a single context is:
 └── src/
 ```
 
-For multiple contexts, the configured map points to where each one lives. With the default names:
+For multiple contexts, root `GLOSSARY-MAP.md` points to where each one lives:
 
 ```
 /
@@ -48,7 +48,7 @@ For multiple contexts, the configured map points to where each one lives. With t
 
 ### Challenge against the glossary
 
-When the user uses a term that conflicts with the configured glossary, explain the existing definition and the apparent difference before asking which meaning is intended.
+When the user uses a term that conflicts with `GLOSSARY.md`, explain the existing definition and the apparent difference before asking which meaning is intended.
 
 ### Sharpen fuzzy language
 
@@ -64,7 +64,7 @@ When the user states how something works, check whether the code agrees. If you 
 
 ### Update the glossary inline
 
-When a term is resolved, update the configured glossary right there. Capture terms as they are agreed. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
+When a term is resolved, update `GLOSSARY.md` right there. Capture terms as they are agreed. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
 
 Keep the glossary focused on project terms and their relationships. Put specifications, discussion notes, and implementation decisions in their respective project documents.
 

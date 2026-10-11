@@ -4,7 +4,7 @@
 
 The investigation needs an observed failure that can be distinguished from correct behavior. A manual reproduction you have already confirmed supplies that evidence; the agent does not need to create an automated test just to begin diagnosis.
 
-It uses the project's configured glossary and relevant ADRs as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
+It uses the project's `GLOSSARY.md` and relevant ADRs as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
 
 ## When to reach for it
 

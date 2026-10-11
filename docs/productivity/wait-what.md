@@ -20,7 +20,7 @@ The skill says re-pitch **that**, not "that last message". What lost you is usua
 
 ## It plugs into the language you already have
 
-The explanation uses your project's configured glossary when terminology matters. Project instructions and `docs/agents/domain.md` determine its location; [domain-modeling](https://aihero.dev/skills-domain-modeling) supplies defaults when no location is configured.
+The explanation uses your project's `GLOSSARY.md` when terminology matters. If root `GLOSSARY-MAP.md` exists, follow it to the glossary for the relevant context, as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
 
 The skill also works without a glossary. It uses the words already established in the conversation and explains unfamiliar required names.
 
@@ -33,4 +33,4 @@ The skill also works without a glossary. It uses the words already established i
 
 ## Where it fits
 
-You can use `wait-what` at any point, in any conversation, inside any other skill. It repairs one message after the fact. The real cure is a shared language agreed upfront, and that is [grill-with-docs](https://aihero.dev/skills-grill-with-docs): a [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) session that runs [domain-modeling](https://aihero.dev/skills-domain-modeling) as it goes, so the words you both use land in your configured glossary. If you're unsure which skill fits the moment, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+You can use `wait-what` at any point, in any conversation, inside any other skill. It repairs one message after the fact. The real cure is a shared language agreed upfront, and that is [grill-with-docs](https://aihero.dev/skills-grill-with-docs): a [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) session that runs [domain-modeling](https://aihero.dev/skills-domain-modeling) as it goes, so the words you both use land in your `GLOSSARY.md`. If you're unsure which skill fits the moment, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

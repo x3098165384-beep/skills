@@ -9,7 +9,7 @@ Use this loop when the user requests test-first work. For ordinary implementatio
 
 TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle: consult them before and during the loop, not after.
 
-When exploring the codebase, read the glossary and relevant ADRs using the [configured domain document locations](../domain-modeling/SKILL.md#domain-document-locations), so test names and interface vocabulary match the project.
+When exploring the codebase, read the glossary and relevant ADRs using the [domain document locations](../domain-modeling/SKILL.md#domain-document-locations), so test names and interface vocabulary match the project.
 
 ## What a good test is
 

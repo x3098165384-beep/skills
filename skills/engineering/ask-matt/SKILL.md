@@ -35,7 +35,7 @@ At discussion completion, follow `$discuss-with-docs` closeout rules to recommen
 
 Grilling retains its own glossary and ADR responsibilities. New conclusions feed into `$to-spec` through the conversation; a later discussion can use the spec as reference to update the notes. `$grill-with-docs` also works independently, without prior notes.
 
-1. **`$grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining agreed terms and decisions in the [configured glossary and ADR locations](../domain-modeling/SKILL.md#domain-document-locations). (No working directory? Use `$grill-me` instead, covered under Standalone. Both run the same `$grilling` primitive; `grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
+1. **`$grill-with-docs`** sharpens the idea by interview. Start here whenever you are **working in a working directory**: it's stateful, retaining agreed terms and decisions in the [glossary and ADR locations](../domain-modeling/SKILL.md#domain-document-locations). (No working directory? Use `$grill-me` instead, covered under Standalone. Both run the same `$grilling` primitive; `grill-with-docs` is the one that leaves a paper trail, which makes it the better of the two whenever a repo is there to leave it in.)
 2. **Branch: can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`$handoff`** in both directions (a prototype lives in its own directory, which is exactly what `$handoff` is for; see Phase boundaries):
    - **`$handoff`** out, then open a fresh session against that file,
    - **`$prototype`** to answer the question with throwaway code,
@@ -86,7 +86,7 @@ Not feature work, just upkeep.
 
 Two model-invoked references that run *beneath* the other skills, each the single source of truth for its vocabulary. Reach for them directly when the **words**, not the process, are the problem; or let the skills above pull them in.
 
-- **`$domain-modeling`**: sharpen the project's *domain* language: challenge a fuzzy term, resolve an overloaded word ("account" doing three jobs), record a hard-to-reverse decision as an ADR. It's the active discipline `$grill-with-docs` drives to keep the configured glossary focused on project terms.
+- **`$domain-modeling`**: sharpen the project's *domain* language: challenge a fuzzy term, resolve an overloaded word ("account" doing three jobs), record a hard-to-reverse decision as an ADR. It's the active discipline `$grill-with-docs` drives to keep `GLOSSARY.md` focused on project terms.
 - **`$codebase-design`** is the deep-module vocabulary (module, interface, depth, seam, adapter, leverage, locality) for designing a module's *shape*: a lot of behaviour behind a small interface at a clean seam. `$tdd` and `$improve-codebase-architecture` both speak it.
 
 ## Phase boundaries

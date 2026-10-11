@@ -22,7 +22,7 @@ The wayfinder split comes down to session count: `$grill-with-docs` for single-s
 
 ## Prerequisites
 
-The skill writes into your repo, so you need a workspace where those changes are allowed. Resolved terms and qualifying decisions go to the glossary and ADR locations configured by your project. Without configured paths, [domain-modeling](https://aihero.dev/skills-domain-modeling) uses `GLOSSARY.md`, an optional glossary map, and `docs/adr/`. Documents are created only when there is an agreed term or decision to record.
+The skill writes into your repo, so you need a workspace where those changes are allowed. Resolved terms go to root `GLOSSARY.md`, or the per-context `GLOSSARY.md` files listed in root `GLOSSARY-MAP.md`. Qualifying decisions go to `docs/adr/`, following [domain-modeling](https://aihero.dev/skills-domain-modeling). Documents are created only when there is an agreed term or decision to record.
 
 It also needs two other skills present, because its own `SKILL.md` is one line that delegates to them: [grilling](https://aihero.dev/skills-grilling) supplies the interview, [domain-modeling](https://aihero.dev/skills-domain-modeling) supplies the writing. Installing `grill-with-docs` alone gets you a skill that does not work.
 

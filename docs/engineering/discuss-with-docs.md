@@ -37,7 +37,7 @@ Empty sections say `None yet`. During discussion, focused updates preserve meani
 
 When you say the discussion can end, the agent brings the notes into a coherent current state. Accepted proposals become decisions, resolved questions leave the open list, and older alternatives retain their rejection or replacement reasons. Later accepted changes replace earlier agreements within their scope; later suggestions remain proposals. If the intended resolution of a contradiction is unclear, the agent asks you rather than choosing silently.
 
-The reconciled conclusions then feed a single domain-modeling pass. Established project terms belong in your glossary, such as `CONTEXT.md` or `GLOSSARY.md`; qualifying accepted decisions belong in ADRs. Proposals and unresolved choices stay in the discussion notes. Long notes can open with a short current summary and point to the detailed evidence, so the next session can find the effective conclusions.
+The reconciled conclusions then feed a single domain-modeling pass. Established project terms belong in `GLOSSARY.md`, using `GLOSSARY-MAP.md` to find the relevant context when present; qualifying accepted decisions belong in ADRs. Proposals and unresolved choices stay in the discussion notes. Long notes can open with a short current summary and point to the detailed evidence, so the next session can find the effective conclusions.
 
 ## Common questions
 

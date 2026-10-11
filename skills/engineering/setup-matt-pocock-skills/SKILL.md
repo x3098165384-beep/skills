@@ -21,7 +21,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 
 - `git remote -v` and `.git/config`: is this a GitHub repo? Which one?
 - `AGENTS.md` and `CLAUDE.md` at the repo root: does either exist? Is there already an `## Agent skills` section in either?
-- Glossary and ADR paths already configured in project instructions or `docs/agents/domain.md`; otherwise root `GLOSSARY.md` and `GLOSSARY-MAP.md`
+- `GLOSSARY.md` and `GLOSSARY-MAP.md` at the repo root
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
 - `.scratch/`: a sign that a local-markdown issue tracker convention is already in use
@@ -55,9 +55,9 @@ If it is installed, ask exactly one question:
 
 The defaults are the five canonical roles, each label string equal to its name: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. On **yes**, write them as-is. Only if the user says no, usually because their tracker already uses other names (e.g. `bug:triage` for `needs-triage`), collect the overrides so `triage` applies existing labels instead of creating duplicates.
 
-**Section C: Domain docs.** Preserve existing configured glossary, map, and ADR paths, including a glossary named `CONTEXT.md`. Record those actual paths in `docs/agents/domain.md` and adapt the template to them. When no layout is configured, default to **single-context** (one `GLOSSARY.md` + `docs/adr/` at the repo root); this routine default needs no separate question.
+**Section C: Domain docs.** Default to **single-context** (one `GLOSSARY.md` + `docs/adr/` at the repo root). This fits almost every repo; write it without asking.
 
-Offer **multi-context** (by default, a root `GLOSSARY-MAP.md` pointing to per-context glossary files) only when exploration found monorepo signals and the layout is not already configured. Confirm the new layout before recording it.
+Offer **multi-context** (a root `GLOSSARY-MAP.md` pointing to per-context `GLOSSARY.md` files) only when exploration found monorepo signals. Then confirm which layout they want.
 
 ### 3. Confirm and edit
 

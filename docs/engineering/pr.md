@@ -4,7 +4,7 @@
 
 The summary is a picture, not a paragraph. Where a default PR body narrates the diff in prose, this one picks the **smallest view** that makes the key point clear (pseudocode, a call tree, a component tree, a file tree, a Mermaid diagram, or a shaped diff) and keeps the words around it brief. The reviewer already has the diff open; the body's job is to show them its shape before they read it.
 
-It uses the project's configured glossary and relevant ADRs as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
+It uses the project's `GLOSSARY.md` and relevant ADRs as described by [domain-modeling](https://aihero.dev/skills-domain-modeling).
 
 ## When to reach for it
 

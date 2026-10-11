@@ -2,7 +2,7 @@
 
 `domain-modeling` builds and sharpens a project's **ubiquitous language** while you are designing: challenging a term that conflicts with the glossary, forcing a precise word where you used a vague one, and stress-testing a relationship with a concrete scenario until the boundaries are exact.
 
-The skill records terms and relationships as you agree them during a [session](https://www.aihero.dev/ai-coding-dictionary/session). It uses the glossary and ADR locations configured in project instructions and `docs/agents/domain.md`. Without configured paths, the defaults are `GLOSSARY.md`, an optional `GLOSSARY-MAP.md`, and `docs/adr/`. An existing configured glossary such as `CONTEXT.md` keeps its name.
+The skill records terms and relationships as you agree them during a [session](https://www.aihero.dev/ai-coding-dictionary/session). It uses root `GLOSSARY.md` and `docs/adr/`. In projects with multiple contexts, root `GLOSSARY-MAP.md` points to the per-context `GLOSSARY.md` files.
 
 ## When to reach for it
 
@@ -23,7 +23,7 @@ Reach for it when the *words* are the problem:
 
 None up front. The skill writes into two places and creates both lazily:
 
-- **The configured glossary**, created when the first term is agreed. When a glossary map is configured, follow it to the file for the relevant context.
+- **`GLOSSARY.md`** at the repo root, created when the first term is agreed. If root `GLOSSARY-MAP.md` exists, follow it to the `GLOSSARY.md` for the relevant context.
 - **`docs/adr/`**, created by the first ADR that clears the bar.
 
 Nothing needs to exist before you start, and nothing is created speculatively.
@@ -54,7 +54,8 @@ The limit is worth knowing. It cross-references **code** and the committed `GLOS
 **My `GLOSSARY.md` is 500 lines. 1,000. 3,000. What do I do?**
 The size is a symptom, not the disease: the file has absorbed implementation detail and decisions that were never glossary material. The fix is a direct instruction: `$grill-with-docs make my GLOSSARY.md more concise and remove any implementation details from it`. Run it against a bloated file and most of it goes. Only reach for a `GLOSSARY-MAP.md` split once the file is genuinely lean and still covers two domains that a reader would not want to hold at once; splitting a bloated file just gives you several bloated files. The skill's guidance here is not yet strong enough to prevent the growth in the first place, and the issue tracking that is still open.
 
-No. Configure the existing glossary in your project instructions or `docs/agents/domain.md`. Skills read and update that file. `GLOSSARY.md` is the default for an unconfigured project, so a skill update does not require a document migration.
+**My project still uses `CONTEXT.md`. How do I update it?**
+Migrate the project's glossary to `GLOSSARY.md`, and `CONTEXT-MAP.md` to `GLOSSARY-MAP.md` when present. Update the map entries, project instructions, `docs/agents/domain.md`, and current document links in the same migration. Preserve the glossary's content and use the new names for future work.
 
 **Where did `/ubiquitous-language` go?**
 It was removed, and it was not deprecated. Its job moved into `domain-modeling`, which maintains the whole model continuously rather than dumping a glossary out of one conversation. Vocabulary enforcement got more load-bearing, not less: it now runs underneath grilling, triage and mapping rather than as a separate pass you remember to do.
@@ -62,7 +63,8 @@ It was removed, and it was not deprecated. Its job moved into `domain-modeling`,
 **How do I get a glossary for a codebase that has none?**
 Ask for it explicitly rather than waiting for it to accumulate. `$grill-with-docs help me scaffold my existing repo with a GLOSSARY.md` is the documented route; expect a long interrogation: one user reported 50+ questions before the file was in shape. Incidental use builds the glossary far too slowly on a brownfield repo.
 
-Use the ADR location and project conventions recorded in your project instructions or `docs/agents/domain.md`. The skill preserves those locations. Its default format applies where the project has not supplied one.
+**Can I use my own ADR format?**
+Record project-specific ADR requirements in the project's instructions or `docs/agents/domain.md`. The standard layout uses `docs/adr/`; changing the glossary filename does not require changing the decision records' content.
 
 **Does a glossary actually earn its keep? It is one more artifact to review, and it can go stale.**
 Sometimes it does not, and it is worth being honest about where. DDD gets less useful the closer it gets to the implementation: the payoff is upstream, in naming and concept alignment, not in aggregates and layer ceremony. Synonym control matters at naming boundaries: module names, table names, status enums, issue titles, CLI commands. It matters much less in ordinary prose. There is also a live objection that domain terms compress communication *between humans* who already share them, and that an agent responds the same way to the plain-English description. On that reading, the glossary's value is keeping you and your reviewers aligned with what the agent is doing, not making the agent better. On a one-day build, skip it. And an unreviewed, agent-authored glossary is worse than none: it becomes confident-sounding lore that later sessions treat as truth.

@@ -21,7 +21,7 @@ This command is _informed_ by the project's domain model and built on a shared d
 - If the user named a direction (a module, a subsystem, a pain point), take it, and skip the inference below.
 - Otherwise, walk back a good stretch of the commit history (`git log --oneline`) to find the codebase's hot spots, the files and areas that keep coming up, and let those paths pull your attention first. If the changes are scattered with no clear hot spot, widen the net.
 
-Read the project's glossary and relevant ADRs first, using the [configured domain document locations](../domain-modeling/SKILL.md#domain-document-locations).
+Read the project's glossary and relevant ADRs first, using the [domain document locations](../domain-modeling/SKILL.md#domain-document-locations).
 
 Then spawn a sub-agent to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
 
@@ -64,7 +64,7 @@ Once the user picks a candidate, call the Skill tool with "grilling" to walk the
 
 Side effects happen inline as decisions crystallize; call the Skill tool with "domain-modeling" to keep the domain model current as you go:
 
-- **Naming a module after a new project concept?** Record the agreed term in the configured glossary. Create that file only when there is a term to record.
-- **Clarifying an existing term during the conversation?** Update its definition in the configured glossary when agreed.
+- **Naming a module after a new project concept?** Record the agreed term in `GLOSSARY.md`. Create that file only when there is a term to record.
+- **Clarifying an existing term during the conversation?** Update its definition in `GLOSSARY.md` when agreed.
 - **User rejects the candidate with a load-bearing reason?** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing; skip ephemeral reasons ("not worth it right now") and self-evident ones.
 - **Want to explore alternative interfaces for the deepened module?** Call the Skill tool with "codebase-design" and use its design-it-twice parallel sub-agent pattern.

@@ -27,4 +27,4 @@ This convention lets Codex resolve either group on this branch. Preserve the int
 
 ## Passive vs active domain work
 
-Reading the configured glossary for vocabulary does not invoke `domain-modeling`. That skill applies when clarifying project terms and relationships or recording agreed terms and decisions.
+Reading `GLOSSARY.md` for vocabulary does not invoke `domain-modeling`. That skill applies when clarifying project terms and relationships or recording agreed terms and decisions.
