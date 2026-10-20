@@ -16,6 +16,7 @@ Type `$ask-matt` to invoke it directly. This Codex edition also keeps the router
 | A long session and a decision about the [context](https://www.aihero.dev/ai-coding-dictionary/context) | The ordered tree over the five options at a phase boundary |
 | A pull request body to write | `$pr`, a beta reference for a visual summary, before/after evidence, and merge risk |
 | A skill you have already picked | Nothing useful. Invoke that skill directly. |
+| 想在 VS Code 代码旁看懂当前项目的代码 | 推荐手动调用 `$teach-with-codetour`，用独立 `.tours/*.tour` 文件和完整执行例子解释；跨多次会话的主题学习使用 `$teach` |
 
 ## Prerequisites
 

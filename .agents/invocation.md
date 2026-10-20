@@ -13,7 +13,7 @@ Bucket `README.md`s and the top-level `README.md` group entries into **User-dire
 
 ## Explicit user overrides
 
-Preserve user-requested manual-only settings. `discuss-with-docs` and `deepseek-implement` use `policy.allow_implicit_invocation: false` and start only on explicit user invocation. This overrides the visibility workaround above for those skills. Linking skills preserves their invocation policies, including `false`.
+保留用户要求的手动调用设置。`discuss-with-docs`、`deepseek-implement` 和 `teach-with-codetour` 使用 `policy.allow_implicit_invocation: false`，仅在用户明确调用后启动。这些技能按用户要求关闭自动选择，优先于上文为保持技能可见而启用自动选择的做法。创建本机技能链接时保留已有调用策略，包括 `false`。
 
 ## Dependencies between them
 

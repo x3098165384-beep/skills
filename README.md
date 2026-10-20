@@ -193,7 +193,7 @@ Software engineering fundamentals matter more than ever. These skills are my bes
 
 These retain the upstream split by intended entry point. **User-directed** skills are workflows you normally start by typing their `$name` (for example, `$grill-me`); their job is to orchestrate. **Model-invoked** skills hold reusable disciplines the agent commonly selects when a task fits. In this Codex edition both groups stay in the visible catalog to avoid Codex's explicit-only resolution failure, so the distinction is guidance rather than a hard invocation boundary.
 
-`discuss-with-docs` is a manual-only exception: its invocation policy disables automatic selection, and you start it explicitly with `$discuss-with-docs`.
+`discuss-with-docs`、`deepseek-implement` 和 `teach-with-codetour` 仅在用户手动调用时启动，各自的调用策略已关闭自动选择。
 
 ### Engineering
 
@@ -236,6 +236,7 @@ General workflow tools, not code-specific.
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[handoff](./skills/productivity/handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.
 - **[teach](./skills/productivity/teach/SKILL.md)**: Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
+- **[teach-with-codetour](./skills/productivity/teach-with-codetour/SKILL.md)**: 手动调用，在 VS Code 代码旁用完整执行例子讲解真实项目代码，交付独立的 `.tours/*.tour` 文件。
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject.
 - **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Use when a message is unclear. The agent explains it again in your language, using the missing facts, plain words, and established project names.
 

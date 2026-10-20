@@ -1,0 +1,5 @@
+interface:
+  display_name: "用 CodeTour 学项目代码"
+  short_description: "结合真实项目和完整执行例子，在 VS Code 代码旁讲清程序如何工作"
+policy:
+  allow_implicit_invocation: false
