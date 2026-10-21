@@ -9,9 +9,7 @@ Record the starting commit before editing.
 
 用户明确改变范围或限制时，先检查原方案是否仍能满足目标，更新受影响的原规格、任务和验证要求；有其他执行者时，同步撤回的决定及当前要求。复用仍有效的调查，只调整受影响部分。
 
-When choosing how to implement the agreed behavior, consider whether existing configuration, resources, or business entry points already provide a direct solution. Distinguish behavior and compatibility that need preserving from the old implementation's structure. Prefer changes that improve correctness, clarity, and maintenance; neither the fewest changed files nor additional abstractions are goals by themselves.
-
-Ground new dependencies, shared-flow changes, and defensive handling in actual callers and supported use cases. Unconfirmed risks can remain verification questions. Compare feasible approaches before treating dependencies introduced by the current implementation as reasons to retain it. Reuse existing investigation and focus further checks on what could change the decision, keeping this proportional to the task rather than adding a separate approval stage.
+Before adding mechanisms, dependencies, shared-flow changes, or defensive handling, trace actual callers, existing configuration and resources, and affected workflows to identify what agreed behavior remains unsatisfied and which module should own it. Include relevant timing and cleanup in this check. Briefly explain the concrete gap and why existing behavior cannot cover it, comparing feasible approaches before choosing the implementation. Preserve required behavior and compatibility, not the old structure; correctness, clarity, and maintenance decide, not file counts or abstraction counts. Keep unconfirmed risks as verification questions rather than requirements. Reuse existing investigation and limit further checks to facts that could change the decision, in proportion to the task and without adding an approval stage.
 
 Prioritize delivering the requested functionality. Use [Testing and verification](../tdd/TESTING-POLICY.md) to choose checks, and carry those decisions into any delegated work.
 

@@ -2,7 +2,7 @@
 
 `implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or an agreed plan. It prioritizes working functionality, runs necessary compilation and directly relevant existing checks, provides manual acceptance steps, and commits to the current branch.
 
-The agreed behavior and constraints remain the input. Within those decisions, the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) considers existing configuration and business entry points before extending the code. It weighs correctness and maintenance rather than preserving the old structure or simply minimizing the number of changed files. This guides implementation choices without adding a new design interview or approval stage.
+The agreed behavior and constraints remain the input. Before extending the code, the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) checks actual callers and existing workflows to explain what is still missing and which module should handle it. Existing configuration, resources, timing, and cleanup may already cover the need. The choice follows that evidence and weighs correctness and maintenance rather than preserving the old structure or simply minimizing the number of changed files, without adding a new design interview or approval stage.
 
 ## When to reach for it
 
@@ -44,7 +44,7 @@ One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to
 
 ## Choosing verification
 
-New dependencies, shared-flow changes, and defensive handling are assessed against actual callers and supported use cases. Unconfirmed risks can remain verification questions. Existing investigation is reused, with further checks focused on facts that could affect the implementation choice.
+Unconfirmed risks remain verification questions rather than requirements for extra handling. Existing investigation is reused, with further checks focused on facts that could affect the implementation choice.
 
 Behavior you can reliably check with a few actions is left for your manual verification. Existing checks still run, and existing tests may be maintained when the change affects them. The agent does not ask about adding tests on every small change.
 
