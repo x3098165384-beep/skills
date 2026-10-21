@@ -77,7 +77,7 @@ A very large spec can outgrow what a tracker issue serves back cleanly, and ther
 The template asks for criteria and says nothing about whether they can fail, so this happens. Three shapes recur: a criterion already true at the base commit, a criterion that can only be satisfied by work another ticket owns, and one that restates the request rather than deriving from the artifact. Vertical slicing prevents most of it (a slice that delivers behaviour which didn't exist before is red at the base commit by construction), but the check is worth doing by hand. For each criterion, name the observation that would show it false, and confirm it fails at the commit the implementer starts from.
 
 **The tickets are published. How do I actually run them?**
-The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is manual: look at the board, count the tickets with no open blockers, and open that many agent sessions. One ticket per fresh context, cleared between them. Be aware that [implement](https://aihero.dev/skills-implement) does not reliably close or check off the ticket when it finishes, on GitHub or in local markdown, so the ticket's state is yours to update.
+该技能交付任务与依赖，不自动派发。可以用 [implement](https://aihero.dev/skills-implement) 逐票执行，或用 [implement-spec](https://aihero.dev/skills-implement-spec) 统一编排。派发时核对实际已交付的前置结果及共享写入责任。`implement` 会维护实际完成与待验内容，是否关闭票据按项目流程处理，不能只靠票据开关判断依赖是否满足。
 
 ## It's working if
 

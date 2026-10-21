@@ -2,7 +2,9 @@
 
 `implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, checks the integrated changes and their callers, and resolves the tickets.
 
-It reads the tickets as a **task graph**, not a list. Blocking edges decide what can start, so at any moment there is a **frontier** of tickets whose blockers have all landed, and every ticket on the frontier runs at once. That is the difference from working the tickets one by one: the graph's shape, not its order on the tracker, sets the pace.
+它把任务读成 **task graph**，根据已交付的前置结果确定当前可开始的 **frontier**，在能够独立执行的任务间并行。共享写入按已确认的责任和顺序协调，任务不会仅因列在清单后面就等待所有前项，也不会仅因前置已完成就忽略共享状态冲突。
+
+派发前还会检查实际共享的文件、数据库、编辑器和外部状态，明确共同写入由谁负责。独立工作树不能隔离这些共享状态。执行期间，主代理核对阶段产物和具体阻碍；用户改变范围时，同步受影响的任务、依赖与验证要求。整合后核对原有说明和任务状态，保留待验证内容。
 
 ## When to reach for it
 
@@ -55,7 +57,7 @@ This fork prioritizes functionality and passes the shared testing policy and the
 
 **Two implementers running in parallel collided on the same file, or picked different names for the same thing.**
 
-Worktrees don't remove collisions; they postpone them to merge time. A blocking edge written from ticket text is a guess about which files each ticket will touch, and two tickets on "different parts of the codebase" still share a message catalogue, a config registry, or a type. Each implementer sees only its own ticket and the shared notes, never the other's work in progress, so one user's web and mobile tickets added the same string as `blockedSince` and `blockedOn`. When two frontier tickets touch one shared surface, either add a blocking edge between them so they run one after the other, or have the exploration notes fix the exact names each ticket adds.
+不同工作树仍可能修改同一个公共类型，或直接写入同一个数据库、工作簿和外部服务。派发前要核对实际读写对象，明确共享结果、名称和写入责任。确实需要先后顺序时增加依赖；只是需要采用一致名称时，在共同资料中确认即可，不必阻止其他独立工作。共享状态没有隔离时，不能等到合并代码才处理冲突。
 
 **Blocked tickets never start, even after their blocker has merged.**
 
@@ -71,7 +73,7 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 
 ## It's working if
 
-- Several implementers are running at once whenever the graph allows, not one after another.
+- 依赖和共享写入范围允许时，多个实现者可以同时推进独立工作。
 - A ticket starts as soon as its last blocker lands on the integration branch, not when the whole run ends.
 - Every ticket reports actual check results and manual acceptance steps, including any acceptance still pending.
 - Each completed ticket has a commit, and the final integration commit includes any fixes from the requested review.

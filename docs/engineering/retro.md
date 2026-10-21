@@ -2,13 +2,15 @@
 
 `retro` looks back over a coding [session](https://www.aihero.dev/ai-coding-dictionary/session) and suggests improvements to the agent's **[environment](https://www.aihero.dev/ai-coding-dictionary/environment)**, so the next run goes better. It reads the session's own record (the current one by default, or one you point it at in the session logs), finds the moments the agent struggled, and hands you a list of candidate fixes, most severe first.
 
+复盘范围按用户希望改善的工作确定。需要总结工作流时，也检查阶段选择、需求确认、任务依赖、分工交接、验证和交付，同时保留成功做法与适用条件；已有要求未执行、指引过期和真正缺少步骤，会分别处理。
+
 It changes the environment, not the code. The bug the agent shipped, the file it took twenty [tool calls](https://www.aihero.dev/ai-coding-dictionary/tool-call) to find, the rule the reviewer missed: `retro` doesn't fix any of them in place. It asks what about the repo let them happen, and proposes the check, the pointer, or the standard that stops them happening again. It also only proposes; nothing changes until you pick a candidate.
 
 ## When to reach for it
 
 Start this workflow by typing `$retro`. This Codex edition keeps it model-visible so Codex can resolve the invocation reliably.
 
-Reach for it at the end of a session that felt harder than it should have: the agent went looking for something for too long, made a mistake a machine could have caught, or needed information it had no way to get. A smooth session has little to teach; a painful one is where the findings are. If what you want is a verdict on the code the session produced, use [code-review](https://aihero.dev/skills-code-review) instead.
+会话出现反复调查、返工、协作阻塞或信息缺失时，适合复盘原因；也可以复盘顺利完成的任务，确认哪些做法值得复用，以及它们依赖什么条件。只需要对代码改动作出审查结论时，使用 [code-review](https://aihero.dev/skills-code-review)。
 
 ## Where the findings land
 
@@ -23,6 +25,7 @@ Each candidate belongs to one category, and the category decides where the fix g
 | A tool call was expensive for what it returned | Streamline the tool, or replace it |
 | A steering file is full of lines that change nothing | Delete the **no-ops** |
 | The agent needed information it couldn't reach | Widen its access: tee the dev server log to a file, give read-only access to a service |
+| 流程选择、任务依赖、分工或交接导致返工 | 在负责该步骤的已有技能中补缺少的动作，或消除冲突；项目特有的要求留在项目说明中 |
 
 Project standards guide implementation and any requested review. The implementing agent checks its changes and actual callers; an independent reviewer checks the requested scope with its own evidence. A retrospective places guidance where the responsible stage will read it, with short references from [AGENTS.md](https://www.aihero.dev/ai-coding-dictionary/agents-md) when needed.
 

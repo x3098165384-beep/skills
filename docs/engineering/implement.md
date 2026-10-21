@@ -40,6 +40,8 @@ A run is five beats, in order:
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
+实施途中明确改变范围或限制时，会重新检查方案是否成立，并同步受影响的原规格、任务、执行者和验证要求。仍有效的调查继续使用。收尾会更新因本次行为变化而失效的现有说明与任务状态，区分完成和待验证内容；不要求每次改动都另写一份文档。
+
 ## Choosing verification
 
 New dependencies, shared-flow changes, and defensive handling are assessed against actual callers and supported use cases. Unconfirmed risks can remain verification questions. Existing investigation is reused, with further checks focused on facts that could affect the implementation choice.
@@ -58,7 +60,7 @@ Not by default. The decision depends on whether a person can effectively verify 
 
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
-Correct, and expected. `implement` has no completion step. It ends at the commit and never touches the work item, confirmed on GitHub Issues and on the local markdown tracker, so it is not a tracker integration problem. It fixes substantiated findings from any requested review, but does not tick the `- [ ]` boxes on the originating issue. Close the ticket and reconcile the criteria yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
+收尾会更新原任务中实际完成和待验证的内容，是否勾选验收项或关闭票据按项目既定流程处理。提交不代表待验行为已经通过；依赖任务应查看实际已交付的结果与剩余条件，不能只凭票据是否关闭判断。
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 

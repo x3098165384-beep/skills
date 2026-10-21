@@ -65,6 +65,8 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 ### 4. Spawn both sub-agents in parallel
 
+向两份审查任务传递用户当前明确的疑虑、范围与限制，要求各自按实际覆盖的证据回答。疑虑是需要核对的问题，不预设为缺陷，也不扩大本次审查范围。
+
 **Standards sub-agent prompt** should include:
 
 - The full diff command and commit list.

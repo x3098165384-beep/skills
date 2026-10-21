@@ -19,6 +19,8 @@ Type `$code-review`, or the agent reaches for it automatically when you ask to r
 
 The skill uses the fixed point supplied by you or the calling workflow. Otherwise it reuses the reliable pre-task commit already recorded for this task. It asks only when that record is missing or existing changes make the scope unclear. It checks the reference and reviewable changes, including new files, before spawning either reviewer; the current `HEAD` cannot stand in for an unknown starting commit.
 
+两份审查任务都会收到你当前明确的疑虑、范围和限制，并按各自实际覆盖的证据回答。提出疑虑不等于预先认定缺陷；审查仍按原范围核对，不因此另开一轮审查或扩展任务。
+
 ## Prerequisites
 
 The Standards axis needs nothing. It reads whatever the repo documents (`CODING_STANDARDS.md`, `CONTRIBUTING.md`, and the like) and falls back on a built-in baseline when the repo documents nothing.

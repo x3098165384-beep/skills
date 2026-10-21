@@ -32,11 +32,11 @@ Reuse the reproduction you already have. The available methods are:
 
 A useful feedback loop distinguishes the reported failure from correct behavior and can be repeated after the fix. For intermittent failures, record the observed frequency and conditions. Temporary scripts and throwaway harnesses follow the same testing boundary as permanent tests.
 
-When it genuinely cannot build one, it is instructed to stop and say so, list what it tried, and ask you for [environment](https://www.aihero.dev/ai-coding-dictionary/environment) access, a captured artifact, or permission to add temporary instrumentation. It should not proceed to hypothesise anyway.
+检查在所述条件下正常时，会报告未复现及覆盖条件，停止没有依据的修改。仍需定位却无法取得失败证据时，会说明已经尝试什么、缺少什么，再请求相应环境、脱敏材料或临时诊断权限；不会把其他条件下的可能问题写成已确认原因。
 
 ## The gates between phases
 
-The phases are gates, not a checklist. Each one refuses to open until something specific is true.
+对已复现故障的调查和修复，每个阶段都有完成条件；限定检查正常而未复现时，可以报告该结果后结束，不强行产出原因或修复。
 
 | Gate | What has to be true |
 | --- | --- |
@@ -44,9 +44,11 @@ The phases are gates, not a checklist. Each one refuses to open until something 
 | Into Phase 3 | The repro is reproduced *and* minimised: every remaining element is load-bearing |
 | Into Phase 4 | 3–5 ranked, falsifiable hypotheses exist, each stating its prediction, shown to you before any is tested |
 | Into Phase 5 | Probes map to a specific prediction, one variable at a time, every debug log tagged `[DEBUG-a4f2]`-style so cleanup is one grep |
-| Done | Actual check results are reported, any manual verification still needed is marked as pending, temporary instrumentation is removed, and the confirmed cause is recorded |
+| Done | 实际检查结果、待验项和临时诊断清理已说明；有修复时记录已确认原因，未复现时保留检查条件，不虚构修复结果 |
 
 A needed regression test uses an existing public interface and must distinguish the buggy behavior from the fix. If that is unavailable, the agent reports the limitation instead of reshaping production code solely for a test. Targeted verification does not require a full TDD workflow. The implementation can be delivered while manual acceptance remains pending.
+
+收尾还会维护因修复而失效的现有说明和任务状态。交付区分已确认原因、另行修复的恢复问题及仍未确认的首次触发原因；临时假设留在任务记录，没有相关说明需要更新时不另建文档。
 
 ## Common questions
 
@@ -64,10 +66,10 @@ No. It diagnoses one failure you can already name. Its performance branch is for
 No. Only Phase 3 has a human checkpoint: the ranked hypothesis list is shown to you before any is tested, and it proceeds on its own ranking if you are away. There is no gate between instrumentation and the fix, so the agent can start writing code before you have agreed with its root cause. [Issue #124](https://github.com/mattpocock/skills/issues/124) asks for that gate and is still open. If you want it, say so when you invoke the skill.
 
 **I already ran `$triage` on this bug report. Is this the same work again?**
-Partly, and neither skill admits it. As one reader put it: "Triage's step 3 is essentially a shallow, bounded instance of diagnosing-bugs Phase 1–2, but neither file mentions the other." Triage does a bounded "is this actually a bug, and what is the surface" pass; this skill does the thorough version. Running triage first is not wasted (its verification often gives you most of Phase 1's raw material), but expect to redo it properly here, and expect no cross-reference to tell you that.
+先复用已经确认的复现步骤和结果。只有现有证据不能区分本次故障与正常行为，或输入、版本和条件已经变化时，才补充相应检查；不因为换了技能就从头重做调查。
 
 **Will the repro output it pastes leak secrets?**
-It might. The skill asks the agent to paste the invocation and its output, and to request artifacts like HAR files, log dumps, and core dumps. None of those are sanitised by instruction. [Issue #674](https://github.com/mattpocock/skills/issues/674) raises exactly this (credentials, tokens, cookies, and personal data riding along into a chat, an issue, or a PR) and proposes a redaction guardrail. It is open and unimplemented. Treat redaction as your job for now, particularly before the output goes anywhere public.
+当前技能明确要求展示命令、输出和材料前移除秘密信息，以 `<REDACTED>` 代替，只引用诊断所需片段。这是执行时必须落实的要求，不能仅凭写有规则就认定所有输出已经安全；脱敏后材料不足时，应说明具体缺少的信息。
 
 **My security scanner flagged this skill as high risk.**
 Snyk flags it, and the flag is a false positive. It is the only skill in the set that ships an executable shell script (`hitl-loop.template.sh`) alongside instructions to run it and to curl a dev server. Shipped `.sh` plus run-it instructions plus outbound HTTP is enough to trip a static scanner. The script itself is about 30 lines of `read -r -p` prompts that pause for human input. The scanner is rating the capability surface, not a proven exploit.
@@ -82,11 +84,11 @@ Renamed to `$diagnosing-bugs` in v1.0.0. The old name no longer exists. Anything
 - It shrinks the repro before it starts guessing, and can tell you why each remaining piece is load-bearing.
 - You are shown a ranked list of 3–5 hypotheses, each with a prediction you could falsify, before any of them is tested.
 - Every debug log it adds carries a tag like `[DEBUG-a4f2]`, and a grep for that tag comes back empty when it declares done.
-- The commit or PR message names which hypothesis was right.
+- 有修复时说明已确认原因及实际复验结果；未复现时明确检查条件，不把其他恢复问题当作原故障原因。
 - New tests address a stated manual testing gap or your explicit request; manual verification still awaiting your result is clearly marked.
 
 ## Where it fits
 
-`diagnosing-bugs` is a standalone investigation of one reported failure. It delivers the fix, check results, and any manual verification still needed. [ask-matt](https://aihero.dev/skills-ask-matt) routes hard bugs here.
+`diagnosing-bugs` 调查一个具体故障，交付已确认原因与修复结果，或限定条件下未复现的结论，并保留仍需人工验证的内容。[ask-matt](https://aihero.dev/skills-ask-matt) 将难以定位的故障引到这里。
 
 [triage](https://aihero.dev/skills-triage) sits upstream for raw reports from other people. Its confirmed reproduction can provide evidence for this investigation. [tdd](https://aihero.dev/skills-tdd) supplies the test loop when you request test-first work.

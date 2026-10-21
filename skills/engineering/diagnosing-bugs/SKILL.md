@@ -47,7 +47,7 @@ The goal is not a clean repro but a **higher reproduction rate**. Loop the trigg
 
 ### When you genuinely cannot build a loop
 
-Stop and say so explicitly. List what you tried. Ask the user for: (a) access to whatever environment reproduces it, (b) a redacted captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. Do **not** proceed to hypothesise without a loop.
+检查在所述条件下表现正常时，报告未复现及已覆盖条件，停止没有依据的修改。仍需继续定位却缺少失败证据时，说明已经尝试什么、缺少什么，再请求相应环境、脱敏材料或临时诊断权限。没有可区分故障与正常行为的证据时，不继续推测原因或修复；未复现也不等于证明其他条件下没有问题。
 
 ### Completion criterion: a confirmed reproduction
 
@@ -117,8 +117,9 @@ If a test cannot exercise the real failure through an existing interface, report
 
 Required before declaring done:
 
-- [ ] Original reproduction was checked after the fix, or the exact manual check is marked as awaiting user verification. Claim the bug is verified fixed only after that check passes.
+- [ ] 有修复时重查原复现步骤，或明确标记等待用户按具体步骤复验；通过后才能声称原故障已验证修复。未复现而结束调查时，记录实际检查条件与结果。
 - [ ] Existing relevant checks and any targeted regression test results are reported, along with checks that could not run.
 - [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
 - [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
-- [ ] The hypothesis that turned out correct is stated in the commit / PR message, so the next debugger learns
+- [ ] 在提交或交付说明中记录已确认的原因；原故障的触发原因仍未确认时，与独立修复的恢复问题分开说明。
+- [ ] 原位更新因本次修复而失效的现有说明和任务状态，保留实际验证范围与待验内容；临时假设留在任务记录，不为收尾另建重复文档。

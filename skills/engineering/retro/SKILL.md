@@ -11,7 +11,7 @@ The user has asked for a **retrospective**. You are suggesting improvements to t
 
 2. Read the primary sources for the session the user specifies. This may mean searching through session logs on this machine. If the user doesn't specify a session, default to the current one.
 
-3. Look for candidates for improvement in these categories.
+3. 按用户希望改善的工作确定复盘范围，从会话中的有效做法和返工过程提炼经验。用户要总结工作流时，沿阶段选择、需求确认、任务依赖、分工交接、验证与交付检查，不把分析限定为项目代码或规则。以下类别按实际证据选用，不为填满类别编造建议；区分已有要求未执行、当前指引过期和真正缺少的步骤，并保留适用条件。
 
 - **Navigation**: how easy was it for the agent to find the right files? Are there hidden dependencies between files? Would a **navigation pointer** make it easier? _Use when_ the session took a long time to find a piece of information.
 - **Automated checks**: are there automated checks that could catch errors the agent made? Linting, typing, tests, filesystem linters? Read the repo's own check command first (its `package.json`/build-tool `lint`/`check` scripts, its CI workflow), so a check that already exists but sits unwired or silently broken is the finding, not a reinvention. A repo with no **guardrail** (no pre-commit hook and no CI job running its lint/typecheck/test command) is itself a finding: an un-linted repo is a standing missed opportunity, not a neutral default. _Use when_ the agent made a mistake an automated check could have caught, or the repo has no guardrail at all.
