@@ -107,7 +107,7 @@ Off the main flow entirely.
 - **`$wizard`** is for the steps only a **human** can take: provisioning infrastructure, setting up credentials or CI secrets, clicking through an unfamiliar third-party dashboard, running a one-off migration or cutover. It generates an interactive bash script that opens each URL, captures each value, and writes it into `.env` and GitHub secrets, so the procedure stops being something you re-explain to an agent every time. Model-invoked, so the agent reaches for it the moment it hits a wall only you can pass. If the agent could just do it itself, it should; this is for where a human is genuinely in the loop.
 - **`$wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in your language, using plain words and established project names. It works after the fact; `$grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
 - **`$teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
-- **`$teach-with-code-explanation`**：配合行内代码讲解插件，在独立 Markdown 的代码块下简短、直接地翻译真实代码及 diff；需要时再举例。适合阅读当前项目，用户手动调用后才启动。需要跨多次会话学习一个主题时，推荐 `$teach`。
+- **`$teach-with-code-explanation`**：配合行内代码讲解插件生成 JSON，步骤正文用 Markdown，在代码块下简短翻译真实代码及 diff，支持侧栏阅读和代码复制；需要时再举例。适合阅读当前项目，用户手动调用后才启动。需要跨多次会话学习一个主题时，推荐 `$teach`。
 - **`$writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
 
 ## Precondition

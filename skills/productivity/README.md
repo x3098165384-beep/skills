@@ -9,7 +9,7 @@ Workflows you normally start by typing their `$name`. This Codex edition keeps t
 - **[grill-me](./grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[handoff](./handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.
 - **[teach](./teach/SKILL.md)**: Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
-- **[teach-with-code-explanation](./teach-with-code-explanation/SKILL.md)**: 手动调用，配合行内代码讲解插件，在 Markdown 代码块下简短、直接地翻译真实代码及 diff，需要时再举例；已关闭自动选择。
+- **[teach-with-code-explanation](./teach-with-code-explanation/SKILL.md)**: 手动调用，配合行内代码讲解插件生成 JSON，在 Markdown 代码块下简短翻译真实代码及 diff，支持侧栏阅读和代码复制；已关闭自动选择。
 - **[to-questionnaire](./to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can (filled in async, or together over a meeting).
 - **[wait-what](./wait-what/SKILL.md)**: Use when a message is unclear. The agent explains it again in your language, using the missing facts, plain words, and established project names.
 

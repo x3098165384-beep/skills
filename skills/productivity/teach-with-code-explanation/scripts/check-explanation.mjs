@@ -4,7 +4,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 
-const help = '用法：node check-explanation.mjs --root 代码项目 --extension-root 插件工程 [--workspace-stdin] 讲解.md [...]\n只读明确指定的 Markdown。默认当前源码来自磁盘；--workspace-stdin 从标准输入读取 {项目相对路径: 完整当前文本}，不连接编辑器、不写文件。';
+const help = '用法：node check-explanation.mjs --root 代码项目 --extension-root 插件工程 [--workspace-stdin] 讲解.json [...]\n只读明确指定的版本 2 JSON。默认当前源码来自磁盘；--workspace-stdin 从标准输入读取 {项目相对路径: 完整当前文本}，不连接编辑器、不写文件。';
 const missing = error => error.code === 'ENOENT' || error.code === 'ENOTDIR';
 const key = value => process.platform === 'win32' ? value.toLowerCase() : value;
 const within = (root, full) => { const relative = path.relative(root, full); return relative !== '..' && !relative.startsWith('..' + path.sep) && !path.isAbsolute(relative); };
@@ -145,7 +145,7 @@ function main() {
   for (const input of args.files) {
     const filename = path.resolve(args.root, input);
     try {
-      if (path.extname(filename).toLowerCase() !== '.md') throw new Error('只检查独立 Markdown 讲解文件。');
+      if (path.extname(filename).toLowerCase() !== '.json') throw new Error('只检查版本 2 JSON 讲解文件；旧 Markdown 需要由 agent 一次性转换，原文件保留。');
       const result = inspect(filename, args.root, workspace, api);
       for (const warning of result.warnings) console.log(`提醒：${filename}：${warning}`);
       if (result.errors.length) throw new Error(result.errors.join('\n'));
