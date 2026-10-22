@@ -1,5 +1,5 @@
 interface:
   display_name: "Teach with Code Explanation"
-  short_description: "先逐句解释真实代码的名称、运算与判断，再用完整执行例子串起过程"
+  short_description: "代码块下用简短中文直接翻译每句的动作、判断和结果"
 policy:
   allow_implicit_invocation: false

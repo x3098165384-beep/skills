@@ -236,7 +236,7 @@ General workflow tools, not code-specific.
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[handoff](./skills/productivity/handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.
 - **[teach](./skills/productivity/teach/SKILL.md)**: Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
-- **[teach-with-code-explanation](./skills/productivity/teach-with-code-explanation/SKILL.md)**: 手动调用，配合行内代码讲解插件，先逐句讲清真实代码及 diff，再用完整执行例子串起过程，交付独立 Markdown。
+- **[teach-with-code-explanation](./skills/productivity/teach-with-code-explanation/SKILL.md)**: 手动调用，配合行内代码讲解插件，在 Markdown 代码块下简短、直接地翻译真实代码及 diff，需要时再举例。
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject.
 - **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Use when a message is unclear. The agent explains it again in your language, using the missing facts, plain words, and established project names.
 
