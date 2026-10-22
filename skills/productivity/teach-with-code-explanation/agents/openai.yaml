@@ -1,5 +1,5 @@
 interface:
-  display_name: "用行内代码讲解学项目代码"
+  display_name: "Teach with Code Explanation"
   short_description: "结合真实项目和完整执行例子，在 VS Code 代码旁讲清程序如何工作"
 policy:
   allow_implicit_invocation: false

@@ -3,7 +3,7 @@ name: teach-with-code-explanation
 description: 手动调用，配合行内代码讲解插件，为真实项目创建或更新独立 Markdown 讲解，用完整执行例子说明代码和实际 diff。
 ---
 
-# 用行内代码讲解学项目代码
+# Teach with Code Explanation
 
 仅在用户明确调用 `$teach-with-code-explanation` 时启动。外部 agent 读取真实代码并编写 `.md`，VS Code 的“行内代码讲解”插件负责校验、定位、显示和导航。
 
