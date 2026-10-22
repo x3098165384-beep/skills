@@ -9,7 +9,7 @@ You don't remember every skill, so ask.
 
 ## Codex skill visibility
 
-以下技能说明用于推荐调用方式。本 Codex 分支保留工作流技能的目录可见性；用户要求仅手动调用的 `discuss-with-docs`、`deepseek-implement` 和 `teach-with-codetour` 除外。技能不在模型可见目录中时，Codex 可能把已安装的技能误报为不可用。推荐时给出准确的 `$skill-name`，让用户调用。用户询问是否安装时，先检查 `~/.agents/skills/<name>` 和 `~/.codex/skills/<name>`，再说明结果。
+以下技能说明用于推荐调用方式。本 Codex 分支保留工作流技能的目录可见性；用户要求仅手动调用的 `discuss-with-docs`、`deepseek-implement` 和 `teach-with-code-explanation` 除外。技能不在模型可见目录中时，Codex 可能把已安装的技能误报为不可用。推荐时给出准确的 `$skill-name`，让用户调用。用户询问是否安装时，先检查 `~/.agents/skills/<name>` 和 `~/.codex/skills/<name>`，再说明结果。
 
 Keep the prescribed flow intact. `$to-tickets` and `$implement` are
 orchestrators with behavior beyond `$tdd` and `$code-review`; the latter pair
@@ -17,7 +17,7 @@ is not a substitute for either user-directed skill.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 
-`$discuss-with-docs`、`$deepseek-implement` 和 `$teach-with-codetour` 仅供用户手动调用。适合时推荐对应名称，用户明确调用后才启动。
+`$discuss-with-docs`、`$deepseek-implement` 和 `$teach-with-code-explanation` 仅供用户手动调用。适合时推荐对应名称，用户明确调用后才启动。
 
 ## The main flow: idea → ship
 
@@ -107,7 +107,7 @@ Off the main flow entirely.
 - **`$wizard`** is for the steps only a **human** can take: provisioning infrastructure, setting up credentials or CI secrets, clicking through an unfamiliar third-party dashboard, running a one-off migration or cutover. It generates an interactive bash script that opens each URL, captures each value, and writes it into `.env` and GitHub secrets, so the procedure stops being something you re-explain to an agent every time. Model-invoked, so the agent reaches for it the moment it hits a wall only you can pass. If the agent could just do it itself, it should; this is for where a human is genuinely in the loop.
 - **`$wait-what`** is the corrective for a message that didn't land. Use it mid-conversation, inside any other skill, and the agent re-pitches what it just said with the context you were missing, in your language, using plain words and established project names. It works after the fact; `$grill-with-docs` is the upfront cure, because a shared language agreed early is what stops the jargon arriving at all.
 - **`$teach`**: learn a concept over multiple sessions, using the current directory as a stateful workspace.
-- **`$teach-with-codetour`**：在 VS Code 代码旁讲解真实项目代码，交付独立的 `.tours/*.tour` 文件。用完整输入和变量变化解释代码段；适合阅读当前项目，用户手动调用后才启动。需要跨多次会话学习一个主题时，推荐 `$teach`。
+- **`$teach-with-code-explanation`**：配合行内代码讲解插件，用独立 Markdown 讲解真实代码及 diff。以完整输入和变量变化解释代码段；适合阅读当前项目，用户手动调用后才启动。需要跨多次会话学习一个主题时，推荐 `$teach`。
 - **`$writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
 
 ## Precondition
