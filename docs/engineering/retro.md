@@ -26,8 +26,11 @@ Each candidate belongs to one category, and the category decides where the fix g
 | A steering file is full of lines that change nothing | Delete the **no-ops** |
 | The agent needed information it couldn't reach | Widen its access: tee the dev server log to a file, give read-only access to a service |
 | 流程选择、任务依赖、分工或交接导致返工 | 在负责该步骤的已有技能中补缺少的动作，或消除冲突；项目特有的要求留在项目说明中 |
+| 反复编写执行、比较、迁移或检查脚本 | 先核对现有工具和业务维护入口；优先复用或扩展，确有缺口才建议新增，只缺入口或说明时补上关联 |
 
 Project standards guide implementation and any requested review. The implementing agent checks its changes and actual callers; an independent reviewer checks the requested scope with its own evidence. A retrospective places guidance where the responsible stage will read it, with short references from [AGENTS.md](https://www.aihero.dev/ai-coding-dictionary/agents-md) when needed.
+
+持久化建议需要说明重复的具体工作、已有入口、实际缺口、维护位置和验证方式，并区分已存在、待验证和建议实施的内容。工具代码与输入、备份和检查输出分别存放，执行材料沿用项目指定目录。旧批次脚本和未执行的修正版不能直接当作成熟工具；复盘建议也不授权实施、修改资源或搬迁历史材料。
 
 Before any rule gets written, the violation is classified. A **mechanical** one (a banned API, an import shape, a file-location rule) gets a deterministic check, because a check can fail and a sentence in a standards file can't. Only genuine judgement calls, the kind no linter could ever enforce, become prose. A repo with no guardrail at all (no pre-commit hook, no CI job running lint, typecheck, and tests) is reported as a finding in its own right.
 
@@ -66,6 +69,7 @@ The input. [improve-codebase-architecture](https://aihero.dev/skills-improve-cod
 - Every candidate points back to a specific moment in the session, not a generic best practice.
 - Repeat mistakes turn into failing checks, and your `AGENTS.md` gets shorter over time rather than longer.
 - A missing check that already existed but sat unwired shows up as the finding, rather than a proposal to build a new one.
+- 下一会话能从业务文档找到经过验证的工具入口，执行材料的位置明确，已有能力与待实施建议分得清楚。
 - The next session on the same kind of task finds its way faster.
 
 ## Where it fits

@@ -48,7 +48,7 @@ Grilling retains its own glossary and ADR responsibilities. New conclusions feed
 
    When the work goes up as a pull request, **`$pr`** shapes the body: the smallest visual that shows the change, before/after evidence that it works, and a one-way or two-way door call. It's model-invoked, so the agent reaches for it whenever it writes a PR.
 
-4. **`$retro`** closes the loop. After a build, and especially one that went sideways, it looks back over the session and suggests changes to the agent's **environment**, not the code: navigation pointers, automated checks, the coding standards `$code-review` enforces, steering files, tooling. Mechanical mistakes become deterministic checks; judgement calls become coding standards. The next build then starts from a better environment.
+4. **`$retro`** closes the loop. After a build, and especially one that went sideways, it looks back over the session and suggests changes to the agent's **environment**, not the code: navigation pointers, automated checks, the coding standards `$code-review` enforces, steering files, tooling. Mechanical mistakes become deterministic checks; judgement calls become coding standards. The next build then starts from a better environment. 反复编写临时脚本时，也核对项目现有工具和文档，判断应复用、扩展还是建议新增，并明确维护与验证方式。
 
 ### Context hygiene
 

@@ -18,10 +18,11 @@ The user has asked for a **retrospective**. You are suggesting improvements to t
 - **Coding standards**: should the **reviewer agent** be given a new rule to enforce? Should an existing rule be removed or clarified? Classify the violation first: a **mechanical** one (a fixed syntactic pattern, a banned API, an import shape, a file-location rule) gets a deterministic check, full stop: a custom rule in the repo's own linter, a new pre-commit hook, or a new CI job, whichever the repo's language and existing guardrail make cheapest. Default to building the check over writing the rule. Reserve `CODING_STANDARDS.md` for genuine **judgement calls** (cross-file consistency, "matches the surrounding style," anything no guardrail could ever substitute for). _Use when_ the reviewer agent failed to catch a mistake.
 - **Global AGENTS.md**: are there any steering instructions that should be moved to coding standards (or automated checks) instead? _Use when_ the AGENTS.md file is particularly large - in the repo OR the user's global scope.
 - **Tool economy**: did the agent make expensive tool calls that could be streamlined? Is there any custom tooling (CLI's, MCP's) that is particularly token-inefficient? _Use when_ the agent made an expensive tool call.
+- **工具复用与持久化**：会话中反复编写执行、比较、迁移或验证脚本时，先查项目现有工具、维护服务和使用文档，再区分直接复用、扩展现有能力、确有缺口才新增工具，以及只保留本次记录。以当前源码、真实调用方和执行证据核对适用范围，不凭文件名或一次执行成功认定可复用；写死本批ID、旧修订、失败假设或未执行修正版的程序不能直接当作成熟工具。建议中写明重复的具体工作、已有入口、实际缺口、负责维护的模块、固定代码与文档路径及验证方式。工具程序与外部输入、备份、日志和大量检查输出分开存放；后者沿用项目已指定的目录，不另选临时位置。已有能力只缺调用入口或使用说明时，优先补入口或说明，不重新实现业务逻辑。
 - **No-ops**: look for instructions in steering files that don't modify the agent's behavior. _Use when_ the steering files are large and unwieldy.
 - **Information access**: look for opportunities to increase the agent's access to information. Teeing dev server logs, readonly access to third-party services. _Use when_ a crucial piece of information was not available to the agent.
 
-4. Present these candidates to the user, in order of severity.
+4. Present these candidates to the user, in order of severity. 涉及持久化工具时，分别说明已经存在、尚待验证和建议实施的内容；复盘建议本身不授权新增工具、修改资源或搬迁历史材料。
 
 ## Reference
 
