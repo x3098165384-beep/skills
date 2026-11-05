@@ -2,6 +2,8 @@
 
 `implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, checks the integrated changes and their callers, and resolves the tickets.
 
+每位执行者读取并遵循 [implement](https://aihero.dev/skills-implement)，使用它规定的实现、验证和提交方式。主代理负责多项任务之间的依赖、共享写入、合并和整体验证；修改 `$implement` 中的实施规则后，这些执行者也按更新后的原文工作。
+
 它把任务读成 **task graph**，根据已交付的前置结果确定当前可开始的 **frontier**，在能够独立执行的任务间并行。共享写入按已确认的责任和顺序协调，任务不会仅因列在清单后面就等待所有前项，也不会仅因前置已完成就忽略共享状态冲突。
 
 派发前还会检查实际共享的文件、数据库、编辑器和外部状态，明确共同写入由谁负责。独立工作树不能隔离这些共享状态。执行期间，主代理核对阶段产物和具体阻碍；用户改变范围时，同步受影响的任务、依赖与验证要求。整合后核对原有说明和任务状态，保留待验证内容。
@@ -25,15 +27,13 @@ Start this workflow by typing `$implement-spec`. This Codex edition keeps it mod
 
 ## The integration branch
 
-Everything lands on one branch. Each implementer:
+所有结果合入同一条分支。每项任务使用新的执行代理和独立上下文；需要修复审查发现的问题时，也使用新的执行代理。派发时提供当前需求、项目规则、写入范围、验证要求和已有调查资料。每位执行者：
 
-每项任务使用新的执行代理和独立上下文。需要修复审查发现的问题时，也使用新的执行代理。
+1. 确认工作树基于集成分支，并记录本项任务的起始提交。
+2. 使用 [implement](https://aihero.dev/skills-implement) 完成任务，包括检查实际调用方和现有机制、选择验证方式、更新原有说明及任务状态，并提交结果。
+3. 合入集成分支的最新修改，返回提交编号、实际检查结果、待验项和阻碍。
 
-1. confirms its worktree is based on the integration branch before it starts,
-2. builds its ticket following the shared testing policy, using necessary compilation, relevant existing checks, and manual acceptance steps; [tdd](https://aihero.dev/skills-tdd) supplies a test-first loop when requested,
-3. commits its ticket's changes, then merges the integration branch tip into its own branch and reports the resulting commit hash, so landing it is a fast-forward.
-
-Local commits are included in the workflow without another confirmation. Manual acceptance can remain pending; a user or project instruction to defer commits takes precedence. A separate review runs only when requested, including when agreed at the start. Any fixes are checked, committed, and merged into the integration branch before closeout. The final response identifies that branch and its final commit hash, or explains what blocks completion.
+本地提交包含在流程中，用户或项目要求暂缓提交时优先遵循。人工验收可以保持待验状态。独立审查只在用户要求时执行：未指定逐项审查时，由主代理在所有任务合入后审查整份规格一次；明确要求逐项审查时，按指定任务安排。针对整份规格的审查不会重复交给每位执行者。已确认问题的修复同样使用 `$implement`，检查、提交并合入后，主代理核对整合结果。最终报告给出分支、最终提交、实际验证结果和具体阻碍。
 
 The tracker decides whether a pull request exists at all. If your tracker closes work through PRs, or you ask for one, the skill opens a draft PR after the first merge and marks it ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
 
@@ -51,11 +51,15 @@ No, not any more. One user who liked the in-progress version had exactly this co
 
 **Its review and fix loop ran for hours, or kept "fixing" tickets that hadn't been built yet.**
 
-Implementation includes checks of each ticket and the integrated result. A requested review runs once after all tickets have landed, using the recorded starting commit and the whole spec. Review findings are checked and substantiated issues are fixed; affected checks then run without automatically starting another broad review. Reviewing the whole spec before its tickets are complete would incorrectly report unbuilt work as missing.
+每项任务和整合结果都会进行必要检查。用户要求独立审查且未指定逐项审查时，在全部任务合入后，用整合前记录的起始提交和完整规格审查一次；明确要求逐项审查时，按指定任务安排。主代理在派发时说明审查分工，修复任务只处理已确认的问题，并重新运行受影响的检查。提前按整个规格审查尚未完成的任务，会把后续任务误报为遗漏。
+
+**我修改了 `$implement`，这里也会使用这些规则吗？**
+
+会。主代理派发前读取它，每位执行者也读取并遵循原文，包括新增机制前的职责检查、验证方式、提交和原有说明维护。`implement-spec` 负责多项任务之间的安排；整份规格的审查由主代理按用户要求统一处理。
 
 **Does every implementer have to use tdd?**
 
-This fork prioritizes functionality and passes the shared testing policy and the spec's verification decisions to every implementer. Existing checks and manual acceptance are the default; add automation for specific manual testing gaps or explicit requests. Use `$tdd` when test-first work is requested. Name any agreed seams in the spec or tickets so each implementer receives them.
+每位执行者遵循 [implement](https://aihero.dev/skills-implement) 及其测试策略，并收到规格中约定的验证要求。默认运行必要的现有检查、提供人工验收步骤；新增自动化处理具体的人工验证缺口或明确要求。只有要求先写测试时，才使用 `$tdd`。
 
 **Two implementers running in parallel collided on the same file, or picked different names for the same thing.**
 

@@ -99,6 +99,8 @@ The agent resolved `#2` against another numbered list in context, such as a todo
 
 ## Where it fits
 
+使用 [implement-spec](https://aihero.dev/skills-implement-spec) 实施整份规格时，每位执行代理也会读取并遵循本技能。`implement-spec` 负责依赖、共享写入和分支合并，并统一安排针对整份规格的审查；本技能继续负责每项任务的实现、验证和提交。修改这里的实施规则后，无需在 `implement-spec` 中重复维护一份。
+
 `implement` is the build step of the main chain:
 
 ```txt
