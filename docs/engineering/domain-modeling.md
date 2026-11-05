@@ -55,6 +55,8 @@ It cross-references **code** and the committed `GLOSSARY.md` and ADRs, and nothi
 The size is a symptom, not the disease: the file has absorbed implementation detail and decisions that were never glossary material. The fix is a direct instruction: `$grill-with-docs make my GLOSSARY.md more concise and remove any implementation details from it`. Run it against a bloated file and most of it goes. Only reach for a `GLOSSARY-MAP.md` split once the file is genuinely lean and still covers two domains that a reader would not want to hold at once; splitting a bloated file just gives you several bloated files. The skill's guidance here is not yet strong enough to prevent the growth in the first place, and the issue tracking that is still open.
 
 **My project still uses `CONTEXT.md`. How do I update it?**
+`GLOSSARY.md` 说明文件记录的是项目名称、含义和关系。[上下文](https://www.aihero.dev/ai-coding-dictionary/context)还包括当前任务需要的代码、需求和其他资料，用它命名术语表容易让文件混入本应留在规格或任务记录中的内容。
+
 Migrate the project's glossary to `GLOSSARY.md`, and `CONTEXT-MAP.md` to `GLOSSARY-MAP.md` when present. Update the map entries, project instructions, `docs/agents/domain.md`, and current document links in the same migration. Preserve the glossary's content and use the new names for future work.
 
 **Where did `/ubiquitous-language` go?**

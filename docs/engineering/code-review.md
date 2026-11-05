@@ -47,6 +47,8 @@ Step 1 depends on the tracker doc, which [setup-matt-pocock-skills](https://aihe
 
 The repo's own documentation is the [primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source) on the Standards axis, and **the repo always overrides**. Before checking completeness, this axis checks whether added mechanisms are needed and whether the chosen module should own them, using actual callers and existing workflows. An implementation decision in the spec receives the same scrutiny. Complexity concerns need a concrete unnecessary mechanism or misplaced responsibility and a feasible alternative; fewer lines or files alone do not establish an improvement.
 
+先读项目规则，是为了避免把项目有意保留的做法判为错误，同时漏掉项目实际依赖的行为。通用的代码审查建议不能代替项目自己的规则和已确认需求。
+
 The **smell baseline** sits under the repo's standards. It is twelve code smells from chapter 3 of Fowler's _Refactoring_: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest. Each is a labelled heuristic ("possible Feature Envy"), never a hard violation. Each states what the smell is and how to fix it, so a finding comes with a fix attached rather than only a complaint. Both axes skip anything your linter already enforces.
 
 ## Common questions
@@ -80,6 +82,8 @@ Known open bug, reproduced by several people and in more than one harness. The S
 
 可以在原会话中请求审查。规则与规格审查各自使用新的上下文，只接收审查范围、需求、项目规则和可读取的资料。主代理负责汇总返回的报告；用户也可以另开会话审查，但无需为了取得独立的审查上下文而固定增加这个步骤。
 
+实现时形成的假设若全部传给审查者，审查者可能沿用同样的错误前提。新的审查上下文保留需求与证据，让审查者自行核对实现；它不需要继承完整的写代码过程。
+
 **After every ticket, or once at the end?**
 
 独立审查按用户指定范围执行。使用 [implement-spec](https://aihero.dev/skills-implement-spec) 时，用户要求审查但未指定逐项审查，默认由主代理在全部任务合入后审查整份规格一次；明确要求审查某些任务时，按指定范围安排。普通实现中的必要检查仍照常进行，不自动增加逐项审查和最终整份规格审查。
@@ -110,6 +114,8 @@ Yes, when reviewing current work, including calls from `implement`. It compares 
 `code-review` is an optional review step requested after implementation: `grill-with-docs → to-spec → to-tickets → implement → code-review`. It also stands alone on any branch or PR you point it at.
 
 - [implement](https://aihero.dev/skills-implement) is the closest neighbour: it drives the build and calls this skill before committing when a separate review was requested.
+- 需要调查审查为何漏掉某类问题时，可用 [retro](https://www.aihero.dev/skills-retro) 回看具体会话，再判断负责该步骤的规则或检查是否需要调整。
+- 需要编写 PR 正文时，[pr](https://www.aihero.dev/skills-pr) 提供变更说明、验证证据和合并影响的写法。
 - [to-spec](https://aihero.dev/skills-to-spec) and [to-tickets](https://aihero.dev/skills-to-tickets) produce the document the Spec axis checks against; a vague spec makes that axis vague.
 - [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) is the whole-codebase counterpart: this skill only ever looks at one diff.
 

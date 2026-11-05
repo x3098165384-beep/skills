@@ -84,6 +84,8 @@ A separate review runs only when you request it, including when you include it i
 
 Inspect what consumed the time. This branch no longer requires a new test loop or a full suite for every ticket. Repeated checks should have a specific change, failure, or uncovered behavior behind them. If implementation and review still exceed one session, split the work into smaller tickets with [to-tickets](https://aihero.dev/skills-to-tickets).
 
+模型读取和生成的内容以 [token](https://www.aihero.dev/ai-coding-dictionary/token) 计量，任务资料和工具输出都会占用可用的上下文。提高[推理强度](https://www.aihero.dev/ai-coding-dictionary/effort)会增加用于推理的输出 token。任务过大或检查重复时，应先处理这些具体原因，再判断是否需要调整模型设置。
+
 **`$implement #2` in a fresh session worked on something completely unrelated.**
 
 The agent resolved `#2` against another numbered list in context, such as a todo file or checklist, rather than the configured tracker. `implement` now fetches a passed reference from the issue tracker and states its title before starting, and asks when the reference is ambiguous. Check that title matches the ticket you meant; passing the issue URL or `owner/repo#2` removes the ambiguity entirely.

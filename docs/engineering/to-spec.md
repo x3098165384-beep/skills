@@ -37,6 +37,8 @@ The spec's **Verification** section records manual steps, expected results, and 
 
 These decisions travel into tickets and implementation so a fresh session knows what a person can check and where automation is needed. Routine functionality does not acquire a test-writing requirement just by appearing in the spec.
 
+用户要求先写测试时，[tdd](https://www.aihero.dev/skills-tdd) 沿用规格中已确认的行为和接口；用户要求独立审查时，[code-review](https://www.aihero.dev/skills-code-review) 用规格核对需求是否实现、是否遗漏或超出范围。验收决定因此应保留到这些后续步骤中。
+
 ## Common questions
 
 **Where did `/to-prd` go?**

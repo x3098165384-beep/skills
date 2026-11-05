@@ -30,9 +30,11 @@ Reuse the reproduction you already have. The available methods are:
 2. Record manual actions, input, observed failure, and expected result. No wrapper script is required.
 3. If the behavior is difficult to test reliably by hand or impossible to test manually, explain the gap and build the smallest useful automated reproduction without a separate test approval.
 
+已有证据也可以是浏览器的页面内容（DOM）、控制台或网络结果，保存的请求或事件记录，以及同一输入在新旧版本中的输出差异。需要[人工参与](https://www.aihero.dev/ai-coding-dictionary/human-in-the-loop)时，记录必要操作和观察结果即可。随机故障或难以稳定手动复现的行为，满足上述新增自动化的条件时，可以对多组输入检查同一规则、重复执行复现步骤，或用 `git bisect run` 缩小出错提交范围。
+
 A useful feedback loop distinguishes the reported failure from correct behavior and can be repeated after the fix. For intermittent failures, record the observed frequency and conditions. Temporary scripts and throwaway harnesses follow the same testing boundary as permanent tests.
 
-检查在所述条件下正常时，会报告未复现及覆盖条件，停止没有依据的修改。仍需定位却无法取得失败证据时，会说明已经尝试什么、缺少什么，再请求相应环境、脱敏材料或临时诊断权限；不会把其他条件下的可能问题写成已确认原因。
+检查在所述条件下正常时，会报告未复现及覆盖条件，停止没有依据的修改。仍需定位却无法取得失败证据时，会说明已经尝试什么、缺少什么，再请求相应[执行环境](https://www.aihero.dev/ai-coding-dictionary/environment)的访问权限、脱敏材料或临时诊断权限；不会把其他条件下的可能问题写成已确认原因。
 
 ## The gates between phases
 
@@ -94,3 +96,5 @@ Renamed to `$diagnosing-bugs` in v1.0.0. The old name no longer exists. Anything
 `diagnosing-bugs` 调查一个具体故障，交付已确认原因与修复结果，或限定条件下未复现的结论，并保留仍需人工验证的内容。[ask-matt](https://aihero.dev/skills-ask-matt) 将难以定位的故障引到这里。
 
 [triage](https://aihero.dev/skills-triage) sits upstream for raw reports from other people. Its confirmed reproduction can provide evidence for this investigation. [tdd](https://aihero.dev/skills-tdd) supplies the test loop when you request test-first work.
+
+修复后若还需要调查哪些工作方式导致问题，可用 [retro](https://www.aihero.dev/skills-retro) 回看同一会话中的证据，再决定是否调整已有规则或工具。

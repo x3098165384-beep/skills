@@ -6,6 +6,8 @@
 
 它从会话中的具体错误、重复工作和已有有效做法提出改进建议。复盘建议本身不授权修改资源、安装工具或搬迁材料；已有明确实施授权时按授权继续，其他建议交给用户决定。
 
+例如，查找同一文件时反复执行的[工具调用](https://www.aihero.dev/ai-coding-dictionary/tool-call)，可以帮助判断现有导航是否难找或没有被使用；已经发生的实现错误或审查遗漏，可以帮助核对负责该步骤的规则是否缺失或未执行。建议需要对应这些实际记录。
+
 ## When to reach for it
 
 Start this workflow by typing `$retro`. This Codex edition keeps it model-visible so Codex can resolve the invocation reliably.
@@ -50,11 +52,13 @@ This is the strongest criticism of it. One user found that "once the job is fini
 
 **My session is long. Run it now, or start fresh?**
 
-By default it reviews the current session, which is the best case: the struggles are still in the context window. If the session has drifted out of the [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) already, [clear](https://www.aihero.dev/ai-coding-dictionary/clearing) and point a fresh `$retro` at the previous session in the session logs instead.
+By default it reviews the current session, which is the best case: the struggles are still in the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window). If the session has drifted out of the [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) already, [clear](https://www.aihero.dev/ai-coding-dictionary/clearing) and point a fresh `$retro` at the previous session in the session logs instead.
 
 **The agent keeps making the same mistake. Should I add a line to `CLAUDE.md`?**
 
 先确定哪个步骤负责避免这个具体错误，再检查它的现有规则是否遗漏、过期或未执行。可由工具直接检查时，优先复用现有检查；需要结合职责和行为判断时，维护项目编码说明。跨任务稳定且需要首先读取的规则才放入 `AGENTS.md` 或 `CLAUDE.md`，详细步骤通过短链接指向负责的文档。
+
+`AGENTS.md` 和 `CLAUDE.md` 中会被当前工具在每次会话加载的内容，会持续占用上下文窗口。只在某个步骤才需要的详细资料，放在该步骤可读取的原文档中，可以保留依据，同时避免每次任务都加载。
 
 **My setup mentions `CODING_STANDARDS.md` and I don't have one. Where does it come from?**
 
