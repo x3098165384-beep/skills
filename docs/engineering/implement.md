@@ -20,7 +20,7 @@ Where the work currently lives decides whether this is the right skill:
 | One concrete behaviour you want test-first, with no spec | [tdd](https://aihero.dev/skills-tdd) directly |
 | Already built, and you want it checked | [code-review](https://aihero.dev/skills-code-review) directly |
 
-The same-session case is worth naming because the skill's own first line doesn't cover it. `SKILL.md` says "the spec or tickets", which nudges the [model](https://www.aihero.dev/ai-coding-dictionary/model) to go hunting for a file that doesn't exist. If the plan lives only in the thread, say so when you invoke it.
+The same-session case is worth naming because the skill's own first line doesn't cover it. `SKILL.md` says "the spec or tickets", which pushes the [model](https://www.aihero.dev/ai-coding-dictionary/model) to look for a file that doesn't exist. If the plan lives only in the thread, say so when you invoke it.
 
 ## Prerequisites
 
@@ -30,15 +30,15 @@ If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the
 
 ## What one run does
 
-A run is five beats, in order:
+A run has five steps, in order:
 
-1. Read the ticket or spec and its verification decisions; record the starting commit.
+1. 读取任务或规格及其验证要求，记录起始提交。提供任务编号或链接时，先从已配置的任务管理工具读取并说明标题；编号或链接含义不清时，再向你确认。
 2. Implement the behavior, adding targeted verification only where the shared testing policy calls for it.
 3. Check the changed code and its actual callers, and run necessary compilation or type checks and existing tests that cover the change.
 4. Provide manual steps and expected results, marking unperformed checks as awaiting your verification.
 5. If a separate review was requested, run [code-review](https://aihero.dev/skills-code-review) against the starting commit and fix substantiated findings. Commit the completed task to the current branch after the required checks.
 
-One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
+One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, so you can discard the previous ticket's context.
 
 实施途中明确改变范围或限制时，会重新检查方案是否成立，并同步受影响的原规格、任务、执行者和验证要求。仍有效的调查继续使用。收尾会更新因本次行为变化而失效的现有说明与任务状态，区分完成和待验证内容；不要求每次改动都另写一份文档。
 
@@ -68,7 +68,7 @@ Not with `$implement`: one invocation, one ticket. For a whole spec in one run, 
 
 **Can it open a pull request instead of committing?**
 
-Not built in. It commits straight to the current branch, which several people find too eager: the code lands before they have had a chance to verify it works. There is no configuration flag and no PR mode. People override it in the invocation ("commit to a branch and open a PR") or by editing their local copy of the skill. When the agent does write the PR, [pr](https://aihero.dev/skills-pr) shapes its body.
+Not built in. It commits straight to the current branch. Several people find this too eager, because the code lands before they can verify it works. There is no configuration flag and no PR mode. People override it in the invocation ("commit to a branch and open a PR") or by editing their local copy of the skill. When the agent does write the PR, [pr](https://aihero.dev/skills-pr) shapes its body.
 
 **Do I need to ask it to commit after implementation?**
 
@@ -86,7 +86,7 @@ Inspect what consumed the time. This branch no longer requires a new test loop o
 
 **`$implement #2` in a fresh session worked on something completely unrelated.**
 
-`#2` is resolved against whatever numbered list the agent can see, which in a fresh session may be a todo file, a checklist, or another work list rather than the configured tracker. The resolution is confident rather than fail-closed, so the mistake is not obvious until it has started. Pass the full reference, the issue URL or `owner/repo#2`, and ask it to confirm the title back before it begins.
+The agent resolved `#2` against another numbered list in context, such as a todo file or checklist, rather than the configured tracker. `implement` now fetches a passed reference from the issue tracker and states its title before starting, and asks when the reference is ambiguous. Check that title matches the ticket you meant; passing the issue URL or `owner/repo#2` removes the ambiguity entirely.
 
 ## It's working if
 
@@ -107,6 +107,6 @@ grill-with-docs → to-spec → to-tickets → implement → [requested code-rev
 
 Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which provides the work and verification decisions; [tdd](https://aihero.dev/skills-tdd), used when you request test-first work; and [code-review](https://aihero.dev/skills-code-review), which it runs before committing when you requested a separate review. The plan determines the requested behavior; the shared testing policy determines when new tests are useful.
 
-That trust is why [wayfinder](https://aihero.dev/skills-wayfinder) merges onto the chain at [to-spec](https://aihero.dev/skills-to-spec) rather than looping its map straight into `implement`. Go straight to `implement` from a map only when the effort turned out genuinely small.
+That trust is why [wayfinder](https://aihero.dev/skills-wayfinder) merges onto the chain at [to-spec](https://aihero.dev/skills-to-spec) rather than looping its map straight into `implement`. Go straight to `implement` from a map only when the effort turned out small.
 
 [ask-matt](https://aihero.dev/skills-ask-matt) is the router over the whole set when you are not sure which flow you are in.

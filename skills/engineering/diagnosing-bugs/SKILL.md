@@ -111,6 +111,8 @@ Apply the fix and repeat the original reproduction with existing checks or manua
 
 When a regression test is needed under the testing policy, use an existing public interface that exercises the real failure. Confirm it distinguishes the buggy behavior from the fix. Use `$tdd` when the user requests a test-first workflow.
 
+如果通过故意修改代码或测试数据来确认测试会失败，先用 `diff` 与未修改的副本比较，确认修改已经生效，再判断失败结果是否有效。
+
 If a test cannot exercise the real failure through an existing interface, report that limitation. Use other available evidence and mark any verification gap; do not change production interfaces or start architecture work solely to add a test.
 
 ## Phase 6: Cleanup

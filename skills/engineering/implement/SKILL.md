@@ -5,6 +5,8 @@ description: "Implement a piece of work based on a spec or set of tickets."
 
 Implement the work described by the user in the spec or tickets.
 
+用户提供任务编号或链接时，先从已配置的任务管理工具读取任务并说明标题；无法确定指的是哪项任务时，再向用户确认。
+
 Record the starting commit before editing.
 
 用户明确改变范围或限制时，先检查原方案是否仍能满足目标，更新受影响的原规格、任务和验证要求；有其他执行者时，同步撤回的决定及当前要求。复用仍有效的调查，只调整受影响部分。

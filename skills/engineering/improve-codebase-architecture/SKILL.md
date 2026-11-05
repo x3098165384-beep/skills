@@ -23,7 +23,7 @@ This command is _informed_ by the project's domain model and built on a shared d
 
 Read the project's glossary and relevant ADRs first, using the [domain document locations](../domain-modeling/SKILL.md#domain-document-locations).
 
-Then spawn a sub-agent to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
+Then spawn a sub-agent with a fresh context window to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
 
 - Where does understanding one concept require bouncing between many small modules?
 - Where are modules **shallow**, with an interface nearly as complex as the implementation?

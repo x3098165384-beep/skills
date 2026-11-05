@@ -1,0 +1,5 @@
+interface:
+  display_name: "Software Factory"
+  short_description: "讨论怎样用任务管理工具、Git 和执行服务自动处理开发任务"
+policy:
+  allow_implicit_invocation: true

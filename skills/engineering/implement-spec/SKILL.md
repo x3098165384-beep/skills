@@ -15,6 +15,8 @@ Local commits are part of this workflow and need no separate confirmation. Commi
 
 The tickets are not a list of steps. They are a **task graph** with blocking relationships between them. This means there is always a **frontier** of tickets which are ready to be grabbed.
 
+Start every subagent with a fresh context window.
+
 Communication to and from subagents should be sparse. Communicate primarily through **context pointers**: to the spec, tickets, research notes, and previous commits. Don't duplicate information already available via pointers.
 
 **Implementer subagents** should be run in the background where possible for maximum concurrency.
@@ -27,7 +29,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 3. Record the starting commit and create the integration branch. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the spec and tickets.
 
-4. Use **implementer subagents** to implement each ticket, each in its own worktree on its own branch. Each implementer subagent:
+4. Use a fresh **implementer subagent** for each ticket, each in its own worktree on its own branch. Each implementer subagent:
    - confirms its worktree is based on the integration branch before starting, recreating a clean worktree from that branch if necessary while preserving existing work;
    - builds the ticket's functionality, checks the changed code and its actual callers against the agreed behavior and project rules, runs necessary compilation and directly relevant existing checks, and supplies manual acceptance steps under the shared testing policy; uses $tdd when test-first work was requested;
    - commits its ticket's work to its own branch, then merges the integration branch tip into that branch and reports the resulting commit hash before reporting done.
@@ -38,7 +40,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 6. If this changes the **frontier** of available tickets, kick off more **implementer subagents** to work on the new tickets. This allows for maximum concurrency.
 
-7. Once all tickets are complete, check the integrated changes and their callers against the spec and project rules. 同时核对受行为变化影响的现有说明与任务状态已更新，明确实际完成和待验证内容；只更新相关原文档，不另建重复报告。Use $code-review only when the user requested a separate review, including a review agreed at the start of the task; pass the recorded starting commit and spec. Fix substantiated findings in an **implementer subagent**, rerun affected checks, commit the fixes, and merge them into the integration branch before closeout.
+7. Once all tickets are complete, check the integrated changes and their callers against the spec and project rules. 同时核对受行为变化影响的现有说明与任务状态已更新，明确实际完成和待验证内容；只更新相关原文档，不另建重复报告。Use $code-review only when the user requested a separate review, including a review agreed at the start of the task; pass the recorded starting commit and spec. Fix substantiated findings in a fresh **implementer subagent**, rerun affected checks, commit the fixes, and merge them into the integration branch before closeout.
 
 8. Confirm all task changes, including review fixes, are committed and merged; otherwise report the blocker before closeout. If a draft PR exists, mark it ready for review. Otherwise, resolve each ticket the way the issue tracker closes work. Report the integration branch, its final commit hash, and verification results.
 

@@ -7,6 +7,8 @@ description: Ask which skill or flow fits your situation. A router over the skil
 
 You don't remember every skill, so ask.
 
+说明某个技能的用途，或建议跳过某一步之前，先读该技能的 `SKILL.md`；这里的简要介绍只用于判断先看哪个技能。
+
 ## Codex skill visibility
 
 以下技能说明用于推荐调用方式。本 Codex 分支保留工作流技能的目录可见性；用户要求仅手动调用的 `discuss-with-docs`、`deepseek-implement` 和 `teach-with-code-explanation` 除外。技能不在模型可见目录中时，Codex 可能把已安装的技能误报为不可用。推荐时给出准确的 `$skill-name`，让用户调用。用户询问是否安装时，先检查 `~/.agents/skills/<name>` 和 `~/.codex/skills/<name>`，再说明结果。
@@ -65,6 +67,8 @@ A starting situation that generates work, then merges onto the main flow.
   Triage is only for issues **you didn't create**: bug reports, incoming feature requests, anything that arrives raw. Tickets that `$to-tickets` produced are already agent-ready, so **don't triage them**.
 
 - **Something's broken** → **`$diagnosing-bugs`**. For hard bugs and performance regressions, it confirms the failure with existing commands, tests, or manual steps, investigates the cause, and verifies the fix. New automated reproduction code and regression tests follow the shared testing policy; confirmed manual steps are sufficient when they reliably show the failure.
+
+  修复后，可用 `$retro` 回顾怎样避免再次发生；需要重新考虑模块职责或接口时，可用 `$improve-codebase-architecture` 检查现有代码。
 
 - **A huge, foggy effort: a greenfield project or a huge feature build, too big for one session** → **`$wayfinder`**, the most cognitively demanding flow here. When the way from here to the destination isn't visible yet, it charts a **shared map** of **decision tickets** on the issue tracker and resolves them one at a time, producing **decisions, not deliverables**, until the fog is pushed back and the way is clear. Where **`$grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't, and it's slower and denser, so save it for exactly that, never a well-scoped feature.
 
