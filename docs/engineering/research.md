@@ -6,6 +6,8 @@ It does not answer you in the conversation. The output is a file, written where 
 
 ## When to reach for it
 
+后台研究代理使用新的上下文，任务中会提供具体问题、时间范围、当前限制和已有资料，结果沿用项目的保存位置。主代理通过现有等待和状态工具收集结论与来源，其他执行者可继续复用这些资料。
+
 Type `$research`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it automatically when a task turns into reading legwork.
 
 Reach for it when the next step is *finding something out* from outside the working directory (how a third-party API behaves, what a spec says, whether a version claim holds), and you'd rather not stall your own thread doing the reading. What you need decides which skill:

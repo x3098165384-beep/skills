@@ -33,6 +33,8 @@ The document carries the live thread (what's in flight, why, and what's next) pl
 
 Its resource index gives the next agent a suggested reading order, with the purpose of each key path or link and pointers to the relevant detail. Lessons and pitfalls preserve what worked, where it applies, and why earlier attempts failed, so the next session can avoid repeating the same exploration. Verified conclusions are distinguished from judgments that still need checking.
 
+交接同时保留用户当前的范围、限制、已撤回决定和待验内容，技能建议使用准确的 `$skill-name` 并说明适用步骤。使用 `claude-handoff` 启动后台代理时，也先复用本技能编写文档，再将该文档交给新代理。
+
 It deliberately does not carry anything already written down. The document references specs, plans, ADRs, issues, commits and diffs by path or URL, and never copies them. That keeps the file small, and it keeps the settled detail in one place instead of two copies that drift apart.
 
 ## Common questions

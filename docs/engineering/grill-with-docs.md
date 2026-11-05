@@ -6,7 +6,7 @@ It is **[stateful](https://www.aihero.dev/ai-coding-dictionary/stateful)**. Ever
 
 ## When to reach for it
 
-You invoke this by typing `$grill-with-docs`; the agent will not reach for it on its own.
+使用 `$grill-with-docs` 开始。本 Codex 分支保留它的可见性；执行时依次读取 `$grilling` 和 `$domain-modeling`，分别按访谈规则与记录条件处理。
 
 Reach for it at the start of a change, in a repo, when the plan is still fuzzy and the words for the thing are not settled yet. It is the single-session tool. Which grilling skill you want depends on what is in front of you:
 
@@ -24,7 +24,7 @@ The wayfinder split comes down to session count: `$grill-with-docs` for single-s
 
 The skill writes into your repo, so you need a workspace where those changes are allowed. Resolved terms go to root `GLOSSARY.md`, or the per-context `GLOSSARY.md` files listed in root `GLOSSARY-MAP.md`. Qualifying decisions go to `docs/adr/`, following [domain-modeling](https://aihero.dev/skills-domain-modeling). Documents are created only when there is an agreed term or decision to record.
 
-It also needs two other skills present, because its own `SKILL.md` is one line that delegates to them. [grilling](https://aihero.dev/skills-grilling) supplies the interview, and [domain-modeling](https://aihero.dev/skills-domain-modeling) supplies the writing. Installing `grill-with-docs` alone gets you a skill that does not work.
+它依赖两个技能：[grilling](https://aihero.dev/skills-grilling) 提供访谈步骤，[domain-modeling](https://aihero.dev/skills-domain-modeling) 说明何时记录项目术语和决定。两者都需要可读取。
 
 ## The paper trail
 
@@ -49,7 +49,7 @@ Scope decides it. Use this for anything you can settle in one session; use [wayf
 There are two known causes. The first is that nothing qualified. ADRs need all three gates, and a session about a change with no new vocabulary has nothing to write. The second is a real bug. When the skill runs inside another orchestration layer (a spec-driven-development wrapper, a multi-agent framework, a rule that invokes it as a step in someone else's pipeline), users report that the file-writing half silently does not happen, while the interview still runs. The bug is filed and unfixed. If you are in that setup, check the working directory before you trust the session's output.
 
 **It asked everything at once, with no recommendations, and never mentioned `GLOSSARY.md`.**
-That is the skill failing to load its two dependencies. Because `SKILL.md` is a one-line delegation, an agent that does not pick up [grilling](https://aihero.dev/skills-grilling) and [domain-modeling](https://aihero.dev/skills-domain-modeling) guesses at what grilling means, and you get every question at once with no structure. Partial loading is more confusing. `grilling` loads, `domain-modeling` does not, and you get a good interview with no paper trail. How often it happens depends on the model and the [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level, and it is the most reported problem with this skill. If you suspect it, ask the agent directly which skills it loaded.
+先核对是否实际读取了 [grilling](https://aihero.dev/skills-grilling) 和 [domain-modeling](https://aihero.dev/skills-domain-modeling)。本分支明确要求依次读取两者：前者管理提问与等待回答，后者管理已确认术语和决定的记录。没有新增合格记录时可以不改文档；已确认且需要记录的内容遗漏时，再补到负责的原文档。
 
 **Where did all my other decisions go?**
 Into the conversation only. This is the most serious open complaint about the skill. The glossary is not a spec, most answers do not earn an ADR, and no record links each resolved answer to a spec, a ticket and a test. Later steps soften precise answers (ordering guarantees, negative requirements, numeric defaults) into weaker prose, and the result can look complete while missing the thing you decided. For now, keep the session and feed it straight to [to-spec](https://aihero.dev/skills-to-spec). Then re-read the spec against your own answers rather than assuming it captured them.

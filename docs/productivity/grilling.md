@@ -32,6 +32,8 @@ The frontier has one limit. The agent chooses it by judgement; it does not compu
 
 ## What lives here and what lives in the wrappers
 
+调查代理使用新的上下文，派发时提供当前问题、项目规则、用户限制和仍有效的已确认资料。它核对缺少的事实并返回证据，已有调查继续复用；用户的决定仍由用户作出。
+
 This page covers the mechanism. The wrapper skills' pages answer the questions people ask most often.
 
 | Question | Where it is answered |

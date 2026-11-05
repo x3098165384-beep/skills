@@ -33,7 +33,7 @@ Every triaged item ends with exactly one category role and one state role. There
 | `needs-triage` | You need to evaluate it. An unlabelled issue normally lands here first. |
 | `needs-info` | Waiting on the reporter. Returns to `needs-triage` when they reply. |
 | `ready-for-agent` | Fully specified, with an agent brief attached. An [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) agent can take it. |
-| `ready-for-human` | The same brief, plus why an agent can't do it: judgment, external access, manual testing. |
+| `ready-for-human` | 说明必须由人工完成的具体决策或无法取得的访问权限；仅最终验收待人工执行时，仍可交给代理实施并保留待验步骤。 |
 | `wontfix` | Closed, with the reason recorded. |
 
 That is the whole vocabulary. The rule of exactly one state role per item keeps the queries simple. The states are also the most-requested area of the [skill](https://www.aihero.dev/ai-coding-dictionary/skill). Users have asked for a state for work that is specified but blocked on another issue, a `deferred` state for work that waits on a future trigger, and a terminal `implemented` state. None of those has shipped. See the questions below.
@@ -60,7 +60,7 @@ Briefs describe observable acceptance criteria. New automation needs a specific 
 
 In the same pass, it runs two more checks against the codebase. The **redundancy** check asks if the feature is already implemented, and searches by domain concept, not by the reporter's wording. The **prior rejection** check asks if `.out-of-scope/` already says no. Both checks are cheap, and a hit on either produces a `wontfix`.
 
-All of this work makes one artifact good: the **agent brief**. This is the structured comment that `triage` posts when an issue moves to `ready-for-agent`. After `triage` posts it, the brief is the contract and the original report is only context. Briefs are **durable** rather than precise, because an issue can sit in `ready-for-agent` for weeks while the code changes. So a brief names types, signatures and behavioural contracts, and never file paths or line numbers. A confirmed reproduction makes a much stronger brief than a guess.
+这项工作产出供后续执行者使用的 **agent brief**：任务进入 `ready-for-agent` 时，汇总已确认且仍有效的行为与验收要求。用户后来改变范围或限制时，原位更新说明和验证要求，后续执行按最新要求继续。说明主要引用类型、接口与行为，避免依赖容易变化的行号；已有复现证据和待验内容也应保留。
 
 ## A PR is an issue with attached code
 

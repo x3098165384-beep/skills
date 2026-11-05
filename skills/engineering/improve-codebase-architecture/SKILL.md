@@ -9,7 +9,7 @@ Surface architectural friction and propose **deepening opportunities**: refactor
 
 This command is _informed_ by the project's domain model and built on a shared design vocabulary:
 
-- Consult "codebase-design" for interface-design guidance. Ground each suggestion in actual callers, supported behavior, and a concrete maintenance benefit, using the project's established names.
+- 读取 `$codebase-design` 作为接口设计参考。建议依据实际调用方、已支持行为和具体维护收益，使用项目已有名称说明。
 - The project's glossary supplies established names; its ADRs record decisions this command should respect.
 
 ## Process
@@ -24,6 +24,8 @@ This command is _informed_ by the project's domain model and built on a shared d
 Read the project's glossary and relevant ADRs first, using the [domain document locations](../domain-modeling/SKILL.md#domain-document-locations).
 
 Then spawn a sub-agent with a fresh context window to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
+
+派发时提供已确定的检查范围、项目规则、术语表和相关决定的路径，以及已确认的调查。要求直接核对实际调用和职责，沿用 `$codebase-design` 与测试策略，按证据返回候选修改及其影响。
 
 - Where does understanding one concept require bouncing between many small modules?
 - Where are modules **shallow**, with an interface nearly as complex as the implementation?
@@ -60,11 +62,11 @@ Do NOT propose interfaces yet. After the file is written, ask the user: "Which o
 
 ### 3. Grilling loop
 
-Once the user picks a candidate, call the Skill tool with "grilling" to walk the decision tree with them: constraints, dependencies, the shape of the deepened module, what sits behind the seam, and what behavior and existing checks must survive.
+Once the user picks a candidate, use `$grilling` to walk the decision tree with them: constraints, dependencies, the shape of the deepened module, what sits behind the seam, and what behavior and existing checks must survive.
 
-Side effects happen inline as decisions crystallize; call the Skill tool with "domain-modeling" to keep the domain model current as you go:
+Side effects happen inline as decisions crystallize; use `$domain-modeling` to keep the domain model current as you go:
 
 - **Naming a module after a new project concept?** Record the agreed term in `GLOSSARY.md`. Create that file only when there is a term to record.
 - **Clarifying an existing term during the conversation?** Update its definition in `GLOSSARY.md` when agreed.
 - **User rejects the candidate with a load-bearing reason?** Offer an ADR, framed as: _"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"_ Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing; skip ephemeral reasons ("not worth it right now") and self-evident ones.
-- **Want to explore alternative interfaces for the deepened module?** Call the Skill tool with "codebase-design" and use its design-it-twice parallel sub-agent pattern.
+- **Want to explore alternative interfaces for the deepened module?** Use `$codebase-design` and its design-it-twice parallel sub-agent pattern.

@@ -7,7 +7,7 @@ Write a handoff document summarising the current conversation so a fresh agent c
 
 Save it under `docs/handoff/` in the project being handed off. Resolve the project root from the current task; when working in a subdirectory, use the containing project's root. For work outside a repository, use the current workspace as the root. Create `docs/handoff/` when needed. Use a descriptive filename such as `YYYY-MM-DD-HHMMSS-topic.md`, choosing a unique name to preserve existing handoffs. Return a link to the saved file in the final response. An explicit user-specified output path takes precedence.
 
-Include a "suggested skills" section in the document, naming which skills the next agent should call the Skill tool for.
+Include a "suggested skills" section in the document, naming each skill as `$skill-name` and explaining when the next agent should use it. 保留用户当前的范围、限制、已撤回决定和待验内容，供下一位执行者继续遵循。
 
 Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
 

@@ -6,13 +6,13 @@ The skill records terms and relationships as you agree them during a [session](h
 
 ## When to reach for it
 
-Type `$domain-modeling`, or the agent reaches for it automatically when a task fits. In practice, automatic invocation is the weakest part of the skill: when `grill-with-docs` or `wayfinder` say to load it, [models](https://www.aihero.dev/ai-coding-dictionary/model) frequently load `grilling` and skip this one. If a [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) session runs and `GLOSSARY.md` is untouched at the end, that is what happened; invoke it by name alongside the other skill.
+可以直接使用 `$domain-modeling`，其他流程也可在需要确认项目术语或记录决定时读取它。没有新增的已确认术语，或决定不符合 ADR 条件时，可以不修改文件。应核对实际确认了什么、是否按要求记录；仅凭 `GLOSSARY.md` 没变，不能判断技能没有执行。
 
 Reach for it when the *words* are the problem:
 
 | The situation | The move |
 | --- | --- |
-| Two people mean different things by "cancellation" | `domain-modeling`: pick the canonical term, list the other under `_Avoid_` |
+| Two people mean different things by "cancellation" | 先说明双方各指哪个对象和操作，再确认应使用的项目已有名称 |
 | "Account" is doing three jobs in three files | `domain-modeling`: split it into Customer and User |
 | You just made a hard-to-reverse architectural choice | `domain-modeling`: it offers an ADR, if the choice clears the bar |
 | The module's *shape* is the problem: where the seam goes, how deep the interface is | [codebase-design](https://aihero.dev/skills-codebase-design) |
@@ -34,8 +34,8 @@ The glossary and the ADR have different bars. Most of the trouble with this skil
 
 | | `GLOSSARY.md` | `docs/adr/NNNN-slug.md` |
 | --- | --- | --- |
-| Holds | Terms. What a thing **is**, in one or two sentences, with rejected synonyms under `_Avoid_` | One decision, in one to three sentences: context, choice, reason |
-| Bar to write | A vague term became canonical | **All three**: hard to reverse, surprising without context, the result of a real trade-off |
+| Holds | 已确认的项目名称与对象关系；只有会造成混淆且已确认不用的说法才列入 `_Avoid_` | One decision, in one to three sentences: context, choice, reason |
+| Bar to write | 项目对象及其名称已经确认；不为填术语表创造名称 | **All three**: hard to reverse, surprising without context, the result of a real trade-off |
 | Written | Inline, the moment the term is settled | Offered, not assumed |
 | Never holds | Implementation details, a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), a scratch pad, general programming concepts | A diary of every choice made this session |
 
@@ -77,7 +77,7 @@ No, and there is no plan for a skill that does. A domain language you do not und
 - It stops you mid-sentence to ask which of two things you meant, instead of picking one and moving on.
 - `GLOSSARY.md` changes **during** the conversation, not in a burst at the end.
 - It refuses to write an ADR for something you could undo tomorrow, and says which of the three tests failed.
-- New entries define what a thing *is* in one or two sentences and name the words you are giving up under `_Avoid_`.
+- 新条目用简短日常语言说明已确认的项目对象和关系；普通近义词无需列入禁用清单。
 - It quotes your code back at you when your code and your sentence disagree.
 - `GLOSSARY.md` gets shorter as often as it gets longer.
 

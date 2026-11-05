@@ -87,7 +87,7 @@ Rarely, so know that before you start. The skill exists to output findings, so i
 
 **Does it work in Codex or another harness?**
 
-Partly. The exploration step names Claude Code's `Agent` tool with `subagent_type=Explore` directly. A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) without that tool may skip the parallel exploration instead of using its own equivalent. The skill still runs, but the scan is less thorough. Someone has proposed a harness-neutral rewrite, but it is not merged.
+本分支使用当前工具提供的子代理能力，要求新的上下文，不限定 Claude Code 的工具名称。派发时提供检查范围、项目规则和已确认资料，并要求按 [codebase-design](https://aihero.dev/skills-codebase-design) 核对真实调用方与职责。执行环境无法派发子代理时，应说明实际限制。
 
 **How do I actually implement deep modules in TypeScript?**
 

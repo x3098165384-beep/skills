@@ -8,6 +8,8 @@
 
 派发前还会检查实际共享的文件、数据库、编辑器和外部状态，明确共同写入由谁负责。独立工作树不能隔离这些共享状态。执行期间，主代理核对阶段产物和具体阻碍；用户改变范围时，同步受影响的任务、依赖与验证要求。整合后核对原有说明和任务状态，保留待验证内容。
 
+已有规格、任务和调查中的有效资料继续复用。只有缺少的事实会影响实施时，才用 [research](https://aihero.dev/skills-research) 补充调查，沿用项目已有保存位置，并提供后续执行者可读取的完整路径或链接。
+
 ## When to reach for it
 
 Start this workflow by typing `$implement-spec`. This Codex edition keeps it model-visible so Codex can resolve the invocation reliably.

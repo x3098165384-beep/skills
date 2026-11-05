@@ -4,6 +4,8 @@
 
 Its default fix is to delete, not to explain. Ask an agent to write instructions for another agent and it spends most of its words explaining what the [model](https://www.aihero.dev/ai-coding-dictionary/model) already knows. Each of those lines is a **no-op**: it costs [context](https://www.aihero.dev/ai-coding-dictionary/context) and changes no behaviour. This reference helps you find them, so it is as useful on a document you already have as on a blank file.
 
+新增或修改的文字使用用户与项目已有名称、必需的代码或第三方名称及日常语言，说明实际对象、动作、原因和结果；不为压缩文字另造术语、分类、简称或临时名称。
+
 It was called `writing-great-skills` until v1.1. The rename tracks what it always was underneath: almost none of it is skill-specific. The skill-only mechanics (frontmatter, the model-invoked versus user-directed choice, router skills) are disclosed to a linked `SKILL-MECHANICS.md` you read only when the document in front of you is a skill.
 
 ## When to reach for it

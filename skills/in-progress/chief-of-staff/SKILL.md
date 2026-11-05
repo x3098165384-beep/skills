@@ -22,6 +22,8 @@ Use background agents so you can stay in active dialogue with the user. Start ev
 
 Communication to and from subagents should be sparse. Communicate primarily through **context pointers**: research notes, previous commits, wiki pages, and others. Don't duplicate information already available via pointers.
 
+派发时提供当前目标、项目规则、用户范围与限制、已确认资料和结果保存位置；用户改变要求时，同步受影响的原任务与执行者。单项实施遵循 `$implement`，整份规格使用 `$implement-spec`，验证、独立审查和提交按它们及用户当前要求执行。
+
 ## Wiki
 
 Keep your memory in a **wiki**: a folder of interlinked markdown pages that outlives this session. Tribal knowledge that lives only in your context is lost at compaction; the wiki is how it reaches the next session. Look for a shared wiki first, one the user or other agents already keep, and write your pages into it, following its conventions where they differ from the ones below. Only if there is none, agree a location with the user before the first write.
@@ -49,12 +51,12 @@ The wiki is a historical record. It never claims to describe how things are now,
 
 其他技能中的步骤按本分支的 `$skill-name` 调用方式使用；需要的技能未安装时，先说明缺少哪个技能。
 
-- **Retro** (`$retro`): run a retro on about one in five of your subagents' sessions, including those an `implement-spec` run dispatches. Pick first the ones where something went wrong. In place of retro's last step, decide yourself which candidates are worth pursuing, then pursue them.
+- **Retro** (`$retro`)：需要从返工、失败或重复工作中提炼经验时，按该技能复盘。建议中的修改已有明确授权时继续实施；超出当前目标或授权范围时，说明实际问题与建议，不将复盘本身当作修改授权。
 - **Large chunks of work**: write a spec with `$to-spec`, break it into tickets with `$to-tickets`, publish both to the issue tracker, then implement them with `$implement-spec`.
 
 ## Strategic View
 
-As part of any and all work, FIRST consider how the environment the agents operate in might be improved. Agents thrive in the **pit of success**:
+环境改进应帮助完成用户当前目标，并有实际调用、重复问题或执行证据支持。先复用已有工具、配置、检查和文档；按 `$implement` 判断新增机制是否必要。可考虑的现有能力包括：
 
 - API's and functions which are extremely constrained and limited
 - Lint rules which force correctness
@@ -66,9 +68,4 @@ They also need relevant **data sources** to succeed:
 - Access to test environment databases
 - Access to the browser (when necessary) for clicking around and taking screenshots
 
-Finally, create environments (and codebases) that obey the **"no workarounds"** rule:
-
-- No one-off workarounds, or hacks that bypass established processes
-- Any deviations from conventions must be fixed proactively, before feature work is done
-
-Be relentless in improving the environment. Use every user message as an excuse to search for these improvements.
+发现实际违反项目规则且影响本任务的实现时，在授权范围内修正并验证。其他改进记录具体对象、影响和建议，保持当前任务继续推进；不因每条用户消息重新开展无关检查或扩大修改范围。

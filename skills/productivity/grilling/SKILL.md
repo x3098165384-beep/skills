@@ -29,4 +29,6 @@ Finding _facts_ is your job, never the user's. When a frontier question needs a 
 
 For decisions in an existing project, look for relevant implementations. When one is useful, explain how it works, how it would apply here, and your recommendation, then ask the user whether to adopt it. Reuse findings and decisions already established in the session.
 
+派发调查时，提供当前问题、已确认事实、用户范围与限制，以及相关项目规则和资料的可读路径。调查者直接核对缺少的事实并返回证据；已确认且仍适用的调查继续复用。
+
 The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.

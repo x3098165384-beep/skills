@@ -52,7 +52,7 @@ When the user uses a term that conflicts with `GLOSSARY.md`, explain the existin
 
 ### Sharpen fuzzy language
 
-When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account': do you mean the Customer or the User? Those are different things."
+名称含糊或对应多个对象时，先用用户和项目已有名称说明具体对象、动作与关系，再确认所指。记录用户已确认的命名；已有日常说法足够时，直接使用，不另外创造术语、分类或简称。
 
 ### Discuss concrete scenarios
 

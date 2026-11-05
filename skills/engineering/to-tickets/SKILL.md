@@ -17,6 +17,8 @@ Work from whatever is already in the conversation context. If the user passes a 
 
 Read [Testing and verification](../tdd/TESTING-POLICY.md). Carry relevant verification decisions into each ticket, including the reason and scope for any needed automation.
 
+沿用原规格和用户当前确认的范围、限制与验证要求。整份规格的独立审查保留在原规格中，由 `$implement-spec` 统一安排；任务中引用该要求。只有用户明确要求审查某项任务时，才将它列为该项任务的执行要求。未确认的建议不随拆分变成实施要求。
+
 ### 2. Explore the codebase (optional)
 
 If you have not already explored the codebase, do so to understand the current state of the code. Ticket titles and descriptions should use the project's domain glossary vocabulary, and respect ADRs in the area you're touching.

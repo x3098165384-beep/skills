@@ -5,6 +5,8 @@ description: Investigate a question against high-trust primary sources and captu
 
 Spin up a **background agent** to do the research, so you keep working while it reads. Start it with a fresh context window.
 
+派发时给出具体问题、用途、资料的时间范围、项目规则、用户限制、已确认事实及现有资料位置，并约定输出位置。研究代理直接调查并返回结果与来源，主代理用已有等待和状态工具收集完成结果。
+
 Its job:
 
 1. Investigate the question against **primary sources** (official docs, source code, specs, first-party APIs), not a secondary write-up of them. Follow every claim back to the source that owns it.

@@ -20,14 +20,16 @@ Show this to the user, then immediately proceed to Step 2. The user reads and th
 
 Spawn 3+ sub-agents in parallel, each with a fresh context window. Each must produce a **radically different** interface for the deepened module.
 
-Prompt each sub-agent with a separate technical brief (file paths, coupling details, dependency category from [DEEPENING.md](DEEPENING.md), what sits behind the seam). The brief is independent of the user-facing problem-space explanation in Step 1. Give each agent a different design constraint:
+向每位设计者提供实际调用方、已确认行为、现有配置与资源、项目规则、当前用户限制和可复用的调查，以及相关代码路径。设计依据 `$codebase-design` 的实际需求与职责规则，验证建议遵循它引用的测试策略。给每位设计者不同的比较重点：
 
-- Agent 1: "Minimize the interface: aim for 1–3 entry points max. Maximise leverage per entry point."
-- Agent 2: "Maximise flexibility: support many use cases and extension."
-- Agent 3: "Optimise for the most common caller: make the default case trivial."
-- Agent 4 (if applicable): "Design around ports & adapters for cross-seam dependencies."
+- Agent 1：从调用方需要的位置、判断结果或业务操作出发，比较所需的最小接口。
+- Agent 2：比较现有调用方之间已经存在的差异，判断是否确实需要不同实现或可替换依赖。
+- Agent 3：沿用项目已有协作和生命周期方式，比较状态修改、恢复、引用持有与资源释放分别应由谁负责。
+- Agent 4（确有外部或跨系统依赖时）：比较现有连接方式能否满足要求，明确各自边界需要的输入检查及失败、取消和迟到结果处理。
 
 Include the relevant [SKILL.md](SKILL.md) concepts and the project's established names in the brief. Locate the glossary through [domain document locations](../domain-modeling/SKILL.md#domain-document-locations) and explain any design term needed for the decision.
+
+方案差异以当前需求为限。只有具体调用方需要时才增加抽象、缓存、回调或扩展入口；比较时说明实际缺口与可行替代，接口数量或代码行数本身不证明设计更好。
 
 Each sub-agent outputs:
 

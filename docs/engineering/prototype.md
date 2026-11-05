@@ -2,7 +2,7 @@
 
 `prototype` writes **throwaway code that answers a question**: does this state model feel right, or what should this screen look like. The question comes first and decides what you build. A prototype that answers the wrong question is wasted, however good it looks.
 
-Throwaway is a constraint on how the code is *written*, not a promise to destroy it. No tests, no error handling beyond what makes it run, no abstractions, no persistence, because none of that helps you learn the one thing you're trying to learn. Two things survive. The answer goes into the real code, and the prototype goes onto a branch out of main as evidence for the answer.
+Throwaway is a constraint on how the code is *written*, not a promise to destroy it. 原型只实现回答当前问题所需的操作，保存到 `prototype/<name>` 分支，结论记录在原任务中。进入正式实现时，按已有授权使用 [implement](https://aihero.dev/skills-implement)，沿用它的设计、验证、文档维护和提交要求；只要求探索方案时，先交付原型与结论。
 
 ## When to reach for it
 
@@ -25,7 +25,7 @@ Both keep state in memory, start with no setup, and show you the full state afte
 
 A finished prototype leaves two things, and they go to different places.
 
-You record the **answer** (the verdict plus the question it settled) somewhere permanent: a commit message, an ADR, the implementation issue. Main keeps the answer, in the real code.
+将问题与已确认的结论记录到原任务、提交说明或确实需要的 ADR。正式实施后，主分支保留已采用的真实行为，并保留所需的失败、取消和生命周期处理；原型实现本身仍保存为研究依据。
 
 The **prototype** is the runnable evidence the answer came from, and you do not delete it. It doesn't belong in main either, because nobody maintains it and it goes stale fast. So you commit it to a throwaway `prototype/<name>` branch out of main, never merge it, and leave a [context pointer](https://www.aihero.dev/ai-coding-dictionary/context-pointer) to that branch on the implementation issue. Main stays clean, and whoever picks the work up next can find and re-run the prototype.
 

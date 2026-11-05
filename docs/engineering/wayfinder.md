@@ -6,6 +6,8 @@ It plans and does not build. Every ticket asks a question, and the answer is a d
 
 这些任务只使用 `wayfinder:` 标签，处理方式按标签指定的类型确定。任务创建后，再用真实编号填写相互引用和依赖。研究代理使用新的上下文；研究分支可以推送保存，但不开合并请求。
 
+每项研究任务通过 [research](https://aihero.dev/skills-research) 安排后台代理，提供当前决定、用户限制和已有调查，再从原任务链接到保存的结论与来源。需要访谈和记录决定时，分别读取 `$grilling` 与 `$domain-modeling`。
+
 ## When to reach for it
 
 Type `$wayfinder` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable.
@@ -24,7 +26,7 @@ Greenfield is not a requirement. People use wayfinder routinely on legacy and ha
 
 ## Prerequisites
 
-The map and its tickets live on the repo's issue tracker, so wayfinder needs the tracker setup from [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills). That step writes a "Wayfinding operations" section. The section describes how to express the map, its child tickets, blocking edges, and frontier queries on GitHub, GitLab, or local markdown. Wayfinder finds that doc through the pointer in your `CLAUDE.md` / `AGENTS.md`, not at a fixed path. With no tracker configured, it falls back to local markdown files.
+The map and its tickets live on the repo's issue tracker, so wayfinder needs the tracker setup from [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills). That step writes a "Wayfinding operations" section. The section describes how to express the map, its child tickets, blocking edges, and frontier queries on GitHub, GitLab, or local markdown. Wayfinder finds that doc through the pointer in your `CLAUDE.md` / `AGENTS.md`, not at a fixed path. 未配置时，先提示运行 `$setup-matt-pocock-skills`；已明确选择本地文件时，按该选择执行。
 
 The tracker does real work. Its native blocking links show the frontier in the tracker's own UI. On a tracker without native dependency links (a self-hosted Gitea, say), wayfinder infers blockers from the map text. That works, but you must supervise it more closely.
 

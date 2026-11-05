@@ -4,7 +4,7 @@
 
 复盘范围按用户希望改善的工作确定。需要总结工作流时，也检查阶段选择、需求确认、任务依赖、分工交接、验证和交付，同时保留成功做法与适用条件；已有要求未执行、指引过期和真正缺少步骤，会分别处理。
 
-It changes the environment, not the code. The bug the agent shipped, the file it took twenty [tool calls](https://www.aihero.dev/ai-coding-dictionary/tool-call) to find, the rule the reviewer missed: `retro` doesn't fix any of them in place. It asks what about the repo let them happen, and proposes the check, the pointer, or the standard that stops them happening again. It also only proposes; nothing changes until you pick a candidate.
+它从会话中的具体错误、重复工作和已有有效做法提出改进建议。复盘建议本身不授权修改资源、安装工具或搬迁材料；已有明确实施授权时按授权继续，其他建议交给用户决定。
 
 ## When to reach for it
 
@@ -32,13 +32,13 @@ Project standards guide implementation and any requested review. The implementin
 
 持久化建议需要说明重复的具体工作、已有入口、实际缺口、维护位置和验证方式，并区分已存在、待验证和建议实施的内容。工具代码与输入、备份和检查输出分别存放，执行材料沿用项目指定目录。旧批次脚本和未执行的修正版不能直接当作成熟工具；复盘建议也不授权实施、修改资源或搬迁历史材料。
 
-Before `retro` writes any rule, it classifies the violation. A **mechanical** violation (a banned API, an import shape, a file-location rule) gets a deterministic check, because a check can fail and a sentence in a standards file can't. Only real judgement calls, which no linter can enforce, become prose. If the repo has no guardrail at all (no pre-commit hook, and no CI job that runs lint, typecheck, and tests), `retro` reports that as a finding of its own.
+先核对项目现有检查及实际执行结果。固定语法、接口使用或文件位置问题，优先建议复用或扩展已有检查；涉及实际调用方、职责和行为的判断，写入现有编码说明。新增测试或检查脚本遵循共享测试策略，说明现有检查和人工验证的具体缺口；没有提交前检查或 CI，本身不构成新增一套检查的理由。
 
 ## Common questions
 
 **Does it write the lint rule itself, or wait for a yes? Can I wire it to run after every session?**
 
-It waits. `retro` only proposes. Nothing changes until you pick a candidate, so it edits nothing by hand and installs no hook automatically. This is deliberate. One user asked for exactly this after being "burned by auto-hooks that blocked good changes." It takes judgement to decide what deserves a permanent check, so the skill stays [human-in-the-loop](https://www.aihero.dev/ai-coding-dictionary/human-in-the-loop) and user-invoked. Some users do run it after every implementation run. But a smooth session has little to teach, so a run after every session mostly produces rules nobody needed. There is no dry-run mode. A proposed check is code like any other, so try it against the repo before you let it block merges.
+只要求复盘时，它提出建议。用户已经明确要求实施相关修改时，按该授权继续；其他修改等待用户选择。永久保留的检查应能覆盖具体问题，并沿用项目已有工具与运行方式，不能仅因复盘清单中出现了某个类别就安装新检查。
 
 **Won't this pile up lint rules forever? Does it ever suggest removing one?**
 
@@ -54,7 +54,7 @@ By default it reviews the current session, which is the best case: the struggles
 
 **The agent keeps making the same mistake. Should I add a line to `CLAUDE.md`?**
 
-Usually not, and that's the most common place `retro` pushes back. A line in `CLAUDE.md` is loaded into every session, dilutes everything else in the file, and drifts as the code changes. If the mistake is mechanical, the fix is a check that fails. If it's a judgement call, it goes in the coding standards used during implementation and any requested review. `AGENTS.md` and `CLAUDE.md` are for navigation pointers, and little else. For the same reason `retro` is not a [memory system](https://www.aihero.dev/ai-coding-dictionary/memory-system): it doesn't store what happened, it changes the environment so it can't happen again.
+先确定哪个步骤负责避免这个具体错误，再检查它的现有规则是否遗漏、过期或未执行。可由工具直接检查时，优先复用现有检查；需要结合职责和行为判断时，维护项目编码说明。跨任务稳定且需要首先读取的规则才放入 `AGENTS.md` 或 `CLAUDE.md`，详细步骤通过短链接指向负责的文档。
 
 **My setup mentions `CODING_STANDARDS.md` and I don't have one. Where does it come from?**
 

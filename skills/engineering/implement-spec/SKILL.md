@@ -25,7 +25,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 1. Read the spec and tickets to understand the task graph. 派发前核对任务实际需要的上游结果，以及执行者共用的文件、数据库、编辑器或外部状态。对共同写入明确负责人和读取时机；工作树不能隔离的状态按实际依赖协调。
 
-2. (optional) Use an **exploration subagent** to conduct any exploration required by the tickets - relevant codebase files or external documentation. Ensure the exploration subagent can save files - it should save its markdown notes in a directory outside the repo, accessible by all future subagents. This lets **implementer subagents** focus on implementation rather than exploration.
+2. 先复用规格、任务和现有调查中仍有效的资料。确有缺少的事实影响实施时，使用 `$research` 安排调查，说明具体问题和当前限制，沿用项目已有资料保存位置，并向后续执行者提供可读的完整路径或链接。
 
 3. Record the starting commit and create the integration branch. If the issue tracker closes work through PRs, or the user asks for one, open a draft PR after the first merge in step 5 (a branch with no commits ahead of main can't open one), marked as closing the spec and tickets.
 

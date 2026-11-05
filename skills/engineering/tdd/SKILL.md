@@ -25,7 +25,7 @@ A **seam** is the public boundary you test at: the interface where you observe b
 
 When a choice is needed, explain which behavior each interface can verify and what it misses before asking the user to choose.
 
-When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
+需要讨论接口应该提供什么、由哪个模块负责时，读取 `$codebase-design` 作为设计参考，按实际调用方和已确认需求判断；读取参考本身不启动新的访谈或多方案设计。
 
 ## Anti-patterns
 

@@ -78,11 +78,11 @@ Known open bug, reproduced by several people and in more than one harness. The S
 
 **Should I run it in the same [session](https://www.aihero.dev/ai-coding-dictionary/session) that wrote the code?**
 
-Prefer a fresh one. As one reader put it: "Same context reviewing itself isn't review, it's confirmation bias with a slash command." The reviewing agent in the authoring session holds every assumption that shaped the code, which is exactly the context an independent reviewer would not have. This is also why people ask for [implement](https://aihero.dev/skills-implement) without its built-in review step: it runs the review inside the session that just wrote the diff. Invoking `$code-review` yourself from a clean session is the honest version.
+可以在原会话中请求审查。规则与规格审查各自使用新的上下文，只接收审查范围、需求、项目规则和可读取的资料。主代理负责汇总返回的报告；用户也可以另开会话审查，但无需为了取得独立的审查上下文而固定增加这个步骤。
 
 **After every ticket, or once at the end?**
 
-Both work, and the skill does not decide for you. Per-ticket keeps each diff small enough that the Spec axis has one clear spec to check against, which is the mode `implement` uses. Batching to the end of a branch catches interactions between tickets that the per-ticket passes each miss. If you are unsure, review per ticket and run one final pass against the branch point.
+独立审查按用户指定范围执行。使用 [implement-spec](https://aihero.dev/skills-implement-spec) 时，用户要求审查但未指定逐项审查，默认由主代理在全部任务合入后审查整份规格一次；明确要求审查某些任务时，按指定范围安排。普通实现中的必要检查仍照常进行，不自动增加逐项审查和最终整份规格审查。
 
 **Can I trust the findings?**
 

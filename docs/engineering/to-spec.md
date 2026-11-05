@@ -4,6 +4,8 @@
 
 It does not interview you. When you reach for it, the deciding is already done. So it synthesises what is known (from the thread, the codebase, your `GLOSSARY.md` and ADRs) and does not start a new round of questions. The spec records decisions you already made. It is not a place to make new ones.
 
+规格保留用户当前的范围、限制和已确认决定，区分仍未确定的建议与实施要求；用户故事覆盖必要行为，长度按实际需求决定。独立审查只记录用户已要求的范围，不随规格生成而自动增加。
+
 ## When to reach for it
 
 Type `$to-spec` to invoke it directly. This Codex edition also keeps it model-visible so it is not misreported as unavailable.
@@ -36,7 +38,7 @@ These decisions travel into tickets and implementation so a fresh session knows 
 ## Common questions
 
 **Where did `/to-prd` go?**
-It is this skill, renamed in v1.1. "Spec" is now the one term used throughout, and the old `to-prd` slug no longer works, so reinstall under the new name. The old vocabulary is replaced by the pair *spec* and *tickets*. The spec is the destination and the decisions that fix it. The [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) are the steps that get there. If you change direction, delete the unfinished tickets and keep the spec.
+It is this skill, renamed in v1.1. "Spec" is now the one term used throughout, and the old `to-prd` slug no longer works, so reinstall under the new name. The old vocabulary is replaced by the pair *spec* and *tickets*. The spec is the destination and the decisions that fix it. The [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) are the steps that get there. 需求方向改变时，按最新决定更新原规格、受影响的任务和验证要求，保留仍有效的资料及决定变化的原因。
 
 **Why does the spec get the `ready-for-agent` label? I don't want an agent implementing off it.**
 The label means "no further triage needed": the document is complete enough for an agent to work from. It is an input designation, not a work order. But if you run [AFK](https://www.aihero.dev/ai-coding-dictionary/afk) agents that poll for `ready-for-agent`, that distinction isn't visible to them, and they will happily try to build the whole spec in one run instead of picking up the ticket slices. This is the most-reported rough edge on the skill. Until it changes, exclude the parent spec explicitly in your AFK agent's prompt, or strip the label once `$to-tickets` has run.
@@ -48,7 +50,7 @@ Go straight to tickets when the notes or conversation already provide a clear pl
 The main map issue: `$to-spec #<map_issue>`, not the individual decision tickets. [wayfinder](https://aihero.dev/skills-wayfinder) produces decisions rather than deliverables, scattered across a map; `to-spec` is the step that collapses them into one buildable document. Looping the map straight into `$implement` throws that collapse away.
 
 **Is the spec for me to review, or is it just for the agent?**
-Mostly for the agent, and it reads that way: complete, dense, and full of references. Read the seams and the out-of-scope section. In those two places, a wrong decision is cheapest to catch now and most expensive to find later. People do complain about reading the whole thing, and there is no summary mode. But if the spec surprises you, the grilling was too shallow; the spec is not too long.
+它需要让用户和后续执行者看懂已确认的行为、范围、接口与验证要求。篇幅随实际需求决定；重复内容可以合并，详细依据用链接保留。若出现用户未接受的功能或决定，应修正规格，不能把它归因于用户讨论得不够充分。
 
 **Do I keep the spec frozen once tickets start, or let the agent rewrite it?**
 Nothing keeps it in sync. In practice it is a snapshot of what you knew at that moment, and it goes out of date the first time implementation teaches you something. Treat it as disposable after the work ships. Your `GLOSSARY.md` and ADRs are the files meant to last. If you learn something during implementation that should last, put it there, not in an edited spec.

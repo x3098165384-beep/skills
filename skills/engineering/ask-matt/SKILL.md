@@ -19,6 +19,8 @@ is not a substitute for either user-directed skill.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
 
+各流程沿用当前用户要求和负责该步骤的技能：正式实现使用 `$implement`，交接文档使用 `$handoff`，补充调查使用 `$research`。架构调查和接口方案也须依据实际调用方与现有机制；访谈后只记录已确认且符合条件的项目术语与决定。原型、说明或任务拆分不另行扩大实施或独立审查范围。
+
 `$discuss-with-docs`、`$deepseek-implement` 和 `$teach-with-code-explanation` 仅供用户手动调用。适合时推荐对应名称，用户明确调用后才启动。
 
 ## The main flow: idea → ship

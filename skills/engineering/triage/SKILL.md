@@ -72,11 +72,11 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 3. **Verify the claim.** Before any grilling, check that the claim holds up using [Testing and verification](../tdd/TESTING-POLICY.md). For a bug, use the reporter's confirmed reproduction or repeat their steps. For a PR, inspect the diff and run directly relevant existing checks. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong `needs-info` signal). A confirmed verification makes a much stronger agent brief.
 
-4. **Grill (if needed).** If the request needs fleshing out, call the Skill tool twice, for "grilling" and "domain-modeling", and grill it into shape a round of questions at a time. Record agreed terms and decisions in the [glossary and ADR locations](../domain-modeling/SKILL.md#domain-document-locations).
+4. **Grill (if needed).** If the request needs fleshing out, use `$grilling`, then `$domain-modeling`, and grill it into shape a round of questions at a time. Record agreed terms and decisions in the [glossary and ADR locations](../domain-modeling/SKILL.md#domain-document-locations).
 
 5. **Apply the outcome:**
    - `ready-for-agent`: post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)).
-   - `ready-for-human`: same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).
+   - `ready-for-human`：使用同样的任务说明，指出哪项必要工作需要人工决策或缺少代理无法取得的访问权限。仅最终人工验收待执行、实现仍可继续时，可以交给代理实施，并保留具体待验步骤。
    - `needs-info`: post triage notes (template below).
    - For `wontfix`, close the issue, with the comment depending on *why*:
      - **Already implemented**: the change already exists in the codebase. Point to where it lives; do **not** write to `.out-of-scope/` (that KB is for *rejected* requests, not built ones).
@@ -86,7 +86,7 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 ## Quick state override
 
-If the maintainer says "move #42 to ready-for-agent", trust them and apply the role directly. Confirm what you're about to do (role changes, comment, close), then act. Skip grilling. If moving to `ready-for-agent` without a grilling session, ask whether they want to write an agent brief.
+If the maintainer says "move #42 to ready-for-agent", trust them and apply the role directly. 说明将修改的标签、评论或关闭状态，按已有明确指示执行；确有缺失信息影响结果时再询问。Skip grilling. If moving to `ready-for-agent` without a grilling session, ask whether they want to write an agent brief.
 
 ## Needs-info template
 

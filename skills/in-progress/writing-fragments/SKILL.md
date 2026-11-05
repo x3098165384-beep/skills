@@ -32,9 +32,9 @@ Fragments are deliberately heterogeneous. Examples of what could be a fragment:
 - A quote, a piece of dialogue, an overheard line.
 - A list of related observations that hang together by feel.
 - A complaint, a confession, a punchline.
-- A **leading word**: a compact metaphor or coinage the whole piece can hang on (one term that names the idea, the way _tracer bullets_ or _fog of war_ names a whole pattern).
+- A **leading word**：作者反复使用的已有措辞，可以串联文章中的相关想法。
 
-Of these, the leading word is the most valuable fragment to land. It is load-bearing: name the right one in explore and it shapes the structure, the transitions, and the title later, paying dividends through the entire exploit phase. When the conversation circles a recurring idea, push to coin a word for it.
+反复出现的想法可以用作者已有的措辞串联；使用日常语言说明具体内容，保留作者的表达意图，不要求另外创造一个名称或术语。
 
 The novelist's diary is the model: years of unstructured noticings that later get mined for raw material. Fragments are noticings.
 

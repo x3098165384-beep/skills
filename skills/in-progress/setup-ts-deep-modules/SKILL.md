@@ -7,7 +7,7 @@ description: Wire dependency-cruiser into a TypeScript repo so each package is a
 
 Make every package in this repo a **deep module**: a lot of behaviour behind a small interface. A package's public surface is its **entry points** (the files at the package root), and everything in its subfolders is hidden. This skill installs [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) and the rules that make the entry points the only way in, then proves the rules bite.
 
-For the vocabulary (deep module, interface, seam, depth), call the Skill tool with "codebase-design" and use its language throughout.
+读取 `$codebase-design` 作为设计参考，按实际调用方和项目既有名称说明包的公开接口与内部实现。
 
 ## The shape this enforces
 
@@ -38,7 +38,7 @@ Layering (which packages may depend on which) is a *different* concern and is le
 ### 1. Detect the environment
 
 - **Package manager**: `pnpm-lock.yaml` → pnpm, `yarn.lock` → yarn, `bun.lockb` → bun, else npm. Use it for every command below (`pnpm`/`yarn`/`npm run`/`bunx`).
-- **Packages root**: if `src/` exists use `src/packages`, else `packages`. Confirm the choice with the user if the repo already has a different obvious convention.
+- **Packages root**：从项目工作区配置、现有包目录和使用说明确定位置，沿用已有布局。没有现有包布局时，再使用适合本项目的位置；只有无法从项目中确定且会影响实施范围时才询问用户。
 - **Existing config**: check for a `.dependency-cruiser.*` file. If one exists, do **not** overwrite it: merge the four rules and the options in, and tell the user what you added.
 
 **Done when:** package manager, packages root, and existing-config status are all known.
@@ -63,33 +63,29 @@ Copy [`dependency-cruiser.config.cjs`](./dependency-cruiser.config.cjs) to the r
 
 **Done when:** `lint:boundaries` exists and runs as part of the same command as typecheck.
 
-### 5. Scaffold the example package
+### 5. Choose files for verification
 
-Create a committed `<packages-root>/example/` as a copy-me template:
+优先使用现有包及其测试目录验证导入规则。没有适用文件时，创建本次检查所需的最小临时文件，分别放在包根目录、内部目录和测试目录，检查结束后仅移除这些临时文件。这里验证的是导入规则，不新增只转发调用的正式模块或断言示例函数结果的测试。
 
-- `index.ts` is an entry point. Export one function that delegates to an internal file (so the package is visibly *deep*, not a pass-through).
-- `lib/impl.ts`: an internal file in a **subfolder**, imported by `index.ts`, not reachable from outside.
-- `tests/example.test.ts` imports **only** `../index` (an entry point) and asserts against the public function.
+用户明确需要长期保留的示例包时，再按已有布局提供，说明它的用途和检查方式。
 
-Tell the user this is a starter template to copy or delete.
-
-**Done when:** the example package exists, exposes its behaviour through a root entry point, and hides `impl` in a subfolder.
+**Done when:** 已选定验证文件，记录哪些是原有文件、哪些是本次临时创建的文件。
 
 ### 6. Prove the rules bite
 
 This is the completion criterion for the whole skill: a config that doesn't fail on a violation is worthless.
 
-1. Run `lint:boundaries`. It must **pass** on the clean example.
-2. Temporarily add a deep import to `tests/example.test.ts` (e.g. `import { thing } from "../lib/impl"`). Run `lint:boundaries` again; it must **fail** with `tests-through-entrypoints`.
-3. Revert the deep import. Run once more, and it must **pass**.
+1. 运行 `lint:boundaries`，记录原有结果；验证用例只通过包根目录导入时，应通过本次配置的规则检查。
+2. 在验证用的测试目录文件中临时加入内部导入（例如 `import { thing } from "../lib/impl"`），再次运行，确认出现 `tests-through-entrypoints` 错误。
+3. 撤回本次临时导入并重跑，确认该错误消失；保留原文件和无关改动，报告其他原有错误，不把清理无关错误当作本任务要求。
 
-**Done when:** you have observed a pass, then a fail on the deep import, then a pass again. If step 2 does not fail, the rules are not wired correctly, so fix before finishing.
+**Done when:** 已确认正常导入通过、内部导入被拒绝、撤回后恢复原有结果。第 2 步没有拒绝内部导入时，先修正本次规则配置再完成交付。
 
 ### 7. Document the convention
 
-Write a `README.md` **in the packages folder** (`<packages-root>/README.md`, next to the packages it governs) covering: the `src/packages/<name>/` layout (entry points at the root, `lib/` for implementation, `tests/` for tests), "import only through a package's entry points (its root files)", and how to run `lint:boundaries`. **Discourage barrel files** explicitly: expose several small entry points instead of re-exporting a whole subtree through one index. Keep it to the copy-me snippet plus the four rules in one paragraph each.
+Write a `README.md` **in the packages folder** (`<packages-root>/README.md`, next to the packages it governs) covering: the actual `<packages-root>/<name>/` layout (entry points at the root, the project's existing implementation and test subfolders), "import only through a package's entry points (its root files)", and how to run `lint:boundaries`. **Discourage barrel files** explicitly: expose several small entry points instead of re-exporting a whole subtree through one index. Keep it to the copy-me snippet plus the four rules in one paragraph each.
 
-Then add a **context pointer** to it from the repo's agent-instructions file (`CLAUDE.md` if present, else `AGENTS.md`, creating `AGENTS.md` if neither exists). One line is enough, e.g. `Packages are deep modules: see [src/packages/README.md](./src/packages/README.md) before adding or importing one.` This is what makes an agent discover the boundary rule instead of tripping over it.
+Then add a **context pointer** to it from the repo's agent-instructions file (`CLAUDE.md` if present, else `AGENTS.md`, creating `AGENTS.md` if neither exists). 用实际目录替换下面的占位路径，简短说明：`修改或导入包之前，先读 [包的导入规则](./<packages-root>/README.md)。` 让后续执行者能在修改前找到现有规则。
 
 **Done when:** `<packages-root>/README.md` exists and discourages barrels, and the repo's `CLAUDE.md`/`AGENTS.md` links to it.
 

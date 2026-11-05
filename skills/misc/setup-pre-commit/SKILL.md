@@ -14,6 +14,8 @@ description: Set up Husky pre-commit hooks with lint-staged (Prettier), type che
 
 ## Steps
 
+先检查项目已有的提交前检查、格式化、类型检查和测试命令。复用有效配置，保留既有命令及无关设置；新增测试或检查脚本遵循 `$tdd` 的 `TESTING-POLICY.md`，不为设置提交前检查补写实现细节测试。
+
 ### 1. Detect package manager
 
 Check for `package-lock.json` (npm), `pnpm-lock.yaml` (pnpm), `yarn.lock` (yarn), `bun.lockb` (bun). Use whichever is present. Default to npm if unclear.
@@ -28,15 +30,17 @@ husky lint-staged prettier
 
 ### 3. Initialize Husky
 
+只有项目尚未完成 Husky 初始化时才运行下面的命令；已有配置继续复用。
+
 ```bash
 npx husky init
 ```
 
-This creates `.husky/` dir and adds `prepare: "husky"` to package.json.
+This creates `.husky/` dir and adds `prepare: "husky"` to package.json. 已有 `prepare` 或提交前检查时保留原有动作，将需要的 Husky 初始化和检查合入现有配置。
 
 ### 4. Create `.husky/pre-commit`
 
-Write this file (no shebang needed for Husky v9+):
+已有检查文件时保留原命令，将需要的检查合入；新建文件可以使用下面的最小内容（Husky v9+ 不需要 shebang）：
 
 ```
 npx lint-staged
@@ -74,13 +78,13 @@ Only create if no Prettier config exists. Use these defaults:
 
 - [ ] `.husky/pre-commit` exists and is executable
 - [ ] `.lintstagedrc` exists
-- [ ] `prepare` script in package.json is `"husky"`
+- [ ] `prepare` 包含需要的 Husky 初始化，原有准备命令仍被保留
 - [ ] `prettier` config exists
 - [ ] Run `npx lint-staged` to verify it works
 
 ### 8. Commit
 
-Stage all changed/created files and commit with message: `Add pre-commit hooks (husky + lint-staged + prettier)`
+只暂存本次任务修改或创建的文件，提交说明写明所加检查；保留无关修改。用户或项目要求暂缓提交时，按要求保留待提交结果。
 
 This will run through the new pre-commit hooks: a good smoke test that everything works.
 

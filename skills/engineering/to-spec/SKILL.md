@@ -5,6 +5,8 @@ description: "Turn the current conversation into a spec and publish it to the pr
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
+只把已确认的需求、范围与决定写成实施要求。保留用户当前的限制、已撤回决定和仍未解决的问题；未确认的风险或建议不能变成新增功能或防御机制的要求。
+
 The issue tracker and triage label vocabulary should have been provided to you. If not, tell the user to run `$setup-matt-pocock-skills`.
 
 ## Process
@@ -34,7 +36,7 @@ The solution to the problem, from the user's perspective.
 
 ## User Stories
 
-A LONG, numbered list of user stories. Each user story should be in the format of:
+用编号列出已确认的用户需求，每项说明具体使用者、动作和预期结果。Each user story should be in the format of:
 
 1. As an <actor>, I want a <feature>, so that <benefit>
 
@@ -42,7 +44,7 @@ A LONG, numbered list of user stories. Each user story should be in the format o
 1. As a mobile bank customer, I want to see balance on my accounts, so that I can make better informed decisions about my spending
 </user-story-example>
 
-This list of user stories should be extremely extensive and cover all aspects of the feature.
+覆盖已确认范围内的必要行为，按实际需求决定列表长度。
 
 ## Implementation Decisions
 
@@ -67,6 +69,7 @@ A list of verification decisions that were made. Include:
 - Manual actions and expected results
 - Existing checks that cover the behavior
 - Needed automation, with the specific manual testing gap or user request and the behavior it covers
+- 用户明确要求的独立审查及其范围；没有此要求时，不额外加入审查步骤
 
 ## Out of Scope
 

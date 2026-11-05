@@ -4,6 +4,8 @@
 
 它先读取有关技能的 `SKILL.md`，再说明用途或建议下一步。推荐本身不会开始访谈、编写规格或启动被推荐的技能；你已明确授权后续工作时，按该授权继续。这里的技能清单由人工维护，主要介绍本仓库的技能。
 
+相关流程共用负责该步骤的规则：正式实施读取 [implement](https://aihero.dev/skills-implement)，交接读取 [handoff](https://aihero.dev/skills-handoff)，补充调查读取 [research](https://aihero.dev/skills-research)。原型转实施、规格拆任务及代理交接，都保留用户当前范围、限制和审查要求。
+
 ## When to reach for it
 
 Type `$ask-matt` to invoke it directly. This Codex edition also keeps the router model-visible so it is not misreported as unavailable.

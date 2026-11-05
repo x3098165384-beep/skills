@@ -20,6 +20,8 @@ Tickets that `to-tickets` produced are agent-ready by construction. Don't run [t
 
 来源是已有任务时，新任务会关联为它的子任务。依赖已使用平台自身的任务关系记录时，正文不再重复列出 `Blocked by`。
 
+拆分沿用原规格和用户当前要求。针对整份规格的独立审查由 [implement-spec](https://aihero.dev/skills-implement-spec) 统一安排，任务引用原要求；只有明确要求逐项审查时，才列入对应任务，避免每项任务重复审查整份规格。
+
 ## Prerequisites
 
 `to-tickets` publishes into a tracker, so [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) must have configured one for this repo, along with the triage-label vocabulary. Either kind works: a real tracker like GitHub or Linear, or local markdown files under `.scratch/`, which work with no extra setup.

@@ -3,7 +3,7 @@ name: software-factory
 description: "Shared language for designing a software factory: the tasks it runs and the services it plugs into."
 ---
 
-A **software factory** is a system of agents that turns tickets, PRs and schedules into merged code, deployed on remote infrastructure the user chooses. This skill is the language for designing one. Use these terms, and only these, when discussing or whiteboarding a factory; when the user reaches for a word under _Avoid_, name the canonical term.
+A **software factory** is a system of agents that turns tickets, PRs and schedules into merged code, deployed on remote infrastructure the user chooses. 以下名称用于查阅这类系统的设计资料。讨论具体方案时，使用用户和项目已有名称及日常语言，说明实际任务、服务和交互；资料中的 `_Avoid_` 不要求改写用户的已有措辞。
 
 ## Tasks and runs
 
