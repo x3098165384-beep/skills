@@ -66,6 +66,7 @@ Exception: if a prototype produced a snippet that encodes a decision more precis
 
 A list of verification decisions that were made. Include:
 
+- 已有讨论或调查指出的主要失败条件，以及相应的触发方式、预期结果和已有证据；尚待核实的内容明确保留为待验证事项，不补写成新需求
 - Manual actions and expected results
 - Existing checks that cover the behavior
 - Needed automation, with the specific manual testing gap or user request and the behavior it covers

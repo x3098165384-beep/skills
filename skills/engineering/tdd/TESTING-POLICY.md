@@ -24,6 +24,8 @@ Report actual check results and any unverified behavior. Implementation can be d
 
 ## Planning and review
 
+验收优先覆盖有依据且最可能影响目标或方案选择的失败条件，写清怎样触发、应得到什么结果，以及已有证据或仍需核实的内容。依据不足且会影响决定的关键假设，先用最小的必要检查核实；不为凑验收项穷举可能性。新增自动化仍遵循上文条件。
+
 Carry verification decisions into tickets and delegated work: manual steps, relevant existing checks, and the reason and scope for any needed automation.
 
 Review functionality, correctness, and scope. Missing new tests alone is not a finding; name the concrete failure that existing checks and manual acceptance cannot adequately cover. Explicitly requested tests remain requirements.

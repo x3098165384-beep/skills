@@ -33,6 +33,8 @@ So the spec does not validate or decide anything. It records what you decided, i
 
 The spec's **Verification** section records manual steps, expected results, and existing checks from the agreed behavior. Needed automation carries its reason and scope: a specific manual testing gap or your explicit request. The skill does not reopen the conversation just to choose tests.
 
+验收先对应已有讨论和调查指出的主要失败条件，写清触发方式、应有结果与已有证据；需要核实的内容保留为待验证事项。这样后续验证可以检查方案最可能失效的地方，同时保持已确认的需求范围；列出风险本身不增加防御机制或测试要求。
+
 These decisions travel into tickets and implementation so a fresh session knows what a person can check and where automation is needed. Routine functionality does not acquire a test-writing requirement just by appearing in the spec.
 
 ## Common questions
