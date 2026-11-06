@@ -237,7 +237,7 @@ Skills I use daily for code work.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
 - **[implement](./skills/engineering/implement/SKILL.md)**: Deliver a spec or ticket's functionality with necessary checks and manual acceptance steps, then commit. A separate review runs when requested.
 - **[deepseek-implement](./skills/engineering/deepseek-implement/SKILL.md)**: Hand a settled spec or ticket to a separate DeepSeek Flash CLI instead of the current session, briefing it with the spec path, write scope, and test boundary.
-- **[implement-spec](./skills/engineering/implement-spec/SKILL.md)**: Implement a whole spec on one integration branch. Works the tickets as a task graph, running implementer subagents across the ready frontier for maximum concurrency, with a separate `$code-review` when requested.
+- **[implement-spec](./skills/engineering/implement-spec/SKILL.md)**：按依赖编排整份规格，默认在原工作区顺序实施；确需隔离时使用独立分支，收尾交回成果并清理不再使用的任务目录和分支。独立审查按用户要求安排。
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)**: Plan a huge chunk of work, more than one agent session can hold, as a shared map of decision tickets on the issue tracker, and resolve them one at a time until the way to the destination is clear.
 - **[retro](./skills/engineering/retro/SKILL.md)**: Suggest improvements to the coding agent's environment (navigation, automated checks, coding standards, steering files, tooling) after a session, most severe first.
 

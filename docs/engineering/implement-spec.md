@@ -1,10 +1,10 @@
 ## What it does
 
-`implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, checks the integrated changes and their callers, and resolves the tickets.
+`implement-spec` 根据一份[规格](https://www.aihero.dev/ai-coding-dictionary/spec)和对应的[任务](https://www.aihero.dev/ai-coding-dictionary/ticket)，安排[执行代理](https://www.aihero.dev/ai-coding-dictionary/subagent)完成整份工作。默认在开始任务时的原工作区当前分支顺序实施；确实需要隔离修改时，才创建独立分支和工作目录。成果交回原工作区后才算完成代码交付，不能只留下另一目录里的集成结果。
 
 每位执行者读取并遵循 [implement](https://aihero.dev/skills-implement)，使用它规定的实现、验证和提交方式。主代理负责多项任务之间的依赖、共享写入、合并和整体验证；修改 `$implement` 中的实施规则后，这些执行者也按更新后的原文工作。
 
-它把任务读成 **task graph**，根据已交付的前置结果确定当前可开始的 **frontier**，在能够独立执行的任务间并行。共享写入按已确认的责任和顺序协调，任务不会仅因列在清单后面就等待所有前项，也不会仅因前置已完成就忽略共享状态冲突。
+它根据任务依赖和已交付的前置结果确定哪些任务可以开始，再核对实际共享写入。可以开始的任务不必同时执行；主代理根据隔离需要选择顺序或并行，避免为本来就按顺序执行的工作增加分支和合并步骤。
 
 派发前还会检查实际共享的文件、数据库、编辑器和外部状态，明确共同写入由谁负责。独立工作树不能隔离这些共享状态。执行期间，主代理核对阶段产物和具体阻碍；用户改变范围时，同步受影响的任务、依赖与验证要求。整合后核对原有说明和任务状态，保留待验证内容。
 
@@ -24,20 +24,24 @@ Start this workflow by typing `$implement-spec`. This Codex edition keeps it mod
 ## Prerequisites
 
 - **An issue tracker.** The skill reads the tickets from, and resolves them on, the tracker [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) configured. If none has been configured, it stops and tells you to run that first rather than guessing.
-- **Tickets with blocking edges**, as [to-tickets](https://aihero.dev/skills-to-tickets) writes them. Without edges the graph is flat and every ticket starts at once.
-- **A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) that runs subagents in the background and gives each one a git worktree.** The skill exists to run tickets at the same time, so on a harness that runs subagents one at a time, it is only a slower `implement`.
+- **有明确依赖的任务**，由 [to-tickets](https://aihero.dev/skills-to-tickets) 整理。没有前置依赖也仍需检查共享文件和外部状态，再安排执行顺序。
+- **能为执行代理提供独立上下文的[执行环境](https://www.aihero.dev/ai-coding-dictionary/harness)**。顺序任务可以共用原工作区；需要并行隔离时，环境还须支持独立工作目录。
 
-## The integration branch
+## 工作目录和交付位置
 
-所有结果合入同一条分支。每项任务使用新的执行代理和独立上下文；需要修复审查发现的问题时，也使用新的执行代理。派发时提供当前需求、项目规则、写入范围、验证要求和已有调查资料。每位执行者：
+主代理先记录原工作区、当前分支、起始提交和已有未提交工作。每项任务使用新的执行代理和独立上下文，派发时提供当前需求、项目规则、写入范围、验证要求及已有资料。
 
-1. 确认工作树基于集成分支，并记录本项任务的起始提交。
-2. 使用 [implement](https://aihero.dev/skills-implement) 完成任务，包括检查实际调用方和现有机制、选择验证方式、更新原有说明及任务状态，并提交结果。
-3. 合入集成分支的最新修改，返回提交编号、实际检查结果、待验项和阻碍。
+| 实际情况 | 实施与交付方式 |
+| --- | --- |
+| 任务可以按顺序在原目录完成 | 在原工作区当前分支逐项实施、检查和提交，不另建任务分支。 |
+| 并行任务或原目录中的其他写入需要隔离 | 说明原因，使用独立分支和工作目录，成果交回原工作区后核对最终文件及必需依赖。 |
+| 用户或项目明确要求分支、PR 或暂缓合入 | 按要求保留结果，并报告尚未合入的内容和后续步骤。 |
 
-本地提交包含在流程中，用户或项目要求暂缓提交时优先遵循。人工验收可以保持待验状态。独立审查只在用户要求时执行：未指定逐项审查时，由主代理在所有任务合入后审查整份规格一次；明确要求逐项审查时，按指定任务安排。针对整份规格的审查不会重复交给每位执行者。已确认问题的修复同样使用 `$implement`，检查、提交并合入后，主代理核对整合结果。最终报告给出分支、最终提交、实际验证结果和具体阻碍。
+本地提交包含在流程中，用户或项目要求暂缓时优先遵循。人工验收可以保持待验状态。独立审查只在用户要求时执行，默认在全部任务完成后审查整份规格一次；明确要求逐项审查时，按指定任务安排。已确认问题的修复同样使用 `$implement`，最终报告给出原工作区、实际分支、最终提交、验证结果及待验内容。
 
-The tracker decides whether a pull request exists at all. If your tracker closes work through PRs, or you ask for one, the skill opens a draft PR after the first merge and marks it ready at the end. Otherwise the run stops on the integration branch with every ticket resolved the way your tracker closes work, which works fully offline against a local markdown tracker.
+需要 PR 时，按项目流程准备可审查的提交，并遵守发布授权。PR 尚未合入或原工作区尚未采用成果时，明确报告交付还差哪一步。本地交回代码与推送、SVN 提交分别处理，不能因为尚未提交到服务器就把代码留在另一个目录里。
+
+交回且完成已获准的检查后，清理本次不再使用的任务分支和工作目录。原工作区、原分支及其他任务的工作保留；有独有提交或文件时，先确认用途并验证能够恢复。仍在使用、用途不明或恢复核对失败的内容保留，并说明具体原因。
 
 Implementers talk to the orchestrator through [context pointers](https://www.aihero.dev/ai-coding-dictionary/context-pointer) (the spec, the ticket, shared exploration notes, earlier commits) rather than pasted summaries. This keeps each subagent's prompt small and leaves room in the orchestrator's window for the graph.
 
@@ -45,11 +49,19 @@ Implementers talk to the orchestrator through [context pointers](https://www.aih
 
 **How is this different from running `$implement` on each ticket myself?**
 
-This is the question the skill exists to answer. Before it shipped, people kept building their own versions, and one user described the itch exactly: they wanted "subagents implement the tickets" instead of having "to individually create new session and tell them to implement a ticket one by one, when a spec may contain over 5 tickets." With `implement` you are the dispatcher: one [session](https://www.aihero.dev/ai-coding-dictionary/session) per ticket, clearing in between, and keeping track yourself of which tickets are unblocked. `implement-spec` hands that job to one orchestrating session. The price is that you no longer read each ticket's work as it lands; you review the integration branch at the end. To start a run, clear the context and type `$implement-spec` with a pointer to the spec (an issue number or a file path). For a small change with no real graph, skip it and use `implement` directly.
+使用 `$implement` 时，由你逐项启动任务并跟踪前置结果；`$implement-spec` 由同一个主代理安排整份规格的依赖、执行者和最终交付。两者都遵循相同的单项实施规则。调用时提供规格编号或文件路径；只有一项小修改时直接用 `$implement`。
 
 **Does it need GitHub? I want it to stop at the branch.**
 
-No, not any more. One user who liked the in-progress version had exactly this complaint: "it creates a PR at the end, which requires an online repository like GitHub. I wish it could do the same work offline and stop at the branch where all the work is merged." The run now ends on the integration branch. A PR opens only when the configured tracker closes work through PRs or you ask for one, so on a local markdown tracker the run ends with every ticket resolved and the work merged on the branch.
+不需要 GitHub。使用本地 Markdown 任务管理时，可以在原工作区完成代码交付并更新任务状态。只有用户或项目流程要求时才准备 PR；明确要求成果保留在独立分支时，也会报告尚未合入的位置。
+
+**为什么任务结束后还要再合并一次，原工作区才能使用？**
+
+默认顺序实施直接使用原工作区，不需要另行合并。确实使用独立目录时，交回原工作区属于实施收尾，不能拖到准备 SVN 提交时才发现。交回失败时先核实实际文件和原有修改，再继续处理，不在失败后执行依赖它的后续步骤。
+
+**任务分支和工作目录会一直保留吗？**
+
+不会默认保留。确认成果已交回、目录不再被使用、剩余内容能够恢复后，会清理本次创建的分支和目录。已有历史足够恢复时直接复用；当前历史之外的独有内容先保存并验证。保留项会注明具体原因。
 
 **Its review and fix loop ran for hours, or kept "fixing" tickets that hadn't been built yet.**
 
@@ -69,7 +81,7 @@ No, not any more. One user who liked the in-progress version had exactly this co
 
 **Blocked tickets never start, even after their blocker has merged.**
 
-This is a known problem on GitHub. The tracker's blocked-by count only drops when a blocker *closes*, and tickets typically close when the PR merges, which is the end of the run. The tracker is the right source for the starting graph but a stale one mid-run. Tell the orchestrator to track which tickets have merged into the integration branch itself and compute the frontier from that.
+任务管理工具可能要等前置任务关闭才更新阻塞状态，而关闭又可能要等 PR 合入。实施中应依据前置成果是否已经交付到后续任务实际使用的位置判断，不能只等待任务管理工具的状态变化。
 
 **Does this replace Sandcastle or an AFK script?**
 
@@ -81,19 +93,19 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 
 ## It's working if
 
-- 依赖和共享写入范围允许时，多个实现者可以同时推进独立工作。
-- A ticket starts as soon as its last blocker lands on the integration branch, not when the whole run ends.
-- Every ticket reports actual check results and manual acceptance steps, including any acceptance still pending.
-- Each completed ticket has a commit, and the final integration commit includes any fixes from the requested review.
-- Merges into the integration branch are fast-forwards, not conflict resolutions.
-- The run ends on one branch with every ticket resolved, and a PR only if your tracker wanted one.
+- 顺序实施没有额外创建分支或工作目录；需要隔离时，能看到具体原因和交回位置。
+- 后续任务拿到实际可用的前置成果后开始，不被尚未关闭的任务状态误挡。
+- 每项任务报告实际检查结果和人工验收步骤，待验内容保持明确。
+- 原工作区已经采用本次代码及修复，最终提交可查；未交回时报告具体阻碍。
+- 不再使用的本次任务分支和目录已清理，保留项有具体原因，独有内容能够恢复。
+- PR、推送和 SVN 提交遵循用户及项目要求，代码交付状态与发布状态分别说明。
 
 ## Where it fits
 
-`implement-spec` is the build step of the main chain, as the parallel alternative to running [implement](https://aihero.dev/skills-implement) once per ticket:
+`implement-spec` 是主流程中编排整份规格的实施步骤；单项实现沿用 [implement](https://aihero.dev/skills-implement)，按实际需要安排顺序或并行：
 
 ```txt
 grill-with-docs → to-spec → to-tickets → implement-spec → retro
 ```
 
-Its neighbours are [to-tickets](https://aihero.dev/skills-to-tickets), which declares the blocking edges it reads as a task graph, and [code-review](https://aihero.dev/skills-code-review), which checks the integration branch before closeout when you requested a separate review. [ask-matt](https://aihero.dev/skills-ask-matt) is the router over the whole set when you are not sure which flow you are in.
+上游 [to-tickets](https://aihero.dev/skills-to-tickets) 提供任务和依赖；需要独立审查时，由 [code-review](https://aihero.dev/skills-code-review) 检查实际整合结果。不确定路线时使用 [ask-matt](https://aihero.dev/skills-ask-matt)。

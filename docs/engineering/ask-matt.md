@@ -61,7 +61,7 @@ No. This branch prioritizes functionality with necessary existing checks and man
 
 **Do the implementation routes include committing?**
 
-Yes. Both include local commits in delivery and report a final commit hash. `implement` commits to the current branch; `implement-spec` commits each ticket and includes any subsequent fixes in its integration branch. User or project instructions to defer committing take precedence.
+包含。两条路径都进行本地提交并报告最终提交编号。`implement` 提交到当前分支；`implement-spec` 默认在原工作区逐项提交，独立实施时还负责将结果和修复交回原工作区，并清理不再使用的任务分支和目录。用户或项目要求暂缓时优先遵循，并报告尚未完成的交付步骤。
 
 **Isn't there just a list of the skills in the right order?**
 

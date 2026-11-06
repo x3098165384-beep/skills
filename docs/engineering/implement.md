@@ -64,7 +64,7 @@ Not by default. The decision depends on whether a person can effectively verify 
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
-Not with `$implement`: one invocation, one ticket. For a whole spec in one run, use [implement-spec](https://aihero.dev/skills-implement-spec), which fans the tickets out to [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent), each in its own worktree, across the ready frontier, and merges them onto one integration branch. Running several `$implement` sessions side by side in one checkout is worse than unsupported: one field report describes a `git commit --amend` in one session landing on another session's commit, a stash vanishing from `refs/stash`, and commits landing on the wrong branch, all in a single afternoon across three issues. The sessions share one working directory, one index, and one HEAD. Git worktrees are the community workaround, and note that `refs/stash` is shared across worktrees too, so worktrees alone do not fix the stash case.
+`$implement` 每次处理一项任务。整份规格使用 [implement-spec](https://aihero.dev/skills-implement-spec) 编排，它默认在原工作区顺序实施，确实需要隔离修改时才使用独立分支和工作目录，收尾交回成果并清理不再使用的本次目录和分支。多个会话同时使用同一目录时，共享工作文件、暂存区和 HEAD；即使修改不同文件，也可能提交到错误分支或混入其他任务的修改。需要并行时使用独立工作目录，并协调仍然共享的数据库、外部状态及 `refs/stash`。
 
 **Can it open a pull request instead of committing?**
 

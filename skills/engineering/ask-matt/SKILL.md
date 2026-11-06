@@ -41,12 +41,12 @@ Grilling retains its own glossary and ADR responsibilities. New conclusions feed
 3. **Branch: is this a multi-session build?**
    - **Yes** → **`$to-spec`** (turn the thread into a spec), then **`$to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. Then work the tickets one of two ways:
      - **`$implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
-     - **`$implement-spec`** for the whole spec in one run. It reads the tickets as a **task graph**, runs implementer subagents across the ready **frontier** in parallel, and lands everything on one **integration branch**. 每位执行者读取并遵循 `$implement`；主代理负责依赖、合并和整体验证，针对整份规格的独立审查按用户要求统一安排。Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
+     - **`$implement-spec`** 一次编排整份规格。它按任务依赖安排新的执行代理，默认在原工作区当前分支顺序实施；确需隔离修改时使用独立分支和工作树，收尾交回原工作区并清理不再使用的目录和分支。每位执行者读取并遵循 `$implement`；主代理负责依赖、共享写入、整合和整体验证，针对整份规格的独立审查按用户要求统一安排。希望由代理安排多项任务时使用它。
    - **No** → **`$implement`** right here, in the same context window.
 
    Both build paths prioritize functionality, check their changes and actual callers, run necessary compilation and directly relevant existing checks, and provide manual acceptance steps. They follow [Testing and verification](../tdd/TESTING-POLICY.md) for any needed automation. A separate **`$code-review`** runs only when requested, including when it was agreed at the start. Reach for **`$tdd`** when you want to work test-first, and **`$code-review`** directly to review a branch or PR against a fixed point.
 
-   Both build paths include local commits and report the final commit hash as part of delivery. `$implement` commits to the current branch; `$implement-spec` commits each ticket and merges any subsequent fixes into the integration branch.
+   两条实施路径都包含本地提交，并报告最终提交编号。`$implement` 提交到当前分支；`$implement-spec` 逐项提交，并负责将独立实施的结果及修复交回原工作区。用户或项目要求暂缓时，保留工作并报告未完成的交付步骤。
 
    用户希望独立的 DeepSeek Flash CLI 按项目规则实施已确定规格时，推荐 **`$deepseek-implement`**，仅在用户明确调用后启动。任务需要 Unity 且已获具体操作授权时，可用启动脚本的 Unity MCP 开关。结果交给用户验证，只有明确要求后才安排 Astra low 审查；规划和技能编写由主代理完成。
 
