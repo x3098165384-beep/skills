@@ -17,6 +17,8 @@ Prioritize delivering the requested functionality. Use [Testing and verification
 
 Run necessary compilation or type checks and directly relevant existing checks. Provide short manual steps and expected results; delivery can proceed with manual acceptance marked as pending.
 
+成果需要交给另一工作区、其他机器或通过不同发布渠道取得时，沿用项目现有交付和发布流程，按实际交付的完整文件与配置核对接收方能否取得必要依赖、所用类型与成员在目标版本中是否存在，以及安装前置条件是否满足。完整文件中已有改动的依赖也要核对，不能只检查本次 Git 差异或以本机验证通过代替。缺项按项目规则补入交付范围；超出授权范围时说明具体缺项及影响，将受影响内容标为待交付。分别报告本机验证、交付清单核对和接收方实际验证的范围与结果，未运行的接收方验证明确待验；发布仍遵循用户和项目的授权要求。
+
 Check the changed code and its actual callers against the agreed behavior and project rules, and fix issues found during implementation. Use $code-review only when the user requested a separate review, including a review agreed at the start of the task. Pass the starting commit and spec, include uncommitted changes, fix substantiated findings, and rerun affected checks.
 
 收尾前，原位更新已被本次行为变化影响的现有说明和任务状态，区分实际完成与待验证内容。临时假设和执行过程留在任务记录；没有相关说明需要维护时，不为收尾另建文档。

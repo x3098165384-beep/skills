@@ -52,6 +52,8 @@ For behavior that is difficult to test reliably by hand or impossible to test ma
 
 Targeted verification does not automatically start [tdd](https://aihero.dev/skills-tdd); that workflow is for requests to work test-first. Implementation can be delivered while manual acceptance is pending, with that status stated clearly.
 
+成果交给另一工作区、其他机器或通过不同发布渠道取得时，会沿用项目现有流程，核对实际交付的完整文件及配置所需的依赖、类型与成员版本和安装条件。完整文件中已有改动所需的配套也要包含在检查中。本机验证、交付清单核对和接收方实际验证分别报告；接收方尚未验证时保持待验，缺少必要依赖的内容保持待交付，发布仍按原有授权执行。
+
 ## Common questions
 
 **Will a two-line change still produce new tests?**
@@ -95,6 +97,7 @@ The agent resolved `#2` against another numbered list in context, such as a todo
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
 - New tests address a stated manual testing gap or your explicit request.
 - Necessary compilation and existing relevant checks run, with their actual results reported.
+- 交给其他环境使用时，能看到完整文件的必要依赖核对结果，以及接收方已经验证和仍待验证的内容。
 - You receive manual actions and expected results; checks you have not performed are marked as pending.
 - The run reaches a commit on your current branch without you prompting it to carry on, and reports the commit hash or a specific blocker.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.

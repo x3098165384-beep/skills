@@ -31,6 +31,8 @@ Start this workflow by typing `$implement-spec`. This Codex edition keeps it mod
 
 主代理先记录原工作区、当前分支、起始提交和已有未提交工作。每项任务使用新的执行代理和独立上下文，派发时提供当前需求、项目规则、写入范围、验证要求及已有资料。
 
+本任务实际创建的分支名、工作目录路径及用途记在原任务记录中。创建失败或取消后，也会核对是否留下分支、目录或 Git 工作树登记，并记录实际处理结果。
+
 | 实际情况 | 实施与交付方式 |
 | --- | --- |
 | 任务可以按顺序在原目录完成 | 在原工作区当前分支逐项实施、检查和提交，不另建任务分支。 |
@@ -41,7 +43,7 @@ Start this workflow by typing `$implement-spec`. This Codex edition keeps it mod
 
 需要 PR 时，按项目流程准备可审查的提交，并遵守发布授权。PR 尚未合入或原工作区尚未采用成果时，明确报告交付还差哪一步。本地交回代码与推送、SVN 提交分别处理，不能因为尚未提交到服务器就把代码留在另一个目录里。
 
-交回且完成已获准的检查后，清理本次不再使用的任务分支和工作目录。原工作区、原分支及其他任务的工作保留；有独有提交或文件时，先确认用途并验证能够恢复。仍在使用、用途不明或恢复核对失败的内容保留，并说明具体原因。
+交回且完成已获准的检查后，将创建记录与当前 Git 分支、工作树登记及实际目录逐项核对，清理本次不再使用的任务分支和工作目录，包括失败或取消创建留下的内容。原工作区、原分支及其他任务的工作保留；有独有提交或文件时，先确认用途并验证能够恢复。每个创建项都有已清理或保留的结果；仍在使用、用途不明或恢复核对失败的内容保留，最终回复说明其位置和具体原因。
 
 Implementers talk to the orchestrator through [context pointers](https://www.aihero.dev/ai-coding-dictionary/context-pointer) (the spec, the ticket, shared exploration notes, earlier commits) rather than pasted summaries. This keeps each subagent's prompt small and leaves room in the orchestrator's window for the graph.
 
@@ -61,7 +63,7 @@ Implementers talk to the orchestrator through [context pointers](https://www.aih
 
 **任务分支和工作目录会一直保留吗？**
 
-不会默认保留。确认成果已交回、目录不再被使用、剩余内容能够恢复后，会清理本次创建的分支和目录。已有历史足够恢复时直接复用；当前历史之外的独有内容先保存并验证。保留项会注明具体原因。
+不会默认保留。收尾逐项核对本任务创建记录、Git 清单和实际目录。确认成果已交回、目录不再被使用、剩余内容能够恢复后，会清理本次创建的分支和目录。已有历史足够恢复时直接复用；当前历史之外的独有内容先保存并验证。失败或取消创建留下的内容同样核对，保留项会注明位置和具体原因。
 
 **Its review and fix loop ran for hours, or kept "fixing" tickets that hadn't been built yet.**
 
@@ -97,7 +99,7 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 - 后续任务拿到实际可用的前置成果后开始，不被尚未关闭的任务状态误挡。
 - 每项任务报告实际检查结果和人工验收步骤，待验内容保持明确。
 - 原工作区已经采用本次代码及修复，最终提交可查；未交回时报告具体阻碍。
-- 不再使用的本次任务分支和目录已清理，保留项有具体原因，独有内容能够恢复。
+- 本任务创建记录与 Git 清单及实际目录逐项对应，包括失败或取消创建的残留；不再使用的分支和目录已清理，保留项有位置和具体原因，独有内容能够恢复。
 - PR、推送和 SVN 提交遵循用户及项目要求，代码交付状态与发布状态分别说明。
 
 ## Where it fits
